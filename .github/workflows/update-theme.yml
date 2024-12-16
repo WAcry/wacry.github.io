@@ -21,9 +21,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 0.123.8
+          hugo-version: '0.139.4'
           extended: true
 
       - name: Update theme
