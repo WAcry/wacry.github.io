@@ -3,13 +3,12 @@ disabled = false
 languageCode = "de"
 languageName = "Deutsch"
 weight = 9
-title = "Blowfish"
+title = "David Zhang"
 
 [params]
 displayName = "Deutsch"
 rtl = false
 dateFormat = "2. Januar 2006"
-logo = "img/logo.png"
 description = "David Zhangs Entwicklungsprotokoll über Informatik und Algorithmen."
 copyright = "CC BY-NC-SA 4.0"
 

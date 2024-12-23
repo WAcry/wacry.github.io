@@ -2,13 +2,12 @@ disabled = false
 languageCode = "zh-TW"
 languageName = "繁體中文"
 weight = 3
-title = "Blowfish"
+title = "David Zhang"
 
 [params]
 displayName = "繁體中文"
 rtl = false
 dateFormat = "2006年1月2日"
-logo = "img/logo.png"
 description = "David Zhang的開發日誌，關於計算機科學和算法。"
 copyright = "CC BY-NC-SA 4.0"
 

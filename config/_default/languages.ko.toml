@@ -3,13 +3,12 @@ disabled = false
 languageCode = "ko"
 languageName = "한국어"
 weight = 10
-title = "Blowfish"
+title = "David Zhang"
 
 [params]
 displayName = "한국어"
 rtl = false
 dateFormat = "2006년 1월 2일"
-logo = "img/logo.png"
 description = "컴퓨터 과학과 알고리즘에 대한 David Zhang의 개발 로그."
 copyright = "CC BY-NC-SA 4.0"
 
