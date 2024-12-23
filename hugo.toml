@@ -1,4 +1,4 @@
 baseURL = 'https://wacry.github.io/'
-languageCode = 'en-us'
+languageCode = 'en'
 title = 'My New Hugo Site'
 theme = "blowfish"
