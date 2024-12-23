@@ -4,6 +4,9 @@ date: 2024-12-23
 draft: false
 description: "a description"
 tags: [ "example", "tag" ]
+categories: [ "example c" ]
+series: [ "example s" ]
+series_order: 5
 ---
 {{< katex >}}
 
