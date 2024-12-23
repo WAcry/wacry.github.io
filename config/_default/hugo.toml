@@ -1,12 +1,5 @@
-# -- Site Configuration --
-# Refer to the theme docs for more details about each of these parameters.
-# https://blowfish.page/docs/getting-started/
-
 theme = "blowfish" # UNCOMMENT THIS LINE
-# baseURL = "https://your_domain.com/"
 defaultContentLanguage = "en"
-
-# pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
 
 enableRobotsTXT = true
 summaryLength = 0
@@ -16,10 +9,10 @@ buildFuture = false
 
 enableEmoji = true
 
-# googleAnalytics = "G-XXXXXXXXX"
+# googleAnalytics = "G-XXXXXXXXX"
 
 [pagination]
-  pagerSize = 100
+  pagerSize = 8
 
 [imaging]
   anchor = 'Center'
@@ -27,7 +20,6 @@ enableEmoji = true
 [taxonomies]
   tag = "tags"
   category = "categories"
-  author = "authors"
   series = "series"
 
 [sitemap]
@@ -40,30 +32,28 @@ enableEmoji = true
 
 [related]
   threshold = 0
-  toLower = false
+  toLower = true
 
-    [[related.indices]]
-        name = "tags"
-        weight = 100
+  [[related.indices]]
+    name = "title"
+    weight = 40
 
-    [[related.indices]]
-        name = "categories"
-        weight = 100
+  [[related.indices]]
+    name = "date"
+    weight = 10
 
-    [[related.indices]]
-        name = "series"
-        weight = 50
+  [[related.indices]]
+    name = "description"
+    weight = 30
 
-    [[related.indices]]
-        name = "authors"
-        weight = 20
+  [[related.indices]]
+    name = "tags"
+    weight = 80
 
-    [[related.indices]]
-        name = "date"
-        weight = 10
+  [[related.indices]]
+    name = "categories"
+    weight = 60
 
-    [[related.indices]]
-      applyFilter = false
-      name = 'fragmentrefs'
-      type = 'fragments'
-      weight = 10
+  [[related.indices]]
+    name = "series"
+    weight = 50
