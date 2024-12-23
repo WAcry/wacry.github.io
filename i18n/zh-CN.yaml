@@ -1,0 +1,5 @@
+global:
+  language: "简体中文"
+
+article:
+  part_of_series: "这篇文章属于一个系列。"

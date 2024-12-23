@@ -1,0 +1,5 @@
+global:
+  language: "繁體中文"
+
+article:
+  part_of_series: "本文屬於一個系列。"
