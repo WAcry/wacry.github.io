@@ -10,7 +10,7 @@ series_order: 5
 ---
 {{< katex >}}
 
-an example to get you started.
+an example to get you started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started started
 
 # This is a heading
 
@@ -100,4 +100,3 @@ B-->C[Profit]
 {{< typeit >}}
 Lorem ipsum dolor sit amet 
 {{< /typeit >}}
-

@@ -1,0 +1,19 @@
+[[main]]
+name = "모든 게시물"
+pageRef = "게시물"
+weight = 10
+
+[[main]]
+name = "카테고리"
+pageRef = "카테고리"
+weight = 20
+
+[[main]]
+name = "태그"
+pageRef = "태그"
+weight = 30
+
+[[main]]
+name = "시리즈"
+pageRef = "시리즈"
+weight = 40

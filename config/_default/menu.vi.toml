@@ -1,0 +1,19 @@
+[[main]]
+name = "Tất cả bài viết"
+pageRef = "bài viết"
+weight = 10
+
+[[main]]
+name = "Danh mục"
+pageRef = "danh mục"
+weight = 20
+
+[[main]]
+name = "Thẻ"
+pageRef = "thẻ"
+weight = 30
+
+[[main]]
+name = "Loạt bài"
+pageRef = "loạt bài"
+weight = 40

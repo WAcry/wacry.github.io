@@ -1,0 +1,19 @@
+[[main]]
+name = "Tüm Gönderiler"
+pageRef = "gönderiler"
+weight = 10
+
+[[main]]
+name = "Kategoriler"
+pageRef = "kategoriler"
+weight = 20
+
+[[main]]
+name = "Etiketler"
+pageRef = "etiketler"
+weight = 30
+
+[[main]]
+name = "Seriler"
+pageRef = "seriler"
+weight = 40

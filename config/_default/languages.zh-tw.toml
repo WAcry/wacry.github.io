@@ -1,0 +1,44 @@
+disabled = false
+languageCode = "zh-TW"
+languageName = "繁體中文"
+weight = 3
+title = "Blowfish"
+
+[params]
+displayName = "繁體中文"
+rtl = false
+dateFormat = "2006年1月2日"
+logo = "img/logo.png"
+description = "David Zhang的開發日誌，關於計算機科學和算法。"
+copyright = "CC BY-NC-SA 4.0"
+
+[params.author]
+name = "David (Ziyuan) Zhang"
+email = "davidzhang20001112@gmail.com"
+image = "img/author.png"
+headline = "軟體工程師👨‍💻 @Roblox🚀，為全球數百萬用戶🌍打造低延遲⚡、大規模🌐、分散式實時📊推薦系統。"
+links = [
+    { github = "https://github.com/wacry" },
+    { acm = "https://icpc.global/ICPCID/6RP5EXAXJZWB" },
+    { linkedin = "https://www.linkedin.com/in/dz00/" },
+    { email = "mailto:davidzhang20001112@gmail.com" },
+    { ko-fi = "https://buymeacoffee.com/davidzhangu" }
+    #    { facebook = "https://facebook.com/username" },
+    #    { mastodon = "https://mastodon.instance/@username" },
+    #    { medium = "https://medium.com/username" },
+    #    { microsoft = "https://www.microsoft.com/" },
+    #    { patreon = "https://www.patreon.com/username" },
+    #    { pinterest = "https://pinterest.com/username" },
+    #    { reddit = "https://reddit.com/user/username" },
+    #    { slack = "https://workspace.url/team/userid" },
+    #    { snapchat = "https://snapchat.com/add/username" },
+    #    { stack-overflow = "https://stackoverflow.com/users/userid/username" },
+    #    { telegram = "https://t.me/username" },
+    #    { threads = "https://www.threads.net/@username" },
+    #    { tiktok = "https://tiktok.com/@username" },
+    #    { twitter = "https://twitter.com/username" },
+    #    { x-twitter = "https://twitter.com/username" },
+    #    { whatsapp = "https://wa.me/phone-number" },
+    #    { youtube = "https://youtube.com/username" },
+    #    { codeberg = "https://codeberg.org/username" },
+]

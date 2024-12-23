@@ -1,0 +1,19 @@
+[[main]]
+name = "すべての記事"
+pageRef = "記事"
+weight = 10
+
+[[main]]
+name = "カテゴリー"
+pageRef = "カテゴリー"
+weight = 20
+
+[[main]]
+name = "タグ"
+pageRef = "タグ"
+weight = 30
+
+[[main]]
+name = "シリーズ"
+pageRef = "シリーズ"
+weight = 40

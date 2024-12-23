@@ -1,12 +1,16 @@
 ---
-title: "hello-world1"
+title: "hello-world"
 date: 2024-12-23
-draft: false
+draft: true
 description: "a description"
 tags: [ "example", "tag" ]
+categories: [ "example c" ]
+series: [ "example s" ]
+series_order: 5
 ---
+{{< katex >}}
 
-an example to get you started
+an example to get you started.
 
 # This is a heading
 
@@ -22,13 +26,16 @@ undefined
 
 ## Math
 
-Inline math: $a^2 + b^2 = c^2$
+Inline notation: \\(\varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887…\\)
 
 Block math:
 
 $$
 \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
 $$
+
+## Keyword
+{{< keyword >}} Super skill {{< /keyword >}}
 
 ## Code
 
@@ -40,6 +47,25 @@ print("Hello, world!")
 # very long line:
 a = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12 + 13 + 14 + 15 + 16 + 17 + 18 + 19 + 20 + 21
 ```
+
+{{< highlight html "linenos=table,hl_lines=4 7-9" >}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Example HTML5 Document</title>
+</head>
+<body>
+  <p>Test</p>
+</body>
+</html>
+{{< /highlight >}}
+
+{{< highlight python "linenos=table" >}}
+print("Hello, world!")
+print(1 + 3)
+{{< /highlight >}}
 
 ## Lists
 
@@ -61,12 +87,16 @@ a = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12 + 13 + 14 + 15 + 16 + 17 + 
 |----------|----------|
 | Row 1    | Row 1    |
 
-## Mermaid
+## Mermaid2
 
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
+{{< mermaid >}}
+graph LR;
+A[Lemons]-->B[Lemonade];
+B-->C[Profit]
+{{< /mermaid >}}
+
+## Typeit
+
+{{< typeit >}}
+Lorem ipsum dolor sit amet 
+{{< /typeit >}}

@@ -1,0 +1,45 @@
+# Italian (it)
+disabled = false
+languageCode = "it"
+languageName = "Italiano"
+weight = 12
+title = "Blowfish"
+
+[params]
+displayName = "Italiano"
+rtl = false
+dateFormat = "2 gennaio 2006"
+logo = "img/logo.png"
+description = "Il diario di sviluppo di David Zhang sulla scienza informatica e gli algoritmi."
+copyright = "CC BY-NC-SA 4.0"
+
+[params.author]
+name = "David (Ziyuan) Zhang"
+email = "davidzhang20001112@gmail.com"
+image = "img/author.png"
+headline = "Ingegnere del Software👨‍💻 @Roblox🚀, creando sistemi di raccomandazione in tempo reale📊 distribuiti, su larga scala🌐 e a bassa latenza⚡ per milioni di utenti globali🌍."
+links = [
+    { github = "https://github.com/wacry" },
+    { acm = "https://icpc.global/ICPCID/6RP5EXAXJZWB" },
+    { linkedin = "https://www.linkedin.com/in/dz00/" },
+    { email = "mailto:davidzhang20001112@gmail.com" },
+    { ko-fi = "https://buymeacoffee.com/davidzhangu" }
+    #    { facebook = "https://facebook.com/username" },
+    #    { mastodon = "https://mastodon.instance/@username" },
+    #    { medium = "https://medium.com/username" },
+    #    { microsoft = "https://www.microsoft.com/" },
+    #    { patreon = "https://www.patreon.com/username" },
+    #    { pinterest = "https://pinterest.com/username" },
+    #    { reddit = "https://reddit.com/user/username" },
+    #    { slack = "https://workspace.url/team/userid" },
+    #    { snapchat = "https://snapchat.com/add/username" },
+    #    { stack-overflow = "https://stackoverflow.com/users/userid/username" },
+    #    { telegram = "https://t.me/username" },
+    #    { threads = "https://www.threads.net/@username" },
+    #    { tiktok = "https://tiktok.com/@username" },
+    #    { twitter = "https://twitter.com/username" },
+    #    { x-twitter = "https://twitter.com/username" },
+    #    { whatsapp = "https://wa.me/phone-number" },
+    #    { youtube = "https://youtube.com/username" },
+    #    { codeberg = "https://codeberg.org/username" },
+]

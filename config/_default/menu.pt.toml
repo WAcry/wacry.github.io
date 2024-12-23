@@ -1,0 +1,19 @@
+[[main]]
+name = "Todas as Postagens"
+pageRef = "postagens"
+weight = 10
+
+[[main]]
+name = "Categorias"
+pageRef = "categorias"
+weight = 20
+
+[[main]]
+name = "Tags"
+pageRef = "tags"
+weight = 30
+
+[[main]]
+name = "Séries"
+pageRef = "séries"
+weight = 40

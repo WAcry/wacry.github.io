@@ -1,0 +1,19 @@
+[[main]]
+name = "Все записи"
+pageRef = "записи"
+weight = 10
+
+[[main]]
+name = "Категории"
+pageRef = "категории"
+weight = 20
+
+[[main]]
+name = "Теги"
+pageRef = "теги"
+weight = 30
+
+[[main]]
+name = "Серии"
+pageRef = "серии"
+weight = 40

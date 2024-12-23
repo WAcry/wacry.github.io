@@ -1,0 +1,19 @@
+[[main]]
+name = "Alle Beiträge"
+pageRef = "beiträge"
+weight = 10
+
+[[main]]
+name = "Kategorien"
+pageRef = "kategorien"
+weight = 20
+
+[[main]]
+name = "Tags"
+pageRef = "tags"
+weight = 30
+
+[[main]]
+name = "Serien"
+pageRef = "serien"
+weight = 40

@@ -1,0 +1,45 @@
+# Russian (ru)
+disabled = false
+languageCode = "ru"
+languageName = "Русский"
+weight = 11
+title = "Blowfish"
+
+[params]
+displayName = "Русский"
+rtl = false
+dateFormat = "2 января 2006"
+logo = "img/logo.png"
+description = "Журнал разработчика Дэвида Чжана о компьютерных науках и алгоритмах."
+copyright = "CC BY-NC-SA 4.0"
+
+[params.author]
+name = "David (Ziyuan) Zhang"
+email = "davidzhang20001112@gmail.com"
+image = "img/author.png"
+headline = "Инженер-программист👨‍💻 @Roblox🚀, создающий системы рекомендаций в реальном времени📊 с низкой задержкой⚡, большими масштабами🌐 и распределенные для миллионов глобальных пользователей🌍."
+links = [
+    { github = "https://github.com/wacry" },
+    { acm = "https://icpc.global/ICPCID/6RP5EXAXJZWB" },
+    { linkedin = "https://www.linkedin.com/in/dz00/" },
+    { email = "mailto:davidzhang20001112@gmail.com" },
+    { ko-fi = "https://buymeacoffee.com/davidzhangu" }
+    #    { facebook = "https://facebook.com/username" },
+    #    { mastodon = "https://mastodon.instance/@username" },
+    #    { medium = "https://medium.com/username" },
+    #    { microsoft = "https://www.microsoft.com/" },
+    #    { patreon = "https://www.patreon.com/username" },
+    #    { pinterest = "https://pinterest.com/username" },
+    #    { reddit = "https://reddit.com/user/username" },
+    #    { slack = "https://workspace.url/team/userid" },
+    #    { snapchat = "https://snapchat.com/add/username" },
+    #    { stack-overflow = "https://stackoverflow.com/users/userid/username" },
+    #    { telegram = "https://t.me/username" },
+    #    { threads = "https://www.threads.net/@username" },
+    #    { tiktok = "https://tiktok.com/@username" },
+    #    { twitter = "https://twitter.com/username" },
+    #    { x-twitter = "https://twitter.com/username" },
+    #    { whatsapp = "https://wa.me/phone-number" },
+    #    { youtube = "https://youtube.com/username" },
+    #    { codeberg = "https://codeberg.org/username" },
+]

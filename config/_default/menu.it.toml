@@ -1,0 +1,19 @@
+[[main]]
+name = "Tutti i Post"
+pageRef = "post"
+weight = 10
+
+[[main]]
+name = "Categorie"
+pageRef = "categorie"
+weight = 20
+
+[[main]]
+name = "Tag"
+pageRef = "tag"
+weight = 30
+
+[[main]]
+name = "Serie"
+pageRef = "serie"
+weight = 40

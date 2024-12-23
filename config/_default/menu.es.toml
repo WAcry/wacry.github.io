@@ -1,0 +1,19 @@
+[[main]]
+name = "Todas las Publicaciones"
+pageRef = "publicaciones"
+weight = 10
+
+[[main]]
+name = "Categorías"
+pageRef = "categorías"
+weight = 20
+
+[[main]]
+name = "Etiquetas"
+pageRef = "etiquetas"
+weight = 30
+
+[[main]]
+name = "Series"
+pageRef = "series"
+weight = 40
