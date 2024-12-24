@@ -19,31 +19,34 @@ model = genai.GenerativeModel(
     safety_settings=[
         {
             "category": "HARM_CATEGORY_HARASSMENT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            "threshold": "BLOCK_NONE"
         },
         {
             "category": "HARM_CATEGORY_HATE_SPEECH",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            "threshold": "BLOCK_NONE"
         },
         {
             "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            "threshold": "BLOCK_NONE"
         },
         {
             "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-            "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+            "threshold": "BLOCK_NONE"
         }
     ]
 )
 
 # 支持的语言映射，按优先顺序排序
 LANGUAGE_CODES = ["en", "zh-cn", "zh-tw", "ja", "de", "es", "fr", "hi", "it", "ko", "pt", "ru", "tr", "vi"]
+LANGUAGE_FULL_NAMES = {"en": "English", "zh-cn": "Simplified Chinese", "zh-tw": "Traditional Chinese", "ja": "Japanese",
+                       "de": "German", "es": "Spanish", "fr": "French", "hi": "Hindi", "it": "Italian", "ko": "Korean",
+                       "pt": "Portuguese", "ru": "Russian", "tr": "Turkish", "vi": "Vietnamese"}
 
 
 # 翻译函数
 def translate_with_gemini(input_text, target_language):
     prompt = f"""
-Translate the following file text to {target_language}. Retain formatting, code blocks, and styles. Start with ---. Do not wrap by ``` code block. File content: 
+Translate the following file content to {target_language}. Retain formatting, code blocks, and styles. Do not use ``` to wrap the whole content. Here's the file content:  
 {input_text}
     """
     retries = 0
@@ -63,7 +66,6 @@ Translate the following file text to {target_language}. Retain formatting, code 
             else:
                 print("Maximum retries reached. Exiting program.")
                 raise
-
 
 
 # 加载已有内容作为翻译基础
@@ -115,7 +117,7 @@ def main():
 
             # 翻译缺少的语言
             for lang_code in missing_languages:
-                translated_content = translate_with_gemini(base_content, lang_code)
+                translated_content = translate_with_gemini(base_content, LANGUAGE_FULL_NAMES[lang_code])
                 new_file_name = "index.md" if lang_code == "en" else f"index.{lang_code}.md"
                 new_file_path = os.path.join(dirpath, new_file_name)
                 with open(new_file_path, "w", encoding="utf-8") as translated_file:
