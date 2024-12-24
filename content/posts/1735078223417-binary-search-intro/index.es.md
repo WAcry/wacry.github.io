@@ -3,6 +3,7 @@ title: "Búsqueda Binaria"
 date: 2024-12-24
 draft: false
 description: "Cómo implementar elegantemente el algoritmo de búsqueda binaria en enteros"
+summary: "Cómo implementar elegantemente el algoritmo de búsqueda binaria en enteros"
 tags: [ "Algoritmos", "Búsqueda Binaria", "Plantillas de Algoritmos" ]
 categories: [ "Algoritmos y Estructuras de Datos" ]
 ---

@@ -3,6 +3,7 @@ title: "二分搜索"
 date: 2024-12-24
 draft: false
 description: "如何优雅地实现整数二分搜索算法"
+summary: "如何优雅地实现整数二分搜索算法"
 tags: [ "算法", "二分搜索", "算法模板" ]
 categories: [ "算法与数据结构" ]
 ---

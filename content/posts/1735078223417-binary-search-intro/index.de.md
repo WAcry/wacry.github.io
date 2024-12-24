@@ -3,6 +3,7 @@ title: "Binäre Suche"
 date: 2024-12-24
 draft: false
 description: "Wie man den binären Suchalgorithmus für Ganzzahlen elegant implementiert"
+summary: "Wie man den binären Suchalgorithmus für Ganzzahlen elegant implementiert"
 tags: [ "Algorithmus", "Binäre Suche", "Algorithm Vorlage" ]
 categories: [ "Algorithmen und Datenstrukturen" ]
 ---

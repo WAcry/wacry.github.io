@@ -3,6 +3,7 @@ title: "Tìm kiếm nhị phân"
 date: 2024-12-24
 draft: false
 description: "Cách triển khai một cách thanh lịch thuật toán tìm kiếm nhị phân số nguyên"
+summary: "Cách triển khai một cách thanh lịch thuật toán tìm kiếm nhị phân số nguyên"
 tags: [ "Thuật toán", "Tìm kiếm nhị phân", "Mẫu thuật toán" ]
 categories: [ "Thuật toán và Cấu trúc dữ liệu" ]
 ---

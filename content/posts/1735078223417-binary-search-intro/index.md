@@ -2,7 +2,8 @@
 title: "Binary Search"
 date: 2024-12-24
 draft: false
-description: "How to elegantly implement the integer binary search algorithm"
+description: "How to elegantly implement the integer binary search algorithm."
+summary: "How to elegantly implement the integer binary search algorithm."
 tags: [ "Algorithm", "Binary Search", "Algorithm Template" ]
 categories: [ "Algorithms and Data Structures" ]
 ---

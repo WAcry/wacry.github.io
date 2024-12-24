@@ -3,6 +3,7 @@ title: "二分搜尋"
 date: 2024-12-24
 draft: false
 description: "如何優雅地實現整數二分搜尋演算法"
+summary: "如何優雅地實現整數二分搜尋演算法"
 tags: [ "演算法", "二分搜尋", "演算法模板" ]
 categories: [ "演算法與資料結構" ]
 ---

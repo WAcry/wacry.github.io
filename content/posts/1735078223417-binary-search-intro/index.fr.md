@@ -3,6 +3,7 @@ title: "Recherche binaire"
 date: 2024-12-24
 draft: false
 description: "Comment implémenter élégamment l'algorithme de recherche binaire pour les entiers"
+summary: "Comment implémenter élégamment l'algorithme de recherche binaire pour les entiers"
 tags: [ "Algorithme", "Recherche binaire", "Modèle d'algorithme" ]
 categories: [ "Algorithmes et structures de données" ]
 ---

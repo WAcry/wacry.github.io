@@ -3,6 +3,7 @@ title: "İkili Arama"
 date: 2024-12-24
 draft: false
 description: "Tamsayı ikili arama algoritmasını zarif bir şekilde nasıl uygularız?"
+summary: "Tamsayı ikili arama algoritmasını zarif bir şekilde nasıl uygularız?"
 tags: [ "Algoritma", "İkili Arama", "Algoritma Şablonu" ]
 categories: [ "Algoritmalar ve Veri Yapıları" ]
 ---

@@ -3,6 +3,7 @@ title: "Ricerca Binaria"
 date: 2024-12-24
 draft: false
 description: "Come implementare elegantemente l'algoritmo di ricerca binaria sugli interi"
+summary: "Come implementare elegantemente l'algoritmo di ricerca binaria sugli interi"
 tags: [ "Algoritmo", "Ricerca Binaria", "Template Algoritmo" ]
 categories: [ "Algoritmi e Strutture Dati" ]
 ---

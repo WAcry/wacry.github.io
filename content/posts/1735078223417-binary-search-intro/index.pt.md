@@ -3,6 +3,7 @@ title: "Busca Binária"
 date: 2024-12-24
 draft: false
 description: "Como implementar elegantemente o algoritmo de busca binária de inteiros"
+summary: "Como implementar elegantemente o algoritmo de busca binária de inteiros"
 tags: [ "Algoritmos", "Busca Binária", "Modelos de Algoritmos" ]
 categories: [ "Algoritmos e Estruturas de Dados" ]
 ---
