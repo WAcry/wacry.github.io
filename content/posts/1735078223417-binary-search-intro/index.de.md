@@ -8,8 +8,6 @@ tags: [ "Algorithmus", "Binäre Suche", "Algorithmusvorlage" ]
 categories: [ "Algorithmen und Datenstrukturen" ]
 ---
 
-# Binäre Suche
-
 Wenn ein sortierter Lösungsraum in zwei Teile unterteilt wird, von denen einer die Bedingung erfüllt und der andere nicht, kann die binäre Suche verwendet werden, um den kritischen Punkt im sortierten Lösungsraum zu finden.
 
 Die Grundidee der binären Suche besteht darin, das Suchintervall wiederholt zu halbieren. Bei jeder Überprüfung wird das Element in der Mitte geprüft. Wenn das mittlere Element die Bedingung nicht erfüllt, kann die Hälfte des Intervalls verworfen werden. Andernfalls wird die Suche in der anderen Hälfte des Intervalls fortgesetzt. Da bei jeder Operation die Hälfte des Suchintervalls verworfen wird, kann die Zeitkomplexität der Suche $O(\log n)$ erreichen.

@@ -8,8 +8,6 @@ tags: [ "Algorithm", "Binary Search", "Algorithm Template" ]
 categories: [ "Algorithms and Data Structures" ]
 ---
 
-# Binary Search
-
 If an ordered solution space is divided into two parts, where one part satisfies a condition and the other does not, then binary search can be used to find the critical point in the ordered solution space.
 
 The basic idea of binary search is to repeatedly halve the search interval. Each time, the middle element is checked. If the middle element does not satisfy the condition, half of the interval can be excluded. Otherwise, the search continues in the other half of the interval. Since half of the search interval is discarded each time, the search time complexity can reach $O(\log n)$.

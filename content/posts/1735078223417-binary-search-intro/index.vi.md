@@ -8,8 +8,6 @@ tags: [ "Thuật toán", "Tìm kiếm nhị phân", "Mẫu thuật toán" ]
 categories: [ "Thuật toán và cấu trúc dữ liệu" ]
 ---
 
-# Tìm kiếm nhị phân
-
 Nếu không gian nghiệm có thứ tự được chia thành hai phần, trong đó một phần thỏa mãn điều kiện và phần còn lại không thỏa mãn điều kiện. Vậy thì có thể sử dụng tìm kiếm nhị phân để tìm điểm tới hạn trong không gian nghiệm có thứ tự.
 
 Ý tưởng cơ bản của tìm kiếm nhị phân là liên tục chia đôi khoảng tìm kiếm. Mỗi lần kiểm tra phần tử ở giữa, nếu phần tử ở giữa không thỏa mãn điều kiện, thì có thể loại bỏ một nửa khoảng; ngược lại, thì tiếp tục tìm kiếm ở nửa khoảng còn lại. Vì mỗi lần đều loại bỏ một nửa khoảng tìm kiếm, nên độ phức tạp thời gian tìm kiếm có thể đạt được $O(\log n)$.

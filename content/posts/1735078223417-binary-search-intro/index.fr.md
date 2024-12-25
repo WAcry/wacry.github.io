@@ -8,8 +8,6 @@ tags: [ "Algorithme", "Recherche binaire", "Modèle d'algorithme" ]
 categories: [ "Algorithmes et structures de données" ]
 ---
 
-# Recherche binaire
-
 Si un espace de solution ordonné peut être divisé en deux parties, où une partie satisfait la condition et l'autre partie ne la satisfait pas, alors on peut utiliser la recherche binaire pour trouver le point critique dans l'espace de solution ordonné.
 
 L'idée de base de la recherche binaire est de diviser continuellement l'intervalle de recherche en deux. À chaque vérification, on examine l'élément du milieu. Si l'élément du milieu ne satisfait pas la condition, on peut éliminer la moitié de l'intervalle. Sinon, on continue la recherche dans l'autre moitié de l'intervalle. Comme à chaque fois, la moitié de l'intervalle de recherche est supprimée, la complexité temporelle de la recherche peut atteindre $O(\log n)$.

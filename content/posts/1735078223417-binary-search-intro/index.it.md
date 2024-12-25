@@ -8,8 +8,6 @@ tags: [ "algoritmi", "ricerca binaria", "modelli di algoritmi" ]
 categories: [ "algoritmi e strutture dati" ]
 ---
 
-# Ricerca Binaria
-
 Se uno spazio di soluzione ordinato viene diviso in due parti, dove una parte soddisfa una condizione e l'altra no, allora è possibile utilizzare la ricerca binaria per trovare il punto critico nello spazio di soluzione ordinato.
 
 L'idea di base della ricerca binaria è quella di dividere ripetutamente l'intervallo di ricerca a metà. Ad ogni passo, viene esaminato l'elemento centrale. Se l'elemento centrale non soddisfa la condizione, è possibile escludere metà dell'intervallo; altrimenti, la ricerca continua nell'altra metà. Poiché ogni volta viene scartata metà dell'intervallo di ricerca, la complessità temporale della ricerca può raggiungere $O(\log n)$.

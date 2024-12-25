@@ -8,8 +8,6 @@ tags: [ "algoritmo", "búsqueda binaria", "plantilla de algoritmo" ]
 categories: [ "Algoritmos y Estructuras de Datos" ]
 ---
 
-# Búsqueda Binaria
-
 Si un espacio de solución ordenado se divide en dos partes, donde una parte satisface la condición y la otra no, entonces se puede usar la búsqueda binaria para encontrar el punto crítico en el espacio de solución ordenado.
 
 La idea básica de la búsqueda binaria es dividir continuamente el intervalo de búsqueda por la mitad. En cada verificación, se inspecciona el elemento del punto medio. Si el elemento del punto medio no satisface la condición, se puede eliminar la mitad del intervalo; de lo contrario, la búsqueda continúa en la otra mitad del intervalo. Dado que la mitad del intervalo de búsqueda se descarta cada vez, la complejidad de tiempo de la búsqueda puede alcanzar $O(\log n)$.

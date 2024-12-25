@@ -8,8 +8,6 @@ tags: [ "Algoritma", "İkili Arama", "Algoritma Şablonu" ]
 categories: [ "Algoritmalar ve Veri Yapıları" ]
 ---
 
-# İkili Arama
-
 Eğer sıralı çözüm uzayı sol ve sağ olmak üzere iki kısma ayrılıyorsa ve bu kısımlardan biri koşulu sağlıyor diğeri ise sağlamıyorsa, sıralı çözüm uzayında kritik noktayı bulmak için ikili arama kullanılabilir.
 
 İkili aramanın temel fikri, arama aralığını sürekli olarak ikiye bölmektir. Her kontrol noktasında orta nokta elemanı kontrol edilir, eğer orta nokta elemanı koşulu sağlamıyorsa aralığın yarısı elenir; aksine, diğer yarısında aramaya devam edilir. Her defasında arama aralığının yarısı atıldığı için arama zaman karmaşıklığı $O(\log n)$'ye ulaşabilir.
