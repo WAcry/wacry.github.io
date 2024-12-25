@@ -2,41 +2,45 @@
 title: "Binäre Suche"
 date: 2024-12-24
 draft: false
-description: "Wie man den binären Suchalgorithmus für Ganzzahlen elegant implementiert"
-summary: "Wie man den binären Suchalgorithmus für Ganzzahlen elegant implementiert"
-tags: [ "Algorithmus", "Binäre Suche", "Algorithm Vorlage" ]
+description: "Wie man den binären Suchalgorithmus für ganze Zahlen elegant implementiert."
+summary: "Wie man den binären Suchalgorithmus für ganze Zahlen elegant implementiert."
+tags: [ "Algorithmus", "Binäre Suche", "Algorithmusvorlage" ]
 categories: [ "Algorithmen und Datenstrukturen" ]
 ---
+
 {{< katex >}}
 
 # Binäre Suche
 
-In einer sortierten Sequenz kann man mit der binären Suche schnell ein bestimmtes Element finden. Im Vergleich zur linearen Suche mit einer Zeitkomplexität von $O(n)$ benötigt die binäre Suche nur $O(\log n)$ Zeit, was sie bei großen Datenmengen sehr effizient macht.
+Wenn ein sortierter Lösungsraum in zwei Teile aufgeteilt wird, wobei ein Teil die Bedingung erfüllt und der andere Teil die Bedingung nicht erfüllt, dann kann die binäre Suche verwendet werden, um den kritischen Punkt im sortierten Lösungsraum zu finden.
 
-## Das Kernkonzept der binären Suche
+Die Grundidee der binären Suche besteht darin, den Suchbereich kontinuierlich zu halbieren. Bei jeder Überprüfung wird das mittlere Element überprüft. Wenn das mittlere Element die Bedingung nicht erfüllt, kann die Hälfte des Bereichs ausgeschlossen werden;
+andernfalls wird die Suche im anderen Teil des Bereichs fortgesetzt. Da bei jeder Suche die Hälfte des Suchbereichs verworfen wird, kann die Suchzeitkomplexität \\(O(\log n)\\) erreichen.
 
-Die Grundidee der binären Suche besteht darin, den Suchbereich kontinuierlich zu halbieren. Bei jedem Vergleich wird das Element in der Mitte mit dem Zielwert verglichen. Wenn das Element in der Mitte die Bedingung nicht erfüllt, kann die Hälfte des Bereichs ausgeschlossen werden; andernfalls wird die Suche in der anderen Hälfte fortgesetzt. Da bei jedem Schritt die Hälfte des Suchbereichs verworfen wird, kann eine Zeitkomplexität von $O(\log n)$ erreicht werden.
-
-Die binäre Suche ist sehr nützlich für Probleme, bei denen " **die möglichen Lösungen in einen sortierten Bereich (der Bedingung erfüllt) und einen anderen sortierten Bereich (der Bedingung nicht erfüllt) unterteilt werden können** ". Zum Beispiel:
-
-- Finden, ob ein bestimmtes Element in einem sortierten Array existiert
-- Finden der "ersten Position" oder "letzten Position", an der eine Zahl auftritt
-
-## Beispielaufgabe: Finden der Start- und Endpositionen von Elementen
+## Beispielaufgabe
 
 **Aufgabenbeschreibung:**
-Gegeben sei ein aufsteigend sortiertes Array von ganzen Zahlen der Länge $n$, sowie $q$ Abfragen. Jede Abfrage gibt eine ganze Zahl $k$ an, und wir müssen die "Startposition" und die "Endposition" von $k$ im Array finden (Indizes beginnen bei 0). Wenn die Zahl im Array nicht existiert, wird $-1$ $-1$ zurückgegeben.
+Gegeben ist ein aufsteigend sortiertes Array von ganzen Zahlen der Länge \\(n\\) sowie \\(q\\) Abfragen. Jede Abfrage gibt eine ganze Zahl \\(k\\) an, und wir müssen die "Startposition" und "Endposition" von \\(k\\) im Array finden (Indizes beginnen bei 0). Wenn die Zahl nicht im Array existiert, gib \\(-1\\) \\(-1\\) zurück.
 
-**Eingabeformat:**
+### Eingabeformat
 
-1. Erste Zeile: Zwei ganze Zahlen $n$ und $q$, die die Länge des Arrays und die Anzahl der Abfragen angeben.
-2. Zweite Zeile: $n$ ganze Zahlen (im Bereich von 1 ~ 10000), die das vollständige Array darstellen, das bereits aufsteigend sortiert ist.
-3. Nächste $q$ Zeilen: Jede Zeile enthält eine ganze Zahl $k$, die ein abzufragendes Element darstellt.
+1. Erste Zeile: Zwei ganze Zahlen \\(n\\) und \\(q\\), die die Länge des Arrays und die Anzahl der Abfragen angeben.
+2. Zweite Zeile: \\(n\\) ganze Zahlen, die das vollständige Array darstellen und bereits aufsteigend sortiert sind.
+3. Die nächsten \\(q\\) Zeilen: Jede Zeile enthält eine ganze Zahl \\(k\\), die ein Abfrageelement darstellt.
 
-**Ausgabeformat:**
-Für jede Abfrage soll die Start- und Endposition des Elements im Array in einer Zeile ausgegeben werden. Wenn das Element im Array nicht vorhanden ist, soll $-1$ $-1$ ausgegeben werden.
+## Datenbereich
 
-**Beispiele:**
+\\(1 \leq n \leq 100000\\)
+
+\\(1 \leq q \leq 10000\\)
+
+\\(1 \leq k \leq 10000\\)
+
+### Ausgabeformat
+
+Für jede Abfrage geben Sie in einer Zeile die Start- und Endposition des Elements im Array aus. Wenn das Element nicht im Array existiert, geben Sie `-1 -1` aus.
+
+**Beispiel:**
 
 ```
 Eingabe:
@@ -52,38 +56,40 @@ Ausgabe:
 -1 -1
 ```
 
-Erläuterung:
+**Erläuterung:**
 
-- Der Bereich, in dem das Element 3 vorkommt, ist `[3, 4]`;
-- Das Element 4 kommt nur einmal an Position 5 vor;
-- Das Element 5 ist im Array nicht vorhanden, daher wird `-1 -1` zurückgegeben.
+- Der Bereich, in dem das Element \\(3\\) vorkommt, ist \\([3, 4]\\);
+- Das Element \\(4\\) kommt nur einmal vor, an Position \\(5\\);
+- Das Element \\(5\\) existiert nicht im Array, daher wird \\(-1\\) \\(-1\\) zurückgegeben.
 
-## Die Anwendungsstrategie der binären Suche
+---
 
-In diesem Problem können wir uns bei der Suche nach der "linken Grenze" und der "rechten Grenze" eines bestimmten Wertes auf die binäre Suche verlassen. Der Schlüssel ist zu verstehen, wie man den Suchbereich definiert und wie man die Zeiger entsprechend dem Vergleichsergebnis verschiebt.
+## Lösung
 
-- **Suche nach der "linken Grenze":**
-  Das heißt, die erste Position zu finden, die größer oder gleich $k$ ist. Wir können das Array in zwei Teile aufteilen:
-    - Alle Zahlen auf der linken Seite sind "kleiner" als $k$
-    - Alle Zahlen auf der rechten Seite sind "größer oder gleich" $k$
+- **Finden der "Startposition":**
+  Das heißt, die erste Position zu finden, die größer oder gleich \\(k\\) ist. Das Array kann in zwei Teile aufgeteilt werden:
+    - Alle Zahlen links sind "kleiner als" \\(k\\)
+    - Alle Zahlen rechts sind "größer oder gleich" \\(k\\)
+    - Die Antwort ist die erste Position auf der rechten Seite.
 
-- **Suche nach der "rechten Grenze":**
-  Das heißt, die letzte Position zu finden, die kleiner oder gleich $k$ ist. Wir können das Array in zwei Teile aufteilen:
-    - Alle Zahlen auf der linken Seite sind "kleiner oder gleich" $k$
-    - Alle Zahlen auf der rechten Seite sind "größer" als $k$
+- **Finden der "Endposition":**
+  Das heißt, die letzte Position zu finden, die kleiner oder gleich \\(k\\) ist. Das Array kann in zwei Teile aufgeteilt werden:
+    - Alle Zahlen links sind "kleiner oder gleich" \\(k\\)
+    - Alle Zahlen rechts sind "größer als" \\(k\\)
+    - Die Antwort ist die letzte Position auf der linken Seite.
 
-Solange diese beiden Bereiche korrekt verwaltet werden, können wir mit der binären Suche schnell zu einem Ergebnis kommen.
+---
 
-## Empfohlene Vorlage: Vermeiden von Endlosschleifen bei der binären Suche
+## Empfohlene Vorlage
 
-Im Folgenden wird eine elegante und fehlerfreie Vorlage für die binäre Suche vorgestellt. Sie stellt sicher, dass die Schleife immer dann endet, wenn die Zeiger $l$ und $r$ benachbart sind, indem sie diese schrittweise einander annähern:
+Nachfolgend finden Sie eine elegante und fehlerfreie Binärsuchvorlage. Sie sorgt dafür, dass die Schleife aufhört, sobald \\(l\\) und \\(r\\) nebeneinander liegen, indem \\(l\\) und \\(r\\) schrittweise angenähert werden:
 
-Definieren Sie zwei Zeiger $l, r$, die die Invariante erfüllen: Das geschlossene Intervall $[0, l]$ gehört zum linken Teil und das geschlossene Intervall $[r, n - 1]$ gehört zum rechten Teil. $l$ und $r$ werden mit $-1$ bzw. $n$ initialisiert.
+Definieren Sie zwei Zeiger \\(l, r\\) mit der Invariante: Das geschlossene Intervall \\([0, l]\\) gehört zum linken Teil, das geschlossene Intervall \\([r, n - 1]\\) gehört zum rechten Teil. \\(l\\)
+und \\(r\\) werden mit \\(-1\\) bzw. \\(n\\) initialisiert.
 
-Wenn der Algorithmus beendet ist, sind $l$ und $r$ benachbart und zeigen auf den größten Wert des linken Teils bzw. den kleinsten Wert des rechten Teils.
+Wenn der Algorithmus terminiert, sind \\(l\\) und \\(r\\) benachbart und zeigen auf das letzte Element des linken Teils bzw. das erste Element des rechten Teils.
 
-Da die gewünschte Lösung möglicherweise nicht existiert, muss bei der Rückgabe von $l$ oder $r$ geprüft werden, ob der entsprechende Wert der gewünschte Wert ist und ob er außerhalb des Bereichs liegt.
-Zum Beispiel steht $l$ für den größten Wert $\leq k$, und wir müssen `l != -1 && nums[l] == k` prüfen.
+Da die gewünschte Lösung möglicherweise nicht existiert, müssen wir, wenn die Aufgabe nicht angibt, dass eine Lösung existiert, prüfen, ob `l` oder `r` außerhalb des Bereichs liegen oder ob sie auf den richtigen Wert zeigen.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -99,9 +105,9 @@ int main() {
         int k;
         cin >> k;
 
-        // 1. Finde die Startposition von k (linke Grenze)
+        // 1. Finde die Startposition von k
         //    Teile das Array in zwei Teile auf, links alle < k, rechts alle >= k.
-        //    Die linke Grenze ist der kleinste Index des rechten Teils.
+        //    Die Antwort ist der kleinste Index des rechten Teils.
         int l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -109,17 +115,17 @@ int main() {
             else l = mid;
         }
 
-        // Wenn r außerhalb des Bereichs liegt oder nums[r] != k, dann existiert k nicht
+        // Wenn r außerhalb des Bereichs liegt oder nums[r] != k, existiert k nicht
         if (r == n || nums[r] != k) {
             cout << -1 << " " << -1 << endl;
             continue;
         }
 
-        int leftPos = r; // Speichere die linke Grenze von k
+        int leftPos = r;
 
-        // 2. Finde die Endposition von k (rechte Grenze)
+        // 2. Finde die Endposition von k
         //    Teile das Array in zwei Teile auf, links alle <= k, rechts alle > k.
-        //    Die rechte Grenze ist der größte Index des linken Teils.
+        //    Die Antwort ist der größte Index des linken Teils.
         l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -127,28 +133,29 @@ int main() {
             else r = mid;
         }
 
-        // Da wir bereits überprüft haben, dass k existiert, muss hier nicht erneut geprüft werden
-        int rightPos = l; // Rechte Grenze
+        int rightPos = l;
         cout << leftPos << " " << rightPos << endl;
     }
     return 0;
 }
 ```
 
-### Warum ist es weniger fehleranfällig, so zu schreiben?
+### Warum diese Schreibweise?
 
-1. Diese Schreibweise hat eine streng definierte Invariante.
-2. Sie kann sowohl die linke als auch die rechte Grenze finden und ist somit in allen Szenarien anwendbar.
-3. Einige Schreibweisen verwenden $l == r$ als Abbruchbedingung. Wenn $l$ und $r$ sich um 1 unterscheiden, berechnet man $mid$ mit `l` oder `r` gleich. Wenn die Aktualisierung von `l` oder `r` nicht korrekt behandelt wird, wird der Suchbereich nicht verkleinert und es kommt zu einer Endlosschleife. Im Gegensatz dazu endet die hier gezeigte Schreibweise, wenn $l$ und $r$ benachbart sind, wodurch dieses Problem vermieden wird.
+1. Diese Schreibweise hat streng definierte Invarianten.
+2. Sie ist gleichzeitig geeignet, um die "Startposition" und die "Endposition" zu finden, ohne dass zusätzliche Verarbeitung oder Änderungen erforderlich sind.
+3. Einige Schreibweisen verwenden `l == r` als Abbruchbedingung. Wenn \\(l\\) und \\(r\\) einen Abstand von \\(1\\) haben, wird \\(mid\\) gleich \\(l\\) oder \\(r\\) berechnet. Wenn dies nicht korrekt verarbeitet wird, indem \\(l\\) oder \\(r\\) auf \\(mid\\) aktualisiert wird, verkleinert sich der Suchbereich nicht und es kommt zu einer Endlosschleife. Im Gegenteil, diese Schreibweise beendet sich, wenn \\(l\\) und \\(r\\) benachbart sind, wodurch sichergestellt wird, dass \\(mid\\) kleiner als \\(l\\) und größer als \\(r\\) ist, und der Suchbereich wird bei der Aktualisierung von \\(l\\) oder \\(r\\) garantiert verkleinert.
 
-## STL-Lösung: `lower_bound` und `upper_bound`
+---
 
-Wenn Sie die von C++ STL bereitgestellten Funktionen `lower_bound` und `upper_bound` verwenden, können Sie die gleichen Dinge problemlos erledigen:
+## STL
 
-- `lower_bound(first, last, val)` gibt die "erste Position größer oder gleich val" zurück
-- `upper_bound(first, last, val)` gibt die "erste Position größer als val" zurück
+Wenn Sie die von C++ STL bereitgestellten Funktionen `lower_bound` und `upper_bound` verwenden, können Sie das gleiche Ergebnis erzielen:
 
-Nehmen wir zum Beispiel an, dass `nums = {1,2,3,4,4,4,4,4,5,5,6}` und wir wollen das Intervall finden, in dem 4 vorkommt:
+- `lower_bound(first, last, val)` gibt die "erste Position zurück, die größer oder gleich val ist"
+- `upper_bound(first, last, val)` gibt die "erste Position zurück, die größer als val ist"
+
+Nehmen wir zum Beispiel an, `nums = {1,2,3,4,4,4,4,4,5,5,6}`, und wir möchten den Bereich wissen, in dem 4 vorkommt:
 
 ```cpp
 vector<int> nums = {1,2,3,4,4,4,4,4,5,5,6};
@@ -156,27 +163,29 @@ auto it1 = lower_bound(nums.begin(), nums.end(), 4);
 auto it2 = upper_bound(nums.begin(), nums.end(), 4);
 
 if (it1 == nums.end() || *it1 != 4) {
-    // Zeigt an, dass 4 nicht im Array existiert
-    cout << "4 kommt 0 mal vor" << endl;
+    cout << "4 kommt 0 Mal vor" << endl;
 } else {
-    cout << "Erste 4 befindet sich an " << it1 - nums.begin() << endl;
-    cout << "Letzte 4 befindet sich an " << it2 - nums.begin() - 1 << endl;
-    cout << "4 kommt " << it2 - it1 << " mal vor" << endl;
+    cout << "Die erste 4 ist an Position " << it1 - nums.begin() << endl;
+    cout << "Die letzte 4 ist an Position " << it2 - nums.begin() - 1 << endl;
+    cout << "4 kommt " << it2 - it1 << " Mal vor" << endl;
 }
 ```
 
-- `it1` zeigt auf die erste Position, deren Wert größer oder gleich 4 ist.
-- `it2` zeigt auf die erste Position, deren Wert größer als 4 ist.
-  Daher ist `it2 - it1` die Häufigkeit, mit der 4 im Array vorkommt; `it2 - nums.begin() - 1` ist die rechte Grenze von 4.
+- `it1` zeigt auf die erste Position, deren Wert größer oder gleich \\(4\\) ist.
+- `it2` zeigt auf die erste Position, deren Wert größer als \\(4\\) ist.  
+  Also ist `it2 - it1` die Anzahl, wie oft \\(4\\) im Array vorkommt; `it2 - nums.begin() - 1` ist die rechte Grenze von \\(4\\).
 
-Diese beiden Funktionen sind besonders nützlich, wenn man Bereiche sucht oder die Häufigkeit des Auftretens zählt.
+---
 
 ## Ergänzung
 
-Die binäre Suche kann auch auf die Suche nach Floating-Point-Bereichen erweitert werden (z. B. zur Suche nach den Wurzeln von Gleichungen) sowie auf die ternäre Suche zur Suche nach dem Maximalwert einer unimodalen Funktion. Solange Sie das Kernprinzip " **bei jedem Schritt kann in einem sortierten Bereich die Hälfte ausgeschlossen werden**" verstehen, werden Sie feststellen, dass die binäre Suche Ihnen helfen kann, Probleme in vielen Szenarien effizient zu lösen.
+Die binäre Suche kann auch auf die Suche nach Gleitkommazahlenbereichen (z. B. zum Finden von Wurzeln von Gleichungen) und auf die ternäre Suche zum Finden von Maximalwerten einer unimodalen Funktion erweitert werden.
+Sobald Sie das Kernprinzip " **In einem sortierten Intervall kann bei jedem Schritt die Hälfte ausgeschlossen werden**" verstanden haben, werden Sie feststellen, dass die binäre Suche Ihnen in vielen Szenarien helfen kann, Probleme effizient zu lösen.
 
-## Übungsaufgaben
+---
 
-LeetCode 33. Search in Rotated Sorted Array
+## Übung
 
-Hinweis: Verwenden Sie im ersten Schritt die binäre Suche, um den Drehpunkt zu finden, und verwenden Sie im zweiten Schritt erneut die binäre Suche, um den Zielwert zu finden.
+LeetCode 33. Suche in einem rotierten sortierten Array
+
+Hinweis: Verwenden Sie im ersten Schritt die binäre Suche, um den Rotationspunkt zu finden, und verwenden Sie im zweiten Schritt die binäre Suche, um den Zielwert zu finden.

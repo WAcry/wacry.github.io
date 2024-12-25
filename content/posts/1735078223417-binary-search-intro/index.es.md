@@ -2,39 +2,42 @@
 title: "Búsqueda Binaria"
 date: 2024-12-24
 draft: false
-description: "Cómo implementar elegantemente el algoritmo de búsqueda binaria en enteros"
-summary: "Cómo implementar elegantemente el algoritmo de búsqueda binaria en enteros"
-tags: [ "Algoritmos", "Búsqueda Binaria", "Plantillas de Algoritmos" ]
+description: "Cómo implementar elegantemente el algoritmo de búsqueda binaria en enteros."
+summary: "Cómo implementar elegantemente el algoritmo de búsqueda binaria en enteros."
+tags: [ "Algoritmo", "Búsqueda Binaria", "Plantilla de Algoritmo" ]
 categories: [ "Algoritmos y Estructuras de Datos" ]
 ---
+
 {{< katex >}}
 
 # Búsqueda Binaria
 
-En una secuencia ordenada, se puede utilizar la búsqueda binaria para encontrar un elemento específico rápidamente. Comparado con la complejidad temporal de $O(n)$ de la búsqueda lineal, la búsqueda binaria solo necesita un tiempo de $O(\log n)$, por lo que es muy eficiente en casos de grandes volúmenes de datos.
+Si un espacio de soluciones ordenado se divide en dos partes, donde una parte satisface una condición y la otra no, entonces se puede utilizar la búsqueda binaria para encontrar el punto crítico en el espacio de soluciones ordenado.
 
-## La idea central de la búsqueda binaria
+La idea básica de la búsqueda binaria es dividir continuamente el intervalo de búsqueda por la mitad. En cada verificación, se examina el elemento medio; si el elemento medio no cumple la condición, se puede descartar la mitad del intervalo; de lo contrario, la búsqueda continúa en la otra mitad del intervalo. Debido a que en cada paso se descarta la mitad del intervalo de búsqueda, la complejidad temporal de la búsqueda puede alcanzar \\(O(\log n)\\).
 
-La idea básica de la búsqueda binaria es dividir continuamente el intervalo de búsqueda por la mitad. En cada comparación, se compara el elemento del punto medio con el valor objetivo. Si el elemento del punto medio no cumple la condición, se puede excluir la mitad del intervalo; de lo contrario, se continúa la búsqueda en la otra mitad del intervalo. Dado que cada vez se descarta la mitad del intervalo de búsqueda, la complejidad temporal de búsqueda puede alcanzar $O(\log n)$.
-
-La búsqueda binaria es muy útil para problemas donde " **las soluciones factibles se pueden dividir en un intervalo ordenado (que satisface la condición) y otro intervalo ordenado (que no satisface la condición)** ". Por ejemplo:
-
-- Encontrar si existe un elemento en una matriz ordenada.
-- Encontrar la "primera posición" o la "última posición" en la que aparece un número.
-
-## Ejemplo de problema: Encontrar la posición inicial y final de un elemento
+## Ejemplo de Problema
 
 **Descripción del problema:**
-Dado un array de enteros de longitud $n$ ordenado ascendentemente y $q$ consultas. Cada consulta proporciona un entero $k$, necesitamos encontrar la "posición inicial" y la "posición final" de $k$ en la matriz (los índices comienzan desde 0). Si el número no existe en el array, devolver $-1$ $-1$.
+Dado un arreglo de enteros de longitud \\(n\\) ordenado ascendentemente, y \\(q\\) consultas. Cada consulta da un entero \\(k\\), necesitamos encontrar la "posición inicial" y "posición final" de \\(k\\) en el arreglo (los índices comienzan desde 0). Si el número no existe en el arreglo, devolver \\(-1\\) \\(-1\\).
 
-**Formato de entrada:**
+### Formato de Entrada
 
-1. Primera línea: dos enteros $n$ y $q$, que representan la longitud del array y el número de consultas respectivamente.
-2. Segunda línea: $n$ enteros (en el rango de 1 ~ 10000), que representan el array completo, que ya está ordenado en orden ascendente.
-3. Siguientes $q$ líneas: cada línea contiene un entero $k$, que representa un elemento de consulta.
+1. Primera línea: dos enteros \\(n\\) y \\(q\\), representando la longitud del arreglo y el número de consultas, respectivamente.
+2. Segunda línea: \\(n\\) enteros, representando el arreglo completo, ordenado de forma ascendente.
+3. Siguientes \\(q\\) líneas: cada línea contiene un entero \\(k\\), representando un elemento de consulta.
 
-**Formato de salida:**
-Para cada consulta, imprimir en una línea la posición inicial y final del elemento en el array. Si el elemento no existe en el array, imprimir $-1$ $-1$.
+## Rango de Datos
+
+\\(1 \leq n \leq 100000\\)
+
+\\(1 \leq q \leq 10000\\)
+
+\\(1 \leq k \leq 10000\\)
+
+### Formato de Salida
+
+Para cada consulta, imprime en una línea la posición inicial y final del elemento en el arreglo. Si el elemento no existe en el arreglo, imprime `-1 -1`.
 
 **Ejemplo:**
 
@@ -52,37 +55,39 @@ Salida:
 -1 -1
 ```
 
-Explicación:
+**Explicación:**
 
-- El rango donde aparece el elemento 3 es `[3, 4]`;
-- El elemento 4 aparece solo una vez, en la posición 5;
-- El elemento 5 no existe en el array, por lo que devuelve `-1 -1`.
+- El rango de aparición del elemento \\(3\\) es \\([3, 4]\\);
+- El elemento \\(4\\) solo aparece una vez, en la posición \\(5\\);
+- El elemento \\(5\\) no existe en el arreglo, por lo tanto se devuelve \\(-1\\) \\(-1\\).
 
-## Ideas de aplicación de la búsqueda binaria
+---
 
-En este problema, para encontrar el "límite izquierdo" y el "límite derecho" de un valor dado, podemos recurrir a la búsqueda binaria. La clave es comprender cómo definir el intervalo de búsqueda y cómo mover los punteros de acuerdo con el resultado de la comparación.
+## Solución
 
-- **Encontrar el "límite izquierdo":**
-    Es decir, encontrar la primera posición mayor o igual a $k$. El array se puede dividir en dos partes:
-    - Todos los números de la izquierda son "menores" que $k$.
-    - Todos los números de la derecha son "mayores o iguales" que $k$.
+- **Buscar la "posición inicial":**
+  Es decir, buscar la primera posición mayor o igual a \\(k\\). Podemos dividir el arreglo en dos partes:
+    - Todos los números a la izquierda son "menores" que \\(k\\).
+    - Todos los números a la derecha son "mayores o iguales" que \\(k\\).
+    - La respuesta es la primera posición de la derecha.
 
-- **Encontrar el "límite derecho":**
-    Es decir, encontrar la última posición menor o igual a $k$. El array se puede dividir en dos partes:
-    - Todos los números de la izquierda son "menores o iguales" que $k$.
-    - Todos los números de la derecha son "mayores" que $k$.
+- **Buscar la "posición final":**
+  Es decir, buscar la última posición menor o igual a \\(k\\). Podemos dividir el arreglo en dos partes:
+    - Todos los números a la izquierda son "menores o iguales" que \\(k\\).
+    - Todos los números a la derecha son "mayores" que \\(k\\).
+    - La respuesta es la última posición de la izquierda.
 
-Siempre que se puedan mantener correctamente estos dos intervalos, se pueden obtener los resultados rápidamente mediante la búsqueda binaria.
+---
 
-## Plantilla recomendada: Escritura de búsqueda binaria para evitar bucles infinitos
+## Plantilla Recomendada
 
-La siguiente es una plantilla de búsqueda binaria elegante y menos propensa a errores. Al permitir que $l$ y $r$ converjan gradualmente, garantiza que el bucle termine cuando ambos son adyacentes:
+A continuación se muestra una plantilla de búsqueda binaria elegante y fácil de usar, que evita errores. Al hacer que \\(l\\) y \\(r\\) se acerquen gradualmente, garantiza que el bucle termine cuando ambos estén adyacentes:
 
-Definir dos punteros $l, r$, con invariante: el intervalo cerrado $[0, l]$ pertenece a la mitad izquierda y el intervalo cerrado $[r, n - 1]$ pertenece a la mitad derecha. $l$ y $r$ se inicializan en $-1$ y $n$.
+Definimos dos punteros \\(l, r\\), con la invariante: el intervalo cerrado \\([0, l]\\) pertenece a la mitad izquierda, y el intervalo cerrado \\([r, n - 1]\\) pertenece a la mitad derecha. \\(l\\) y \\(r\\) se inicializan en \\(-1\\) y \\(n\\), respectivamente.
 
-Cuando el algoritmo finaliza, $l$ y $r$ son adyacentes, apuntando al valor máximo de la mitad izquierda y al valor mínimo de la mitad derecha, respectivamente.
+Cuando el algoritmo termina, \\(l\\) y \\(r\\) son adyacentes, apuntando respectivamente al último elemento de la mitad izquierda y al primer elemento de la mitad derecha.
 
-Dado que la solución que queremos podría no existir, al devolver $l$ o $r$, es necesario verificar si el valor correspondiente es el valor que queremos y si está fuera de rango. Por ejemplo, $l$ representa el valor máximo $\leq k$, y necesitamos verificar `l != -1 && nums[l] == k`
+Dado que la solución que buscamos podría no existir, si el problema no especifica que la solución siempre existe, debemos verificar si `l` o `r` se han salido de los límites o si apuntan al valor correcto.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -98,9 +103,9 @@ int main() {
         int k;
         cin >> k;
 
-        // 1. Buscar la posición inicial de k (límite izquierdo)
-        //    Dividir el array en dos partes, la izquierda toda < k, la derecha toda >= k.
-        //    El límite izquierdo es el índice mínimo de la parte derecha.
+        // 1. Buscar la posición inicial de k
+        //    Dividir el arreglo en dos partes, izquierda < k, derecha >= k.
+        //    La respuesta es el índice mínimo de la mitad derecha.
         int l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -108,17 +113,17 @@ int main() {
             else l = mid;
         }
 
-        // Si r está fuera de rango o nums[r] != k, significa que k no existe
+        // Si r se sale de los límites o nums[r] != k, significa que k no existe
         if (r == n || nums[r] != k) {
             cout << -1 << " " << -1 << endl;
             continue;
         }
 
-        int leftPos = r; // Registrar el límite izquierdo de k
+        int leftPos = r;
 
-        // 2. Buscar la posición final de k (límite derecho)
-        //    Dividir el array en dos partes, la izquierda toda <= k, la derecha toda > k.
-        //    El límite derecho es el índice máximo de la parte izquierda.
+        // 2. Buscar la posición final de k
+        //    Dividir el arreglo en dos partes, izquierda <= k, derecha > k.
+        //    La respuesta es el índice máximo de la mitad izquierda.
         l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -126,28 +131,29 @@ int main() {
             else r = mid;
         }
 
-        // Dado que ya hemos verificado que k existe, no es necesario verificarlo de nuevo aquí
-        int rightPos = l; // Límite derecho
+        int rightPos = l;
         cout << leftPos << " " << rightPos << endl;
     }
     return 0;
 }
 ```
 
-### ¿Por qué esta forma de escribir es menos propensa a errores?
+### Por qué escribirlo así
 
-1. Esta forma de escribir tiene invariantes estrictamente definidos.
-2. Puede encontrar tanto el límite izquierdo como el límite derecho, y puede aplicarse a todos los escenarios.
-3. Algunas formas de escribir usan $l == r$ como condición de terminación. Cuando $l$ y $r$ difieren en 1, se calculará $mid$ y será igual a `l` o `r`. Si no se maneja correctamente y se actualiza `l` o `r` a `mid`, el intervalo de búsqueda no se reducirá, lo que provocará un bucle infinito. Por el contrario, esta forma de escribir termina cuando $l$ y $r$ son adyacentes, evitando este problema.
+1. Esta escritura tiene invariantes estrictamente definidas.
+2. Es aplicable tanto para encontrar la "posición inicial" como la "posición final", sin necesidad de procesamiento o cambios adicionales.
+3. Algunas escrituras usan `l == r` como condición de terminación. Cuando \\(l\\) y \\(r\\) difieren en \\(1\\), se calculará un \\(mid\\) igual a \\(l\\) o \\(r\\). Si esto no se gestiona correctamente, y se actualiza \\(l\\) o \\(r\\) con \\(mid\\), el intervalo de búsqueda no se reducirá y conducirá a un bucle infinito. En cambio, esta escritura termina cuando \\(l\\) y \\(r\\) son adyacentes, garantizando que \\(mid\\) sea menor que \\(l\\) y mayor que \\(r\\), y que el intervalo de búsqueda se reduzca al actualizar \\(l\\) o \\(r\\).
 
-## Solución con STL: `lower_bound` y `upper_bound`
+---
 
-Si se utilizan las funciones `lower_bound` y `upper_bound` proporcionadas por C++ STL, también se puede lograr lo mismo fácilmente:
+## STL
 
-- `lower_bound(first, last, val)` devuelve "la primera posición mayor o igual que val"
+Si se usan las funciones `lower_bound` y `upper_bound` proporcionadas por la STL de C++, también se puede lograr lo mismo:
+
+- `lower_bound(first, last, val)` devuelve "la primera posición mayor o igual a val"
 - `upper_bound(first, last, val)` devuelve "la primera posición mayor que val"
 
-Por ejemplo, supongamos que `nums = {1,2,3,4,4,4,4,4,5,5,6}`, y queremos saber el intervalo donde aparece 4:
+Por ejemplo, supongamos `nums = {1,2,3,4,4,4,4,4,5,5,6}`, y queremos saber el intervalo donde aparece el 4:
 
 ```cpp
 vector<int> nums = {1,2,3,4,4,4,4,4,5,5,6};
@@ -155,27 +161,29 @@ auto it1 = lower_bound(nums.begin(), nums.end(), 4);
 auto it2 = upper_bound(nums.begin(), nums.end(), 4);
 
 if (it1 == nums.end() || *it1 != 4) {
-    // Indica que 4 no existe en el array
-    cout << "4 aparece 0 veces" << endl;
+    cout << "4 appears 0 times" << endl;
 } else {
-    cout << "El primer 4 está en " << it1 - nums.begin() << endl;
-    cout << "El último 4 está en " << it2 - nums.begin() - 1 << endl;
-    cout << "4 aparece " << it2 - it1 << " veces" << endl;
+    cout << "first 4 is at " << it1 - nums.begin() << endl;
+    cout << "last 4 is at " << it2 - nums.begin() - 1 << endl;
+    cout << "4 appears " << it2 - it1 << " times" << endl;
 }
 ```
 
-- `it1` apunta a la primera posición con un valor mayor o igual que 4.
-- `it2` apunta a la primera posición con un valor mayor que 4.
-Por lo tanto, `it2 - it1` es el número de veces que aparece 4 en el array; `it2 - nums.begin() - 1` es el límite derecho de 4.
+- `it1` apunta a la primera posición cuyo valor es mayor o igual a \\(4\\).
+- `it2` apunta a la primera posición cuyo valor es mayor que \\(4\\).  
+  Por lo tanto, `it2 - it1` es el número de veces que aparece \\(4\\) en el arreglo; `it2 - nums.begin() - 1` es el límite derecho de \\(4\\).
 
-Estas dos funciones son especialmente convenientes para buscar intervalos o contar el número de ocurrencias.
+---
 
-## Complemento
+## Adicional
 
-La búsqueda binaria también se puede extender a la búsqueda en el rango de números de punto flotante (como encontrar la raíz de una ecuación) y la búsqueda ternaria para encontrar el valor máximo de una función unimodal. Mientras comprendas el principio central de " **en un intervalo ordenado, siempre se puede descartar la mitad** ", encontrarás que la búsqueda binaria puede ayudarte a resolver problemas de manera eficiente en muchos escenarios.
+La búsqueda binaria también se puede extender a la búsqueda en rangos de números de punto flotante (como encontrar las raíces de una ecuación), así como a la búsqueda ternaria para encontrar los extremos de una función unimodal.
+Una vez que entiendas el principio central de "**en un intervalo ordenado, siempre es posible descartar la mitad**", descubrirás que la búsqueda binaria puede ayudarte a resolver problemas de manera eficiente en muchas situaciones.
 
-## Ejercicio después de clase
+---
+
+## Ejercicio
 
 LeetCode 33. Search in Rotated Sorted Array
 
-Pista: En el primer paso, utiliza la búsqueda binaria para encontrar el punto de rotación y en el segundo paso, vuelve a utilizar la búsqueda binaria para encontrar el valor objetivo.
+Pista: El primer paso es usar la búsqueda binaria para encontrar el punto de rotación y el segundo paso es usar la búsqueda binaria para encontrar el valor objetivo.

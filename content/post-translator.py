@@ -55,8 +55,11 @@ Translate the following file content to {target_language}. Retain formatting, co
         try:
             time.sleep(2)
             chat_session = model.start_chat(history=[])
-            response = chat_session.send_message(prompt)
-            return response.text.strip()
+            chat_response = chat_session.send_message(prompt)
+            response = chat_response.text.strip()
+            if response.startswith("```") and response.endswith("```"):
+                response = response[3:-3]
+            return response.strip()
         except Exception as e:
             retries += 1
             print(f"Error during translation to {target_language}: {e}")

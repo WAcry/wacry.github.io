@@ -1,0 +1,29 @@
+html:lang(zh-cn) {
+    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", "Arial", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+html:lang(zh-tw) {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Source Han Sans TC", "Arial", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+html:lang(ja) {
+    font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic Pro", "Meiryo", "Arial", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+html:lang(ko) {
+    font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Nanum Gothic", "Arial", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+html {
+    font-family: "Noto Sans", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}

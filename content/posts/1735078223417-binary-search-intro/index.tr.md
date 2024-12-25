@@ -2,39 +2,42 @@
 title: "İkili Arama"
 date: 2024-12-24
 draft: false
-description: "Tamsayı ikili arama algoritmasını zarif bir şekilde nasıl uygularız?"
-summary: "Tamsayı ikili arama algoritmasını zarif bir şekilde nasıl uygularız?"
-tags: [ "Algoritma", "İkili Arama", "Algoritma Şablonu" ]
+description: "Tamsayı ikili arama algoritmasını nasıl zarif bir şekilde uygulayabiliriz."
+summary: "Tamsayı ikili arama algoritmasını nasıl zarif bir şekilde uygulayabiliriz."
+tags: [ "algoritma", "ikili arama", "algoritma şablonu" ]
 categories: [ "Algoritmalar ve Veri Yapıları" ]
 ---
+
 {{< katex >}}
 
 # İkili Arama
 
-Sıralı bir dizide belirli bir elemanı aramak için ikili arama kullanılabilir. Doğrusal aramanın $O(n)$ zaman karmaşıklığına kıyasla, ikili arama sadece $O(\log n)$ zaman gerektirir, bu nedenle büyük veri boyutlarında çok verimlidir.
+Eğer sıralı bir çözüm uzayı, bir kısmı koşulu sağlayan ve diğer kısmı sağlamayan iki bölüme ayrılıyorsa, bu sıralı çözüm uzayında kritik noktayı bulmak için ikili arama kullanılabilir.
 
-## İkili Aramanın Temel Düşüncesi
+İkili aramanın temel fikri, arama aralığını sürekli olarak ikiye bölmektir. Her seferinde orta noktadaki elemanı kontrol ederiz. Eğer orta nokta elemanı koşulu sağlamazsa, aralığın yarısını eleriz; aksi takdirde, diğer yarıda aramaya devam ederiz. Her seferinde arama aralığının yarısı atıldığı için, arama zaman karmaşıklığı \\(O(\log n)\\) seviyesine ulaşır.
 
-İkili aramanın temel fikri, arama aralığını sürekli olarak ikiye bölmektir. Her karşılaştırmada, orta nokta elemanının hedef değerden büyük veya küçük olup olmadığı kontrol edilir. Orta nokta elemanı koşulu karşılamıyorsa, aralığın yarısı elenebilir; aksi takdirde, diğer yarısında aramaya devam edilir. Her seferinde arama aralığının yarısı atıldığı için arama zaman karmaşıklığı $O(\log n)$'e ulaşabilir.
-
-**"Mümkün çözümlerin sıralı bir aralığa (koşulu sağlayan) ve başka bir sıralı aralığa (koşulu sağlamayan) bölünebildiği"** problemler için ikili arama çok kullanışlıdır. Örneğin:
-
-- Sıralı bir dizide belirli bir elemanın var olup olmadığını bulma
-- Belirli bir sayının "ilk konumunu" veya "son konumunu" bulma
-
-## Örnek Problem: Elemanların Başlangıç ve Bitiş Konumlarını Bulma
+## Örnek Problem
 
 **Problem Tanımı:**  
-Uzunluğu $n$ olan sıralı bir tamsayı dizisi ve $q$ tane sorgu verilmiştir. Her sorgu bir $k$ tamsayısı verir. Dizide $k$'nin "başlangıç konumunu" ve "bitiş konumunu" bulmamız gerekir (indeksler 0'dan başlar). Eğer dizide bu sayı yoksa $-1$ $-1$ döndürün.
+\\(n\\) uzunluğunda artan sırada sıralanmış bir tamsayı dizisi ve \\(q\\) sorgu verildiğinde. Her sorguda bir tamsayı \\(k\\) verilir ve dizide \\(k\\) değerinin "başlangıç pozisyonunu" ve "bitiş pozisyonunu" bulmamız gerekir (indeksler 0'dan başlar). Eğer dizide bu sayı yoksa, \\(-1\\) \\(-1\\) döndürülmelidir.
 
-**Giriş Formatı:**
+### Giriş Formatı
 
-1. İlk satır: Dizi uzunluğunu ve sorgu sayısını temsil eden iki tamsayı $n$ ve $q$.
-2. İkinci satır: Tam diziyi temsil eden $n$ tane tamsayı (1 ~ 10000 aralığında), artan sırada sıralanmıştır.
-3. Sonraki $q$ satır: Her satır bir sorgu elemanı temsil eden bir $k$ tamsayısı içerir.
+1. İlk satır: İki tamsayı \\(n\\) ve \\(q\\), sırasıyla dizi uzunluğunu ve sorgu sayısını belirtir.
+2. İkinci satır: Tam diziyi temsil eden, artan sırada sıralanmış \\(n\\) adet tamsayı.
+3. Sonraki \\(q\\) satır: Her satırda bir sorgu elemanını temsil eden bir tamsayı \\(k\\) bulunur.
 
-**Çıkış Formatı:**  
-Her sorgu için, elemanın dizideki başlangıç ve bitiş konumlarını bir satırda çıktı olarak verin. Eğer dizide böyle bir eleman yoksa, çıktı olarak $-1$ $-1$ verin.
+## Veri Aralığı
+
+\\(1 \leq n \leq 100000\\)
+
+\\(1 \leq q \leq 10000\\)
+
+\\(1 \leq k \leq 10000\\)
+
+### Çıkış Formatı
+
+Her sorgu için, dizideki elemanın başlangıç ve bitiş pozisyonlarını tek bir satırda yazdırın. Eğer eleman dizide bulunmuyorsa, `-1 -1` çıktısını verin.
 
 **Örnek:**
 
@@ -52,38 +55,39 @@ Giriş:
 -1 -1
 ```
 
-Açıklama:
+**Açıklama:**
 
-- 3 elemanının aralığı `[3, 4]`'dür.
-- 4 elemanı sadece bir kez, 5. konumda görünür.
-- 5 elemanı dizide yoktur, bu nedenle `-1 -1` döndürülür.
+- \\(3\\) elemanı \\([3, 4]\\) aralığında görünür;
+- \\(4\\) elemanı sadece bir kez, \\(5\\) pozisyonunda görünür;
+- \\(5\\) elemanı dizide bulunmadığı için, \\(-1\\) \\(-1\\) döndürülür.
 
-## İkili Aramanın Uygulama Düşüncesi
+---
 
-Bu problemde, bir değerin "sol sınırını" ve "sağ sınırını" bulmak için ikili aramaya güvenebiliriz. Önemli olan, arama aralığını nasıl tanımlayacağımızı ve karşılaştırma sonuçlarına göre işaretçileri nasıl hareket ettireceğimizi anlamaktır.
+## Çözüm
 
-- **"Sol Sınır"ı Bulma:**  
-  Yani, $k$'ye eşit veya ondan büyük ilk konumu bulma. Dizi iki kısma ayrılabilir:
-    - Soldaki tüm sayılar $k$'den "küçüktür"
-    - Sağdaki tüm sayılar $k$'ye "eşit veya ondan büyüktür"
+- **"Başlangıç Pozisyonunu" Bulmak:**
+  Yani, \\(k\\)'ye eşit veya ondan büyük olan ilk pozisyonu bulmak. Diziyi iki kısma ayırabiliriz:
+    - Sol taraftaki tüm sayılar \\(k\\)'den "küçüktür".
+    - Sağ taraftaki tüm sayılar \\(k\\)'ye "eşit veya ondan büyüktür".
+    - Cevap sağ tarafın ilk pozisyonudur.
 
-- **"Sağ Sınır"ı Bulma:**  
-  Yani, $k$'ye eşit veya ondan küçük son konumu bulma. Dizi iki kısma ayrılabilir:
-    - Soldaki tüm sayılar $k$'ye "eşit veya ondan küçüktür"
-    - Sağdaki tüm sayılar $k$'den "büyüktür"
+- **"Bitiş Pozisyonunu" Bulmak:**
+  Yani, \\(k\\)'ye eşit veya ondan küçük olan son pozisyonu bulmak. Diziyi iki kısma ayırabiliriz:
+    - Sol taraftaki tüm sayılar \\(k\\)'ye "eşit veya ondan küçüktür".
+    - Sağ taraftaki tüm sayılar \\(k\\)'den "büyüktür".
+    - Cevap sol tarafın son pozisyonudur.
 
-Bu iki aralığı doğru bir şekilde koruyabildiğimiz sürece, ikili arama yoluyla hızlı bir şekilde sonuca ulaşabiliriz.
+---
 
-## Önerilen Şablon: Sonsuz Döngüden Kaçınan İkili Arama Yazımı
+## Önerilen Şablon
 
-Aşağıda zarif ve hataya yatkın olmayan bir ikili arama şablonu bulunmaktadır. $l$ ve $r$'nin adım adım yakınlaşmasını sağlayarak döngünün ikisi yan yana geldiğinde mutlaka sona ermesini garanti eder:
+Aşağıda zarif ve hataya yatkın olmayan bir ikili arama şablonu bulunmaktadır. \\(l\\) ve \\(r\\) işaretçilerini yavaşça birbirine yaklaştırarak döngünün kesinlikle birbirine komşu oldukları noktada sona ermesini sağlar:
 
-İki işaretçi $l$ ve $r$ tanımlayın, değişmez şu şekilde olsun: kapalı aralık $[0, l]$ sol yarıya aittir ve kapalı aralık $[r, n - 1]$ sağ yarıya aittir. $l$ ve $r$ başlangıçta $-1$ ve $n$ olarak başlatılır.
+İki işaretçi \\(l, r\\) tanımlayın. Değişmezler: Kapalı aralık \\([0, l]\\) sol yarıya, kapalı aralık \\([r, n - 1]\\) sağ yarıya aittir. \\(l\\) ve \\(r\\) sırasıyla \\(-1\\) ve \\(n\\) olarak başlatılır.
 
-Algoritma sona erdiğinde $l$ ve $r$ bitişiktir; sırasıyla sol yarıdaki maksimum değeri ve sağ yarıdaki minimum değeri gösterirler.
+Algoritma sona erdiğinde, \\(l\\) ve \\(r\\) birbirine komşu olacaktır; \\(l\\) sol yarının son elemanına ve \\(r\\) sağ yarının ilk elemanına işaret eder.
 
-İstediğimiz çözüm mevcut olmayabileceğinden, $l$ veya $r$ döndürülürken, ilgili değerin istediğimiz değer olup olmadığını ve sınırları aşıp aşmadığını kontrol etmemiz gerekir.
-Örneğin, $l$, $\leq k$'nin maksimum değerini temsil eder ve `l != -1 && nums[l] == k` kontrol etmemiz gerekir.
+İstediğimiz çözüm olmayabileceği için, eğer problemde çözümün kesinlikle var olduğu belirtilmiyorsa, `l` veya `r`'nin sınırları aşıp aşmadığını ve doğru değeri gösterip göstermediğini kontrol etmeliyiz.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -99,27 +103,27 @@ int main() {
         int k;
         cin >> k;
 
-        // 1. k'nin başlangıç konumunu (sol sınırı) bulma
-        //    Diziyi iki kısma ayırın, solda < k olanlar, sağda >= k olanlar.
-        //    Sol sınır, sağ kısmın minimum indeksidir.
+        // 1. k'nin başlangıç pozisyonunu bul
+        //    Diziyi ikiye ayır, sol taraf < k, sağ taraf >= k.
+        //    Cevap sağ tarafın en küçük indeksi.
         int l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
-            if(nums[mid] >= k) r = mid; 
+            if(nums[mid] >= k) r = mid;
             else l = mid;
         }
 
-        // Eğer r sınırı aşıyorsa veya nums[r] != k ise, k'nin olmadığını gösterir.
+        // Eğer r sınırları aşıyor veya nums[r] != k ise, k yok demektir.
         if (r == n || nums[r] != k) {
             cout << -1 << " " << -1 << endl;
             continue;
         }
 
-        int leftPos = r; // k'nin sol sınırını kaydet
+        int leftPos = r;
 
-        // 2. k'nin bitiş konumunu (sağ sınırı) bulma
-        //    Diziyi iki kısma ayırın, solda <= k olanlar, sağda > k olanlar.
-        //    Sağ sınır, sol kısmın maksimum indeksidir.
+        // 2. k'nin bitiş pozisyonunu bul
+        //    Diziyi ikiye ayır, sol taraf <= k, sağ taraf > k.
+        //    Cevap sol tarafın en büyük indeksi.
         l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -127,28 +131,29 @@ int main() {
             else r = mid;
         }
 
-        // k'nin varlığını zaten kontrol ettiğimiz için burada tekrar kontrol etmeye gerek yok.
-        int rightPos = l; // Sağ sınır
+        int rightPos = l;
         cout << leftPos << " " << rightPos << endl;
     }
     return 0;
 }
 ```
 
-### Neden böyle yazmak hataya daha az yatkındır?
+### Neden Bu Şekilde Yazdık?
 
-1. Bu yazımın kesin tanımlanmış değişmezleri vardır.
-2. Hem sol sınırı hem de sağ sınırı bulabilir, bu nedenle tüm senaryolara uygulanabilir.
-3. Bazı yazımlar $l == r$'yi bitiş koşulu olarak kullanır. $l$ ve $r$ arasındaki fark 1 olduğunda, $mid$ değeri $l$ veya $r$'ye eşit hesaplanır. Doğru şekilde işlenmezse, `l` veya `r`'yi `mid` olarak güncellemek arama aralığını daraltmaz ve sonsuz döngüye neden olur. Bunun yerine, buradaki yazım $l$ ve $r$ bitişik olduğunda sonlanır ve bu sorunu önler.
+1. Bu yazım şeklinin kesin olarak tanımlanmış değişmezleri vardır.
+2. Hem "başlangıç pozisyonunu" hem de "bitiş pozisyonunu" bulma durumları için uygundur, ekstra işleme veya değişikliğe gerek yoktur.
+3. Bazı yazım şekilleri `l == r` koşulunu bitiş koşulu olarak kullanır. \\(l\\) ve \\(r\\) arasındaki fark \\(1\\) olduğunda, \\(mid\\) değeri \\(l\\) veya \\(r\\)'ye eşit hesaplanır. Eğer doğru şekilde işlenmezse, \\(l\\) veya \\(r\\)'yi \\(mid\\) olarak güncelleyerek arama aralığı küçülmez ve sonsuz bir döngüye yol açar. Aksine, buradaki yazım şekli \\(l\\) ve \\(r\\) komşu olduğunda sona erer, \\(mid\\) değerinin \\(l\\)'den küçük ve \\(r\\)'den büyük olmasını garantiler, \\(l\\) veya \\(r\\)'yi güncellerken arama aralığının kesinlikle küçülmesini sağlar.
 
-## STL Çözümü: `lower_bound` ve `upper_bound`
+---
 
-Eğer C++ STL tarafından sağlanan `lower_bound` ve `upper_bound` işlevlerini kullanırsanız, aynı şeyi kolayca yapabilirsiniz:
+## STL
 
-- `lower_bound(first, last, val)` "val'e eşit veya ondan büyük ilk konumu" döndürür.
-- `upper_bound(first, last, val)` "val'den büyük ilk konumu" döndürür.
+C++ STL tarafından sağlanan `lower_bound` ve `upper_bound` fonksiyonlarını kullanarak da aynı şeyi yapabiliriz:
 
-Örneğin, `nums = {1,2,3,4,4,4,4,4,5,5,6}` olduğunu ve 4'ün göründüğü aralığı bilmek istediğimizi varsayalım:
+- `lower_bound(first, last, val)`, "ilk değeri val'e eşit veya ondan büyük olan pozisyonu" döndürür.
+- `upper_bound(first, last, val)`, "ilk değeri val'den büyük olan pozisyonu" döndürür.
+
+Örnek olarak, `nums = {1,2,3,4,4,4,4,4,5,5,6}` olduğunu varsayalım ve 4'ün göründüğü aralığı bilmek istiyoruz:
 
 ```cpp
 vector<int> nums = {1,2,3,4,4,4,4,4,5,5,6};
@@ -156,27 +161,29 @@ auto it1 = lower_bound(nums.begin(), nums.end(), 4);
 auto it2 = upper_bound(nums.begin(), nums.end(), 4);
 
 if (it1 == nums.end() || *it1 != 4) {
-    // Dizi içinde 4 yok demektir
-    cout << "4 appears 0 times" << endl;
+    cout << "4, 0 kez görünüyor" << endl;
 } else {
-    cout << "first 4 is at " << it1 - nums.begin() << endl;
-    cout << "last 4 is at " << it2 - nums.begin() - 1 << endl;
-    cout << "4 appears " << it2 - it1 << " times" << endl;
+    cout << "ilk 4'ün yeri " << it1 - nums.begin() << endl;
+    cout << "son 4'ün yeri " << it2 - nums.begin() - 1 << endl;
+    cout << "4, " << it2 - it1 << " kez görünüyor" << endl;
 }
 ```
 
-- `it1`, 4'e eşit veya 4'ten büyük ilk değerin konumunu gösterir.
-- `it2`, 4'ten büyük ilk değerin konumunu gösterir.  
-  Bu nedenle `it2 - it1`, 4'ün dizide kaç kez göründüğüdür; `it2 - nums.begin() - 1`, 4'ün sağ sınırıdır.
+- `it1` değeri, ilk değeri \\(4\\)'e eşit veya ondan büyük olan konumu gösterir.
+- `it2` değeri, ilk değeri \\(4\\)'den büyük olan konumu gösterir.
+  Bu nedenle, `it2 - it1`, dizideki \\(4\\)'ün görünme sayısıdır; `it2 - nums.begin() - 1`, \\(4\\)'ün sağ sınırıdır.
 
-Bu iki fonksiyon, aralıkları ararken veya görünme sayısını sayarken özellikle kullanışlıdır.
+---
 
-## Ek
+## Ek Bilgiler
 
-İkili arama, kayan nokta aralıklarında (denklemlerin köklerini bulmak gibi) ve tek modlu bir fonksiyonun maksimum değerini bulmak için üçlü arama olarak genişletilebilir. **"Sıralı bir aralıkta her seferinde yarısını eleyebiliyorum"** şeklindeki temel ilkeyi anladığınız sürece, ikili aramanın birçok durumda sorunları verimli bir şekilde çözmenize yardımcı olabileceğini göreceksiniz.
+İkili arama, kayan noktalı sayı aralığında (örneğin, denklem kökleri bulma) arama yapmak ve tek tepeli fonksiyonların en büyük değerini bulmak için de genişletilebilir.
+"**Sıralı bir aralıkta, her seferinde yarısını eleyebilirsin**" temel prensibini anladığın sürece, ikili aramanın birçok senaryoda sorunları verimli bir şekilde çözmene yardımcı olacağını göreceksin.
 
-## Ev Ödevi
+---
+
+## Alıştırma
 
 LeetCode 33. Search in Rotated Sorted Array
 
-İpucu: İlk adımda dönme noktasını bulmak için ikili aramayı kullanın, ikinci adımda hedef değeri bulmak için tekrar ikili aramayı kullanın.
+İpucu: İlk adımda, dönüş noktasını bulmak için ikili arama kullanın, ikinci adımda hedef değeri bulmak için ikili arama kullanın.

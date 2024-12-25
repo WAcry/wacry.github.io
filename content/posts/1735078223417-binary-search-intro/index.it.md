@@ -2,39 +2,42 @@
 title: "Ricerca Binaria"
 date: 2024-12-24
 draft: false
-description: "Come implementare elegantemente l'algoritmo di ricerca binaria sugli interi"
-summary: "Come implementare elegantemente l'algoritmo di ricerca binaria sugli interi"
-tags: [ "Algoritmo", "Ricerca Binaria", "Template Algoritmo" ]
+description: "Come implementare in modo elegante l'algoritmo di ricerca binaria per interi."
+summary: "Come implementare in modo elegante l'algoritmo di ricerca binaria per interi."
+tags: [ "Algoritmi", "Ricerca Binaria", "Template Algoritmi" ]
 categories: [ "Algoritmi e Strutture Dati" ]
 ---
+
 {{< katex >}}
 
 # Ricerca Binaria
 
-La ricerca binaria può essere utilizzata per trovare rapidamente un elemento specifico in una sequenza ordinata. Rispetto alla ricerca lineare con una complessità temporale di $O(n)$, la ricerca binaria richiede solo $O(\log n)$ tempo, il che la rende molto efficiente quando si ha a che fare con grandi insiemi di dati.
+Se uno spazio di soluzioni ordinato può essere diviso in due parti, dove una parte soddisfa una condizione e l'altra no, allora è possibile utilizzare la ricerca binaria per trovare il punto critico nello spazio di soluzioni ordinato.
 
-## L'Idea Centrale della Ricerca Binaria
+L'idea fondamentale della ricerca binaria è quella di dividere ripetutamente a metà l'intervallo di ricerca. Ad ogni passo, viene controllato l'elemento centrale. Se l'elemento centrale non soddisfa la condizione, si può escludere metà dell'intervallo; altrimenti, si continua la ricerca nell'altra metà. Poiché ad ogni passo viene scartata metà dello spazio di ricerca, la complessità temporale della ricerca può raggiungere \\(O(\log n)\\).
 
-L'idea di base della ricerca binaria è quella di dimezzare ripetutamente l'intervallo di ricerca. Ogni volta, l'elemento centrale viene confrontato con il valore di destinazione. Se l'elemento centrale non soddisfa la condizione, metà dell'intervallo può essere eliminata; altrimenti, la ricerca continua nell'altra metà dell'intervallo. Poiché metà dell'intervallo di ricerca viene scartata ogni volta, la complessità temporale della ricerca può raggiungere $O(\log n)$.
+## Esempio di Problema
 
-La ricerca binaria è molto utile per i problemi in cui "**le soluzioni possibili possono essere suddivise in un intervallo ordinato (che soddisfa la condizione) e un altro intervallo ordinato (che non soddisfa la condizione)**". Per esempio:
+**Descrizione del problema:**  
+Dato un array di interi di lunghezza \\(n\\) ordinato in ordine crescente e \\(q\\) query. Ogni query fornisce un intero \\(k\\) e dobbiamo trovare la "posizione iniziale" e la "posizione finale" di \\(k\\) nell'array (gli indici iniziano da 0). Se il numero non è presente nell'array, restituire \\(-1\\) \\(-1\\).
 
-- Trovare se un elemento esiste in un array ordinato
-- Trovare la "prima posizione" o "l'ultima posizione" in cui appare un numero
+### Formato di Input
 
-## Esempio: Trovare le Posizioni Iniziale e Finale di un Elemento
+1. Prima riga: due interi \\(n\\) e \\(q\\), che rappresentano rispettivamente la lunghezza dell'array e il numero di query.
+2. Seconda riga: \\(n\\) interi, che rappresentano l'intero array, già ordinato in ordine crescente.
+3. Le successive \\(q\\) righe: ogni riga contiene un intero \\(k\\), che rappresenta un elemento di query.
 
-**Descrizione del Problema:**
-Dato un array di interi ordinato in modo crescente di lunghezza $n$, e $q$ query. Ogni query fornisce un intero $k$, e dobbiamo trovare la "posizione iniziale" e "la posizione finale" di $k$ nell'array (indici che partono da 0). Se il numero non esiste nell'array, restituisci $-1$ $-1$.
+## Intervallo di Dati
 
-**Formato di Input:**
+\\(1 \leq n \leq 100000\\)
 
-1. La prima riga: due interi $n$ e $q$, che rappresentano la lunghezza dell'array e il numero di query, rispettivamente.
-2. La seconda riga: $n$ interi (compresi tra 1 e 10000), che rappresentano l'intero array, già ordinato in ordine crescente.
-3. Le seguenti $q$ righe: ogni riga contiene un intero $k$, che rappresenta un elemento di query.
+\\(1 \leq q \leq 10000\\)
 
-**Formato di Output:**
-Per ogni query, stampa le posizioni iniziale e finale dell'elemento nell'array su una singola riga. Se l'elemento non esiste nell'array, stampa $-1$ $-1$.
+\\(1 \leq k \leq 10000\\)
+
+### Formato di Output
+
+Per ogni query, stampare in una riga la posizione iniziale e finale dell'elemento nell'array. Se l'elemento non è presente nell'array, stampare `-1 -1`.
 
 **Esempio:**
 
@@ -52,38 +55,39 @@ Output:
 -1 -1
 ```
 
-Spiegazione:
+**Spiegazione:**
 
-- L'intervallo in cui appare l'elemento 3 è `[3, 4]`;
-- L'elemento 4 appare solo una volta, alla posizione 5;
-- L'elemento 5 non esiste nell'array, quindi restituisci `-1 -1`.
+- L'intervallo in cui compare l'elemento \\(3\\) è \\([3, 4]\\);
+- L'elemento \\(4\\) compare una sola volta, nella posizione \\(5\\);
+- L'elemento \\(5\\) non è presente nell'array, quindi viene restituito \\(-1\\) \\(-1\\).
 
-## L'Approccio di Applicazione della Ricerca Binaria
+---
 
-In questo problema, possiamo fare affidamento sulla ricerca binaria per trovare il "limite sinistro" e il "limite destro" di un certo valore. La chiave è capire come definire l'intervallo di ricerca e come spostare i puntatori in base al risultato del confronto.
+## Soluzione
 
-- **Trovare il "limite sinistro":**
-  Cioè, trovare la prima posizione che è maggiore o uguale a $k$. L'array può essere diviso in due parti:
-    - Tutti i numeri a sinistra sono "minori di" $k$
-    - Tutti i numeri a destra sono "maggiori o uguali a" $k$
+- **Trova la "posizione iniziale":**
+  Ovvero, trova la prima posizione con un valore maggiore o uguale a \\(k\\). Possiamo dividere l'array in due parti:
+    - Tutti i numeri a sinistra sono "minori" di \\(k\\)
+    - Tutti i numeri a destra sono "maggiori o uguali" a \\(k\\)
+    - La risposta è la prima posizione a destra
 
-- **Trovare il "limite destro":**
-  Cioè, trovare l'ultima posizione che è minore o uguale a $k$. L'array può essere diviso in due parti:
-    - Tutti i numeri a sinistra sono "minori o uguali a" $k$
-    - Tutti i numeri a destra sono "maggiori di" $k$
+- **Trova la "posizione finale":**
+  Ovvero, trova l'ultima posizione con un valore minore o uguale a \\(k\\). Possiamo dividere l'array in due parti:
+    - Tutti i numeri a sinistra sono "minori o uguali" a \\(k\\)
+    - Tutti i numeri a destra sono "maggiori" di \\(k\\)
+    - La risposta è l'ultima posizione a sinistra
 
-Finché questi due intervalli possono essere mantenuti correttamente, il risultato può essere ottenuto rapidamente attraverso la ricerca binaria.
+---
 
-## Template Raccomandato: Codice di Ricerca Binaria per Evitare Cicli Infiniti
+## Template Raccomandato
 
-Ecco un template di ricerca binaria elegante e resistente agli errori. Assicura che il ciclo termini quando $l$ e $r$ sono adiacenti avvicinando gradualmente $l$ e $r$:
+Di seguito è riportato un template di ricerca binaria elegante e poco incline agli errori. Avvicinando gradualmente \\(l\\) e \\(r\\), si garantisce che il ciclo termini quando sono adiacenti:
 
-Definisci due puntatori $l, r$, con gli invarianti: l'intervallo chiuso $[0, l]$ appartiene tutto alla parte sinistra, l'intervallo chiuso $[r, n - 1]$ appartiene tutto alla parte destra. $l$ e $r$ sono inizializzati rispettivamente a $-1$ e $n$.
+Definiamo due puntatori \\(l, r\\), con le seguenti invarianti: l'intervallo chiuso \\([0, l]\\) appartiene alla parte sinistra, l'intervallo chiuso \\([r, n - 1]\\) appartiene alla parte destra. \\(l\\) e \\(r\\) sono inizializzati rispettivamente a \\(-1\\) e \\(n\\).
 
-Quando l'algoritmo termina, $l$ e $r$ sono adiacenti, puntando rispettivamente al valore massimo nella parte sinistra e al valore minimo nella parte destra.
+Quando l'algoritmo termina, \\(l\\) e \\(r\\) sono adiacenti, e puntano rispettivamente all'ultimo elemento della parte sinistra e al primo elemento della parte destra.
 
-Poiché la soluzione desiderata potrebbe non esistere, quando si restituisce $l$ o $r$, è necessario verificare se il valore corrispondente è il valore che vogliamo e se è fuori dai limiti.
-Ad esempio, $l$ rappresenta il valore massimo $\leq k$, e dobbiamo controllare `l != -1 && nums[l] == k`
+Poiché la soluzione desiderata potrebbe non esistere, se il problema non indica che la soluzione esiste sicuramente, dobbiamo verificare se `l` o `r` sono fuori dai limiti, e se puntano al valore corretto.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -99,9 +103,9 @@ int main() {
         int k;
         cin >> k;
 
-        // 1. Trova la posizione iniziale di k (limite sinistro)
-        //    Dividi l'array in due parti, la parte sinistra tutta < k, e la parte destra tutta >= k.
-        //    Il limite sinistro è l'indice più piccolo della parte destra.
+        // 1. Trova la posizione iniziale di k
+        //    Dividi l'array in due parti, a sinistra tutti < k, a destra tutti >= k.
+        //    La risposta è il minimo indice della parte destra.
         int l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -115,11 +119,11 @@ int main() {
             continue;
         }
 
-        int leftPos = r; // Registra il limite sinistro di k
+        int leftPos = r;
 
-        // 2. Trova la posizione finale di k (limite destro)
-        //    Dividi l'array in due parti, la parte sinistra tutta <= k, e la parte destra tutta > k.
-        //    Il limite destro è l'indice più grande della parte sinistra.
+        // 2. Trova la posizione finale di k
+        //    Dividi l'array in due parti, a sinistra tutti <= k, a destra tutti > k.
+        //    La risposta è il massimo indice della parte sinistra.
         l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -127,29 +131,29 @@ int main() {
             else r = mid;
         }
 
-        // Dato che abbiamo già verificato che k esiste, non è necessario verificare di nuovo qui
-        int rightPos = l; // Limite destro
+        int rightPos = l;
         cout << leftPos << " " << rightPos << endl;
     }
     return 0;
 }
 ```
 
-### Perché questo metodo è meno soggetto a errori?
+### Perché scrivere in questo modo
 
-1. Questo metodo ha invarianti strettamente definiti.
-2. Può trovare sia il limite sinistro che quello destro, rendendolo applicabile a tutti gli scenari.
-3. Alcuni metodi usano $l == r$ come condizione di terminazione. Quando $l$ e $r$ differiscono di 1, il $mid$ calcolato sarà uguale a `l` o `r`. Se non gestito correttamente, l'aggiornamento
-   di `l` o `r` a `mid` non restringerà l'intervallo di ricerca, portando a un ciclo infinito. Al contrario, questo metodo termina quando $l$ e $r$ sono adiacenti, evitando questo problema.
+1. Questa scrittura ha invarianti rigorosamente definite.
+2. Si adatta sia al caso di trovare la "posizione iniziale" sia a quello di trovare la "posizione finale", senza la necessità di ulteriori elaborazioni o modifiche.
+3. Alcune scritture utilizzano `l == r` come condizione di terminazione. Quando \\(l\\) e \\(r\\) differiscono di \\(1\\), calcolando \\(mid\\) si otterrà un valore uguale a \\(l\\) o \\(r\\). Se non viene gestito correttamente, l'aggiornamento di \\(l\\) o \\(r\\) a \\(mid\\), non riduce l'intervallo di ricerca, causando un ciclo infinito. Invece, la scrittura qui riportata termina quando \\(l\\) e \\(r\\) sono adiacenti, garantendo che \\(mid\\) sia minore di \\(l\\) e maggiore di \\(r\\), riducendo sempre l'intervallo di ricerca quando si aggiorna \\(l\\) o \\(r\\).
 
-## Soluzione STL: `lower_bound` e `upper_bound`
+---
 
-Se usi le funzioni `lower_bound` e `upper_bound` fornite dalla STL di C++, puoi facilmente ottenere lo stesso risultato:
+## STL
 
-- `lower_bound(first, last, val)` restituisce "la prima posizione maggiore o uguale a val"
-- `upper_bound(first, last, val)` restituisce "la prima posizione maggiore di val"
+Se si utilizzano le funzioni `lower_bound` e `upper_bound` fornite dalla STL del C++, è possibile ottenere lo stesso risultato:
 
-Ad esempio, supponiamo che `nums = {1,2,3,4,4,4,4,4,5,5,6}`, e vogliamo conoscere l'intervallo in cui appare 4:
+- `lower_bound(first, last, val)` restituisce "la prima posizione con un valore maggiore o uguale a val"
+- `upper_bound(first, last, val)` restituisce "la prima posizione con un valore maggiore di val"
+
+Per fare un esempio, supponiamo che `nums = {1,2,3,4,4,4,4,4,5,5,6}`, e vogliamo sapere l'intervallo in cui compare 4:
 
 ```cpp
 vector<int> nums = {1,2,3,4,4,4,4,4,5,5,6};
@@ -157,27 +161,29 @@ auto it1 = lower_bound(nums.begin(), nums.end(), 4);
 auto it2 = upper_bound(nums.begin(), nums.end(), 4);
 
 if (it1 == nums.end() || *it1 != 4) {
-    // Indica che 4 non esiste nell'array
-    cout << "4 appare 0 volte" << endl;
+    cout << "4 compare 0 volte" << endl;
 } else {
-    cout << "il primo 4 è in posizione " << it1 - nums.begin() << endl;
-    cout << "l'ultimo 4 è in posizione " << it2 - nums.begin() - 1 << endl;
-    cout << "4 appare " << it2 - it1 << " volte" << endl;
+    cout << "il primo 4 è in " << it1 - nums.begin() << endl;
+    cout << "l'ultimo 4 è in " << it2 - nums.begin() - 1 << endl;
+    cout << "4 compare " << it2 - it1 << " volte" << endl;
 }
 ```
 
-- `it1` punta alla prima posizione in cui il valore è maggiore o uguale a 4.
-- `it2` punta alla prima posizione in cui il valore è maggiore di 4.
-  Pertanto, `it2 - it1` è il numero di volte in cui 4 appare nell'array; `it2 - nums.begin() - 1` è il limite destro di 4.
+- `it1` punta alla prima posizione con un valore maggiore o uguale a \\(4\\).
+- `it2` punta alla prima posizione con un valore maggiore di \\(4\\).  
+  Quindi `it2 - it1` è il numero di volte in cui \\(4\\) compare nell'array; `it2 - nums.begin() - 1` è il limite destro di \\(4\\).
 
-Queste due funzioni sono particolarmente utili quando si cercano intervalli o si contano le occorrenze.
+---
 
-## Supplemento
+## Aggiunte
 
-La ricerca binaria può anche essere estesa per la ricerca all'interno di numeri in virgola mobile (ad es. trovare le radici di un'equazione), così come la ricerca ternaria per trovare i valori estremi di funzioni unimodali. Finché capisci il principio fondamentale di "**eliminare metà in un intervallo ordinato ogni volta**", scoprirai che la ricerca binaria può aiutarti a risolvere i problemi in modo efficiente in molti scenari.
+La ricerca binaria può essere estesa anche alla ricerca in intervalli di numeri in virgola mobile (come la ricerca delle radici di un'equazione) e alla ricerca ternaria per trovare il valore massimo o minimo di una funzione unimodale.
+Finché si comprende il principio fondamentale di "**eliminare ogni volta la metà di un intervallo ordinato**", si scoprirà che la ricerca binaria può aiutare a risolvere efficacemente i problemi in molti scenari.
+
+---
 
 ## Esercizio
 
 LeetCode 33. Search in Rotated Sorted Array
 
-Suggerimento: usa la ricerca binaria per trovare prima il punto di rotazione, e poi usa la ricerca binaria per trovare il valore di destinazione.
+Suggerimento: nel primo passo, utilizzare la ricerca binaria per trovare il punto di rotazione, nel secondo passo, utilizzare di nuovo la ricerca binaria per trovare il valore di destinazione.

@@ -15,7 +15,10 @@ linkify = true
 unsafe = true
 
 [highlight]
-noClasses = false
+noClasses = true
+lineNos = true
+lineNumbersInTable = false
+style = "dracula"
 
 [tableOfContents]
 startLevel = 2
