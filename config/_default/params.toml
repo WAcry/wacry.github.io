@@ -14,6 +14,7 @@ enableSearch = true
 enableCodeCopy = true
 
 replyByEmail = false
+math = true
 
 # mainSections = ["section1", "section2"]
 # robots = ""

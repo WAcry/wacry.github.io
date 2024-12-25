@@ -14,6 +14,13 @@ linkify = true
 [goldmark.renderer]
 unsafe = true
 
+[goldmark.extensions.passthrough]
+enable = true
+
+[goldmark.extensions.passthrough.delimiters]
+block = [['\[', '\]'], ['$$', '$$']]
+inline = [['\(', '\)'], ['$', '$']]
+
 [highlight]
 noClasses = true
 lineNos = true
