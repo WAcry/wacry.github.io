@@ -7,6 +7,7 @@ summary: "最基礎的經典背包問題。"
 tags: [ "算法", "動態規劃", "背包問題" ]
 categories: [ "算法與數據結構" ]
 series: [ "背包九講" ]
+series_order: 1
 ---
 
 ## 題目

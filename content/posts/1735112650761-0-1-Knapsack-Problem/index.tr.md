@@ -7,6 +7,7 @@ summary: "En temel klasik sırt çantası problemi."
 tags: [ "algoritma", "dinamik programlama", "sırt çantası problemi" ]
 categories: [ "Algoritmalar ve Veri Yapıları" ]
 series: [ "Sırt Çantası Dokuz Ders" ]
+series_order: 1
 ---
 
 ## Problem

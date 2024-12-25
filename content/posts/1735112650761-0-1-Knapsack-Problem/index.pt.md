@@ -7,6 +7,7 @@ summary: "O problema clássico mais básico de mochila."
 tags: [ "Algoritmo", "Programação Dinâmica", "Problema da Mochila" ]
 categories: [ "Algoritmos e Estruturas de Dados" ]
 series: [ "Nove Palestras sobre Mochila" ]
+series_order: 1
 ---
 
 ## Problema

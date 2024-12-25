@@ -7,6 +7,7 @@ summary: "Bài toán cái túi cổ điển cơ bản nhất."
 tags: [ "Thuật toán", "Quy hoạch động", "Bài toán cái túi" ]
 categories: [ "Thuật toán và cấu trúc dữ liệu" ]
 series: [ "Chín bài giảng về cái túi" ]
+series_order: 1
 ---
 
 ## Đề bài

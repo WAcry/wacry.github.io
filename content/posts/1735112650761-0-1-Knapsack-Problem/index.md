@@ -7,6 +7,7 @@ summary: "The most basic classic knapsack problem."
 tags: [ "Algorithm", "Dynamic Programming", "Knapsack Problem" ]
 categories: [ "Algorithms and Data Structures" ]
 series: [ "Nine Chapters on Knapsack Problems" ]
+series_order: 1
 ---
 
 ## Problem

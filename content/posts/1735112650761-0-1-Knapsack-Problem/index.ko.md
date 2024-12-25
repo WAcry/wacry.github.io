@@ -7,6 +7,7 @@ summary: "가장 기초적인 클래식 배낭 문제."
 tags: [ "알고리즘", "동적 계획법", "배낭 문제" ]
 categories: [ "알고리즘 및 자료 구조" ]
 series: [ "배낭 9강" ]
+series_order: 1
 ---
 
 ## 문제

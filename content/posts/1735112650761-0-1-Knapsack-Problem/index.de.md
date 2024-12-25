@@ -7,6 +7,7 @@ summary: "Das grundlegendste klassische Rucksackproblem."
 tags: [ "Algorithmus", "Dynamische Programmierung", "Rucksackproblem" ]
 categories: [ "Algorithmen und Datenstrukturen" ]
 series: [ "Neun Vorlesungen zum Rucksackproblem" ]
+series_order: 1
 ---
 
 ## Aufgabe

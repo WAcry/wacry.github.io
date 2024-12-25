@@ -7,6 +7,7 @@ summary: "Le problème de sac à dos classique le plus fondamental."
 tags: [ "Algorithme", "Programmation dynamique", "Problème du sac à dos" ]
 categories: [ "Algorithmes et Structures de Données" ]
 series: [ "Neuf conférences sur les sacs à dos" ]
+series_order: 1
 ---
 
 ## Énoncé du problème

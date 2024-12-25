@@ -7,6 +7,7 @@ summary: "Il problema dello zaino classico più elementare."
 tags: [ "algoritmi", "programmazione dinamica", "problema dello zaino" ]
 categories: [ "algoritmi e strutture dati" ]
 series: [ "Lezioni sul problema dello zaino" ]
+series_order: 1
 ---
 
 ## Problema
