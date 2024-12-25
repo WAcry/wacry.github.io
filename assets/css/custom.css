@@ -27,3 +27,9 @@ html {
     font-optical-sizing: auto;
     font-style: normal;
 }
+
+pre, code {
+    white-space: pre-wrap; /* 自动换行 */
+    word-wrap: break-word; /* 支持长单词换行 */
+    overflow-wrap: break-word; /* 对现代浏览器的支持 */
+}
