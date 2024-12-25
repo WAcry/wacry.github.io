@@ -1,8 +1,60 @@
-<script src="https://utteranc.es/client.js"
-        repo="WAcry/wacry.github.io"
-        issue-term="pathname"
-        label="Utterances"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
+<!DOCTYPE html>
+<html lang="zh" class="dark"> <!-- 默认暗黑模式 -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Utterances with Tailwind Dark Mode</title>
+</head>
+<body>
+  <!-- Utterances 容器 -->
+  <div id="utterances-container"></div>
+
+  <script>
+    // 初始化主题
+    (function() {
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+
+    // 函数：加载 Utterances
+    function loadUtterances(theme) {
+      const utterancesScript = document.createElement('script');
+      utterancesScript.src = 'https://utteranc.es/client.js';
+      utterancesScript.async = true;
+      utterancesScript.crossOrigin = 'anonymous';
+      utterancesScript.setAttribute('repo', 'WAcry/wacry.github.io'); // 替换为你的 GitHub 仓库
+      utterancesScript.setAttribute('issue-term', 'pathname');
+      utterancesScript.setAttribute('label', 'Utterances');
+      utterancesScript.setAttribute('theme', theme);
+      document.getElementById('utterances-container').appendChild(utterancesScript);
+    }
+
+    // 函数：渲染 Utterances
+    function renderUtterances() {
+      const currentTheme = document.documentElement.classList.contains('dark') ? 'github-dark' : 'github-light';
+      const container = document.getElementById('utterances-container');
+      container.innerHTML = ''; // 清空现有 Utterances
+      loadUtterances(currentTheme);
+    }
+
+    // 初始加载 Utterances
+    document.addEventListener('DOMContentLoaded', () => {
+      renderUtterances();
+    });
+
+    // 监听 HTML 类的变化（防止其他方式更改主题）
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.attributeName === 'class') {
+          renderUtterances();
+        }
+      }
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+  </script>
+</body>
+</html>
