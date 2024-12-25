@@ -1,19 +1,19 @@
 [[main]]
 name = "Tất cả bài viết"
-pageRef = "bài viết"
+pageRef = "posts"
 weight = 10
 
 [[main]]
 name = "Danh mục"
-pageRef = "danh mục"
+pageRef = "categories"
 weight = 20
 
 [[main]]
 name = "Thẻ"
-pageRef = "thẻ"
+pageRef = "tags"
 weight = 30
 
 [[main]]
 name = "Loạt bài"
-pageRef = "loạt bài"
+pageRef = "series"
 weight = 40

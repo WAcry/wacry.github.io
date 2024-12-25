@@ -1,11 +1,11 @@
 [[main]]
 name = "Alle Beiträge"
-pageRef = "beiträge"
+pageRef = "posts"
 weight = 10
 
 [[main]]
 name = "Kategorien"
-pageRef = "kategorien"
+pageRef = "categories"
 weight = 20
 
 [[main]]
@@ -15,5 +15,5 @@ weight = 30
 
 [[main]]
 name = "Serien"
-pageRef = "serien"
+pageRef = "series"
 weight = 40

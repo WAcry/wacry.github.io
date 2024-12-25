@@ -1,16 +1,16 @@
 [[main]]
 name = "Todas las Publicaciones"
-pageRef = "publicaciones"
+pageRef = "posts"
 weight = 10
 
 [[main]]
 name = "Categorías"
-pageRef = "categorías"
+pageRef = "categories"
 weight = 20
 
 [[main]]
 name = "Etiquetas"
-pageRef = "etiquetas"
+pageRef = "tags"
 weight = 30
 
 [[main]]

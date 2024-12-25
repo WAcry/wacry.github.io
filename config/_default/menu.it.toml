@@ -1,19 +1,19 @@
 [[main]]
 name = "Tutti i Post"
-pageRef = "post"
+pageRef = "posts"
 weight = 10
 
 [[main]]
 name = "Categorie"
-pageRef = "categorie"
+pageRef = "categories"
 weight = 20
 
 [[main]]
 name = "Tag"
-pageRef = "tag"
+pageRef = "tags"
 weight = 30
 
 [[main]]
 name = "Serie"
-pageRef = "serie"
+pageRef = "series"
 weight = 40

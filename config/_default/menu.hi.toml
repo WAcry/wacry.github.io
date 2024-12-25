@@ -1,19 +1,19 @@
 [[main]]
 name = "सभी पोस्ट"
-pageRef = "पोस्ट"
+pageRef = "posts"
 weight = 10
 
 [[main]]
 name = "श्रेणियाँ"
-pageRef = "श्रेणियाँ"
+pageRef = "categories"
 weight = 20
 
 [[main]]
 name = "टैग्स"
-pageRef = "टैग्स"
+pageRef = "tags"
 weight = 30
 
 [[main]]
 name = "श्रृंखला"
-pageRef = "श्रृंखला"
+pageRef = "series"
 weight = 40

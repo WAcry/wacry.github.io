@@ -1,19 +1,19 @@
 [[main]]
 name = "Все записи"
-pageRef = "записи"
+pageRef = "posts"
 weight = 10
 
 [[main]]
 name = "Категории"
-pageRef = "категории"
+pageRef = "categories"
 weight = 20
 
 [[main]]
 name = "Теги"
-pageRef = "теги"
+pageRef = "tags"
 weight = 30
 
 [[main]]
 name = "Серии"
-pageRef = "серии"
+pageRef = "series"
 weight = 40

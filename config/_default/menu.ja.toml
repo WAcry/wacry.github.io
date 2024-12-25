@@ -1,19 +1,19 @@
 [[main]]
 name = "すべての記事"
-pageRef = "記事"
+pageRef = "posts"
 weight = 10
 
 [[main]]
 name = "カテゴリー"
-pageRef = "カテゴリー"
+pageRef = "categories"
 weight = 20
 
 [[main]]
 name = "タグ"
-pageRef = "タグ"
+pageRef = "tags"
 weight = 30
 
 [[main]]
 name = "シリーズ"
-pageRef = "シリーズ"
+pageRef = "series"
 weight = 40
