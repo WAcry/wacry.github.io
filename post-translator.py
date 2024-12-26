@@ -131,6 +131,8 @@ def main():
 
 
 if __name__ == "__main__":
-    api_key = input("Enter your Gemini API key: ")
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        api_key = input("Enter your Gemini API key: ")
     genai.configure(api_key=api_key)
     main()
