@@ -6,7 +6,7 @@ import google.generativeai as genai
 
 # 创建生成模型
 generation_config = {
-    "temperature": 0,
+    "temperature": 0.1,
     "top_p": 0.95,
     "top_k": 40,
     "max_output_tokens": 8192,
@@ -60,9 +60,8 @@ LANGUAGE_FULL_NAMES = {
 def translate_with_gemini(input_text, target_language):
     time.sleep(2)
     prompt = f"""
-Translate the following file content to natural {target_language}. 
-Retain Front Matter, formatting, code blocks, and styles. Remove links to domains that contain acwing.com and luogu.com. 
-Do not wrap the whole file content by extra ```markdown ... ``` tags. Start with --- to keep the Front Matter. Here's the file content:  
+Translate the following file content to natural {target_language}. Retain Front Matter, formatting, code blocks, and styles. Remove links to domains that contain acwing.com and luogu.com. 
+Do not wrap the whole file content by extra ```markdown ... ``` tags. Start with --- to keep the Front Matter. Translate the following file content to correct {target_language}. Here's the file content:  
 {input_text}"""
     retries = 0
     max_retries = 5
