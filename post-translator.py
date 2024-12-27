@@ -60,7 +60,9 @@ LANGUAGE_FULL_NAMES = {
 def translate_with_gemini(input_text, target_language):
     time.sleep(2)
     prompt = f"""
-Translate the following file content to natural {target_language}. Retain formatting, code blocks, and styles. Remove links to domains that contain acwing.com and luogu.com. Here's the file content:  
+Translate the following file content to natural {target_language}. 
+Retain Front Matter, formatting, code blocks, and styles. Remove links to domains that contain acwing.com and luogu.com. 
+Do not wrap the whole file content by extra ```markdown ... ``` tags. Start with --- to keep the Front Matter. Here's the file content:  
 {input_text}"""
     retries = 0
     max_retries = 5
@@ -70,8 +72,13 @@ Translate the following file content to natural {target_language}. Retain format
             chat_session = model.start_chat(history=[])
             chat_response = chat_session.send_message(prompt)
             response = chat_response.text.strip()
-            if response.startswith("```") and response.endswith("```"):
+            if response.startswith("```") and response.endswith("```") and not input_text.startswith("```"):
                 response = response[3:-3]
+                if response.startswith("markdown"):
+                    response = response[8:]
+            # if not start with ---, print a warning
+            if not response.strip().startswith("---"):
+                print("Warning: The translated content does not start with '---'.")
             return response.strip()
         except Exception as e:
             retries += 1
