@@ -1,39 +1,36 @@
-# 01 Knapsack Problem
+---
+title: "01背包问题"
+date: 2024-12-24
+draft: false
+description: "最基础的经典背包问题。"
+summary: "最基础的经典背包问题。"
+tags: [ "算法", "动态规划", "背包问题" ]
+categories: [ "算法与数据结构" ]
+series: [ "背包九讲" ]
+series_order: 1
+---
 
-**Date:** 2024-12-24
+## 题目
 
-**Description:** The most basic classic knapsack problem.
+有 $N$ 件物品. 第 $i$ 件物品的体积是 $s_i$, 价值是 $v_i$.
+每件物品只能取一次. 在不超过最大总体积限制 $S$ 的前提下，求能够取得的最大总价值 $V$.
 
-**Summary:** The most basic classic knapsack problem.
+## 输入格式
 
-**Tags:** [ "Algorithm", "Dynamic Programming", "Knapsack Problem" ]
+第一行两个整数, $N, S$, 用空格隔开, 分别表示物品数量和最大总体积限制.
+接下来有 $N$ 行, 每行两个整数 $s_i, v_i$, 用空格隔开, 分别表示第 $i$ 件物品的体积和价值.
 
-**Categories:** [ "Algorithms and Data Structures" ]
+## 输出格式
 
-**Series:** [ "Nine Lectures on Knapsack Problems" ]
+输出一个整数, 表示最大价值.
 
-**Series Order:** 1
-
-## Problem
-
-There are $N$ items. The volume of the $i$-th item is $s_i$, and its value is $v_i$. Each item can only be taken once. Under the premise of not exceeding the maximum total volume limit $S$, find the maximum total value $V$ that can be obtained.
-
-## Input Format
-
-The first line contains two integers, $N$ and $S$, separated by a space, representing the number of items and the maximum total volume limit, respectively.
-The next $N$ lines each contain two integers, $s_i$ and $v_i$, separated by a space, representing the volume and value of the $i$-th item, respectively.
-
-## Output Format
-
-Output an integer representing the maximum value.
-
-## Data Range
+## 数据范围
 
 $$0 \le N, S \leq 1000$$
 
 $$0 \le s_i, v_i \leq 1000$$
 
-## Input Example
+## 输入样例
 
 ```
 4 5
@@ -43,23 +40,23 @@ $$0 \le s_i, v_i \leq 1000$$
 4 5
 ```
 
-## Output Example
+## 输出样例
 
 ```
 8
 ```
 
-## Solution
+## 题解
 
-- Define state: `f[i][j]` represents the maximum value that can be obtained from the first $i$ items with a volume limit of $j$.
-    - If the $i$-th item is not taken, then `f[i][j] = f[i - 1][j]`
-    - If the $i$-th item is taken, then `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-    - When implementing the state transition, pay attention to the domain range. If $j < s_i$, then do not consider the case of taking the $i$-th item. Because if $j - s_i$ is negative, the array index is illegal.
-      It can also be explained as: the volume of the $i$-th item is greater than the volume limit, so it is impossible.
-- Define initial conditions: For the first 0 items, any volume limit obtains a value of 0, i.e., `f[0][j] = 0`, `j` $\in [0, S]$.
-- Time complexity: $O(NS)$.
+- 定义状态: `f[i][j]` 表示前 $i$ 件物品，体积限制为 $j$ 可以获得的最大价值。
+    - 若不取第 $i$ 件物品, 那么 `f[i][j] = f[i - 1][j]`
+    - 若取第 $i$ 件物品, 那么 `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+    - 实现状态转移时, 要注意定义域范围. 若 $j < s_i$, 那么不考虑取第 $i$ 件物品的情况。因为若 $j-s_i$ 为负数, 数组下标不合法。
+      也可以这么解释: 第 $i$ 件物品的体积大于体积限制, 所以不可能。
+- 定义初始条件: 前 $0$ 件物品，任何体积限制都获得价值 $0$, 即 `f[0][j] = 0`, `j` $\in [0, S]$。
+- 时间复杂度: $O(NS)$。
 
-## Code
+## 代码
 
 ```cpp
 #include<bits/stdc++.h>
@@ -81,12 +78,12 @@ int main() {
 }
 ```
 
-## 1D DP Optimization
+## 一维DP优化
 
-- Compressing the two-dimensional array into a one-dimensional array can significantly save space and improve the running speed to a certain extent (the disadvantage is that it cannot meet the special requirements of some problem types).
-- Note that in the state transition, `f[i][j]` is only related to `f[i - 1][j]` and `f[i - 1][j - s[i]]`. In other words, in the two-dimensional array `f` in the code,
-  `f[i][j]` is only related to the elements in the previous row that are to its left or in the same column. Therefore, the two-dimensional array can be compressed into a one-dimensional array or a rolling array.
-- Note that in the code below, the second loop iterates in reverse order. This is because we want to ensure that when calculating `f[i][j]`, `f[i - 1][j - s[i]]` has not been updated yet.
+- 将二维数组压缩成一维数组, 可以显著节省空间并提高一定程度的运行速度（缺点是无法满足某些题型的特殊要求）
+- 注意到状态转移中, `f[i][j]` 只与 `f[i - 1][j]` 和 `f[i - 1][j - s[i]]` 有关. 换言之在代码中的二维数组 `f` 中,
+  `f[i][j]` 只与它的上一行中比它更靠左或同列的元素有关, 因此可以将二维数组压缩成一维数组或者滚动数组。
+- 注意下面的代码中, 第二层循环逆序遍历, 这是因为我们要保证在计算 `f[i][j]` 时, `f[i - 1][j - s[i]]` 还没有被更新.
 
 ```cpp
 #include<bits/stdc++.h>
@@ -107,26 +104,26 @@ int main() {
 }
 ```
 
-## If the Number of Solutions is Required
+## 如果要求方案数
 
-Not only should the maximum total value that can be obtained be output, but also "how many different selection methods can achieve this maximum total value". The following describes **how to count the number of solutions** in the 01 knapsack problem.
+不仅要输出能够取得的最大总价值，还需要输出“有多少种不同的选取方法可以达到这个最大总价值”。下面介绍在 01 背包问题中**如何统计方案数**。
 
-### 2D DP for Counting Solutions
+### 二维 DP 统计方案数
 
-The following uses 2D DP as an example for explanation.
+下面以二维 DP 为例进行讲解。
 
-- Define state:
-  - `dp[i][j]` represents "the maximum value that can be obtained when considering the first i items with a capacity (volume limit) of j".
-  - `ways[i][j]` represents "the **number of solutions** corresponding to the maximum value obtained when considering the first i items with a capacity of j".
+- 定义状态：
+  - `dp[i][j]` 表示「前 i 件物品，容量（体积限制）为 j 时，能取得的最大价值」。
+  - `ways[i][j]` 表示「前 i 件物品，容量为 j，取得最大价值时对应的**方案数**」。
 
-- State transition:
-  1. If the $i$-th item is not selected:
+- 状态转移：
+  1. 如果不选第 `i` 件物品：
      $$
        \text{dp}[i][j] = \text{dp}[i-1][j], 
        \quad
        \text{ways}[i][j] = \text{ways}[i-1][j]
      $$
-  2. If the $i$-th item is selected (provided that $ j \ge s_i $):
+  2. 如果选第 `i` 件物品（前提是 $ j \ge s_i $）：
      $$
        \text{dp}[i][j] 
          = \text{dp}[i-1][j - s_i] + v_i,
@@ -134,24 +131,24 @@ The following uses 2D DP as an example for explanation.
        \text{ways}[i][j]
          = \text{ways}[i-1][j - s_i]
      $$
-  3. Whether to select or not, the final `dp[i][j]` should take the larger of the two:
-     - If
+  3. 选或不选，最终 `dp[i][j]` 应取二者的较大值：
+     - 如果
        $$
          \text{dp}[i-1][j - s_i] + v_i 
            > \text{dp}[i-1][j],
        $$
-       then it means that "selecting the i-th item" has a greater value:
+       那么说明「选第 i 件物品」的价值更大：
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j - s_i] + v_i,
          \quad
          \text{ways}[i][j] = \text{ways}[i-1][j - s_i].
        $$
-     - If
+     - 如果
        $$
          \text{dp}[i-1][j - s_i] + v_i 
            = \text{dp}[i-1][j],
        $$
-       it means that the maximum value obtained by the two methods is the same, then the number of solutions should be added:
+       说明两种方式得到的最大价值相同，则方案数应该叠加：
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j], 
          \quad
@@ -159,48 +156,50 @@ The following uses 2D DP as an example for explanation.
            = \text{ways}[i-1][j] 
              + \text{ways}[i-1][j - s_i].
        $$
-     - If
+     - 如果
        $$
          \text{dp}[i-1][j - s_i] + v_i 
            < \text{dp}[i-1][j],
        $$
-       then it means that "not selecting the i-th item" has a greater value, and the number of solutions inherits the number of solutions when not selecting:
+       那么说明「不选第 i 件物品」的价值更大，方案数继承不选时的方案数：
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j],
          \quad
          \text{ways}[i][j] = \text{ways}[i-1][j].
        $$
 
-- Initial conditions:
-  - `dp[0][j] = 0` means that when there are 0 items, the maximum value obtained for any capacity is 0.
-  - `ways[0][0] = 1` means that "0 items, capacity 0" is a feasible solution (i.e., selecting nothing), and the **number of solutions** is set to 1.
-  - For `j > 0`, when there are no items to choose from and the capacity is greater than 0, it is impossible to obtain any positive value, and the corresponding number of solutions is 0, i.e., `ways[0][j] = 0`.
+- 初始条件：
+  - `dp[0][j] = 0` 表示前 0 件物品时，任何容量得到的最大价值都是 0。  
+  - `ways[0][0] = 1` 表示「前 0 件物品、容量为 0」这一种情况是一种可行方案（即什么都不选），**方案数**设为 1。  
+  - 对于 `j > 0`，没有物品可选时容量又大于 0，就不可能取得任何正价值，对应的方案数为 0，即 `ways[0][j] = 0`。
 
-- Final answer:
-  - `dp[N][S]` is the maximum value.
-  - `ways[N][S]` is the number of solutions to achieve this maximum value.
-  - Time complexity: $O(NS)$.
-  - This problem can also be optimized using 1D DP.
+- 最终答案：  
+  - `dp[N][S]` 即为最大价值。  
+  - `ways[N][S]` 即为达到该最大价值的方案数。
+  - 时间复杂度：$O(NS)$。
+  - 这道题也可以使用一维 DP 进行优化。
 
-## If the Requirement is to Exactly Reach the Volume Limit
+## 如果要求恰好达到体积限制的情况
 
-- Define state: `f[i][j]` represents the maximum value when the first `i` items have exactly a volume of $j$.
-- If the $i$-th item is not taken, then `f[i][j] = f[i - 1][j]`
-- If the $i$-th item is taken, then `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-- It can be noted that there is no difference in the state transition from the original problem.
-- However, the initial conditions are different. Besides `f[0][0] = 0`, the rest `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ represents an impossible state.
+- 定义状态: `f[i][j]` 表示前 `i` 件物品恰好有体积 $j$ 的最大价值.
+- 若不取第 `i` 件物品, 那么 `f[i][j] = f[i - 1][j]`
+- 若取第 `i` 件物品, 那么 `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+- 可以注意到和原问题的状态转移没有区别.
+- 但是初始条件不同. 除了 `f[0][0] = 0`, 其余 `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ 表示不可能的状态.
 
-## If the Volume Limit $S$ is Very Large (1e9), While the Number of Items $N$ and the Maximum Total Value $V$ are Relatively Small
+## 如果体积限制 $S$ 特别大 (1e9), 同时物品数量 $N$ 和最大总价值 $V$ 比较小
 
-- For such problems, there is a solution with a complexity of $O(NV)$.
-- Define state: `f[i][j]` represents the minimum volume when selecting several items from the first `i` items, and the total value is exactly `j`.
-    - If the $i$-th item is not taken, then `f[i][j] = f[i - 1][j]`
-    - If the $i$-th item is taken, then `f[i][j] = f[i - 1][j - v[i]] + s[i]`
-    - Take the smaller of the two.
-- Initial conditions: `f[0][0] = 0`, the rest `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ represents an impossible state. Note that it is not $-\infty$.
-- The final answer is the largest `j` in `f[N][j]` such that `f[N][j] <= S`.
+- 对于这样的题, 有一种复杂度为 $O(NV)$ 的解法.
+- 定义状态: `f[i][j]` 表示前 `i` 件物品挑选若干件, 价值总和恰好为 `j` 的最小体积.
+    - 若不取第 `i` 件物品, 那么 `f[i][j] = f[i - 1][j]`
+    - 若取第 `i` 件物品, 那么 `f[i][j] = f[i - 1][j - v[i]] + s[i]`
+    - 取两者的较小值.
+- 初始条件: `f[0][0] = 0`, 其余 `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ 表示不可能的状态. 注意不是 $-\infty$.
+- 最终答案为 `f[N][j]` 中最大的 `j` 使得 `f[N][j] <= S`.
 
-## If the Volume Limit $S$ and the Value of a Single Item $v_i$ are Both Very Large (on the order of 1e9), While the Number of Items $N$ is Very Small (no more than 40)
+## 如果体积限制 $S$ 和单个物品价值 $v_i$ 都特别大($1e9$ 量级), 同时物品数量 $N$ 特别小（最高不超过 40）
 
-- When $N \leq 20$, all subsets can be directly enumerated (time complexity $O(2^N)$).
-- When $N \leq 40$, since $2^{40}$ is on the order of $10^{12}$, direct brute force will also be relatively large, so **meet-in-the-middle search** can be used to reduce the complexity to approximately $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$, which can be completed in an acceptable time.
+- 当 $N \leq 20$ 时，可以直接暴力枚举所有子集（时间复杂度 $O(2^N)$。
+- 当 $N \leq 40$ 时，由于 $2^{40}$ 在 $10^{12}$ 量级，直接暴力也会比较大，所以可以使用 **折半搜索**
+  ，将复杂度大致降低到 $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$
+  ，可以在可接受的时间内完成。

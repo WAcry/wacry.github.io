@@ -1,4 +1,3 @@
-markdown
 ---
 title: "Ordenamiento Rápido"
 date: 2024-12-26

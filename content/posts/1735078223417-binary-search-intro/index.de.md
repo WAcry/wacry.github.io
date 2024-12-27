@@ -1,4 +1,3 @@
-markdown
 ---
 title: "Binäre Suche"
 date: 2024-12-24

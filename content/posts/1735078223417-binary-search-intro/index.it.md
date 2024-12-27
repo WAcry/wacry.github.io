@@ -1,4 +1,3 @@
-markdown
 ---
 title: "Ricerca Binaria"
 date: 2024-12-24

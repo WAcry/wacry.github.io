@@ -1,4 +1,3 @@
-markdown
 ---
 title: "İkili Arama"
 date: 2024-12-24

@@ -1,4 +1,4 @@
-yaml
+---
 title: "快速排序"
 date: 2024-12-26
 draft: false

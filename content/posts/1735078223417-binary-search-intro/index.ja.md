@@ -1,4 +1,3 @@
-markdown
 ---
 title: "二分探索"
 date: 2024-12-24

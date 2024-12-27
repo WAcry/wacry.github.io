@@ -1,4 +1,3 @@
-markdown
 ---
 title: "Problema de la Mochila 0/1"
 date: 2024-12-24

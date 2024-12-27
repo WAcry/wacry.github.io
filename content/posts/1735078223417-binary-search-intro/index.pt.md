@@ -1,4 +1,3 @@
-markdown
 ---
 title: "Busca Binária"
 date: 2024-12-24

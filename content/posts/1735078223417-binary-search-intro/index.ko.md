@@ -1,4 +1,3 @@
-markdown
 ---
 title: "이분 탐색"
 date: 2024-12-24
