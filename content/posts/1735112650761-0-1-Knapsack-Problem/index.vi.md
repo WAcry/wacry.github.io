@@ -1,28 +1,26 @@
 ---
-title: "Bài toán cái túi 01"
+title: "Bài toán Cái túi 01"
 date: 2024-12-24
 draft: false
 description: "Bài toán cái túi cổ điển cơ bản nhất."
 summary: "Bài toán cái túi cổ điển cơ bản nhất."
 tags: [ "Thuật toán", "Quy hoạch động", "Bài toán cái túi" ]
 categories: [ "Thuật toán và Cấu trúc dữ liệu" ]
-series: [ "Chín bài giảng về cái túi" ]
-series_order: 1
 ---
 
-## Đề bài
+## Bài toán
 
-Có $N$ món đồ. Món đồ thứ $i$ có thể tích là $s_i$, giá trị là $v_i$.
-Mỗi món đồ chỉ được lấy một lần. Trong điều kiện không vượt quá giới hạn tổng thể tích tối đa $S$, hãy tìm tổng giá trị lớn nhất $V$ có thể đạt được.
+Có $N$ đồ vật. Thể tích của đồ vật thứ $i$ là $s_i$, và giá trị của nó là $v_i$.
+Mỗi đồ vật chỉ có thể được lấy một lần. Với điều kiện không vượt quá giới hạn tổng thể tích tối đa $S$, hãy tìm tổng giá trị tối đa $V$ có thể đạt được.
 
 ## Định dạng đầu vào
 
-Dòng đầu tiên chứa hai số nguyên, $N, S$, cách nhau bằng dấu cách, lần lượt biểu thị số lượng món đồ và giới hạn tổng thể tích tối đa.
-Tiếp theo là $N$ dòng, mỗi dòng chứa hai số nguyên $s_i, v_i$, cách nhau bằng dấu cách, lần lượt biểu thị thể tích và giá trị của món đồ thứ $i$.
+Dòng đầu tiên chứa hai số nguyên, $N$ và $S$, được phân tách bằng một khoảng trắng, lần lượt biểu thị số lượng đồ vật và giới hạn tổng thể tích tối đa.
+$N$ dòng tiếp theo, mỗi dòng chứa hai số nguyên, $s_i$ và $v_i$, được phân tách bằng một khoảng trắng, lần lượt biểu thị thể tích và giá trị của đồ vật thứ $i$.
 
 ## Định dạng đầu ra
 
-Xuất ra một số nguyên, biểu thị giá trị lớn nhất.
+Xuất ra một số nguyên biểu thị giá trị tối đa.
 
 ## Phạm vi dữ liệu
 
@@ -48,12 +46,12 @@ $$0 \le s_i, v_i \leq 1000$$
 
 ## Lời giải
 
-- Định nghĩa trạng thái: `f[i][j]` biểu thị giá trị lớn nhất có thể đạt được khi xem xét $i$ món đồ đầu tiên, với giới hạn thể tích là $j$.
-    - Nếu không lấy món đồ thứ $i$, thì `f[i][j] = f[i - 1][j]`
-    - Nếu lấy món đồ thứ $i$, thì `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-    - Khi thực hiện chuyển trạng thái, cần chú ý đến phạm vi định nghĩa. Nếu $j < s_i$, thì không xét trường hợp lấy món đồ thứ $i$. Vì nếu $j-s_i$ là số âm, chỉ số mảng sẽ không hợp lệ.
-      Cũng có thể giải thích như sau: Thể tích của món đồ thứ $i$ lớn hơn giới hạn thể tích, nên không thể lấy được.
-- Định nghĩa điều kiện ban đầu: Với $0$ món đồ đầu tiên, bất kỳ giới hạn thể tích nào cũng có giá trị là $0$, tức là `f[0][j] = 0`, `j` $\in [0, S]$.
+- Định nghĩa trạng thái: `f[i][j]` biểu thị giá trị tối đa có thể đạt được từ $i$ đồ vật đầu tiên với giới hạn thể tích là $j$.
+    - Nếu đồ vật thứ $i$ không được lấy, thì `f[i][j] = f[i - 1][j]`
+    - Nếu đồ vật thứ $i$ được lấy, thì `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+    - Khi thực hiện chuyển trạng thái, hãy chú ý đến phạm vi miền. Nếu $j < s_i$, thì không xem xét trường hợp lấy đồ vật thứ $i$. Vì nếu $j - s_i$ là số âm, thì chỉ số mảng là không hợp lệ.
+      Cũng có thể giải thích theo cách này: thể tích của đồ vật thứ $i$ lớn hơn giới hạn thể tích, vì vậy không thể lấy được.
+- Định nghĩa điều kiện ban đầu: Đối với 0 đồ vật đầu tiên, bất kỳ giới hạn thể tích nào cũng cho giá trị là 0, tức là `f[0][j] = 0`, `j` $\in [0, S]$.
 - Độ phức tạp thời gian: $O(NS)$.
 
 ## Code
@@ -78,12 +76,12 @@ int main() {
 }
 ```
 
-## Tối ưu DP một chiều
+## Tối ưu DP 1D
 
-- Việc nén mảng hai chiều thành mảng một chiều có thể tiết kiệm đáng kể không gian và tăng tốc độ chạy (nhược điểm là không thể đáp ứng các yêu cầu đặc biệt của một số dạng bài)
+- Nén mảng hai chiều thành mảng một chiều có thể tiết kiệm đáng kể không gian và cải thiện tốc độ chạy đến một mức độ nhất định (nhược điểm là không thể đáp ứng các yêu cầu đặc biệt của một số loại bài toán).
 - Lưu ý rằng trong chuyển trạng thái, `f[i][j]` chỉ liên quan đến `f[i - 1][j]` và `f[i - 1][j - s[i]]`. Nói cách khác, trong mảng hai chiều `f` trong code,
-  `f[i][j]` chỉ liên quan đến các phần tử ở hàng trên nó, nằm bên trái hoặc cùng cột, do đó có thể nén mảng hai chiều thành mảng một chiều hoặc mảng cuộn.
-- Lưu ý trong code dưới đây, vòng lặp thứ hai duyệt ngược, điều này là do chúng ta muốn đảm bảo rằng khi tính `f[i][j]`, `f[i - 1][j - s[i]]` chưa bị cập nhật.
+  `f[i][j]` chỉ liên quan đến các phần tử ở hàng trước đó nằm bên trái hoặc cùng cột với nó. Do đó, mảng hai chiều có thể được nén thành mảng một chiều hoặc mảng cuộn.
+- Lưu ý rằng trong code bên dưới, vòng lặp thứ hai lặp theo thứ tự ngược lại. Điều này là do chúng ta muốn đảm bảo rằng khi tính toán `f[i][j]`, `f[i - 1][j - s[i]]` chưa được cập nhật.
 
 ```cpp
 #include<bits/stdc++.h>
@@ -104,26 +102,26 @@ int main() {
 }
 ```
 
-## Nếu yêu cầu số lượng phương án
+## Nếu Yêu cầu Số Lượng Phương Án
 
-Không chỉ xuất ra tổng giá trị lớn nhất có thể đạt được, mà còn cần xuất ra "có bao nhiêu cách chọn khác nhau để đạt được tổng giá trị lớn nhất này". Dưới đây là cách **thống kê số lượng phương án** trong bài toán cái túi 01.
+Không chỉ cần xuất ra tổng giá trị tối đa có thể đạt được, mà còn phải xuất ra "có bao nhiêu phương pháp lựa chọn khác nhau có thể đạt được tổng giá trị tối đa này". Phần sau đây mô tả **cách đếm số lượng phương án** trong bài toán cái túi 01.
 
-### Thống kê số lượng phương án bằng DP hai chiều
+### DP 2D để Đếm Phương Án
 
-Dưới đây là ví dụ minh họa bằng DP hai chiều.
+Phần sau đây sử dụng DP 2D làm ví dụ để giải thích.
 
 - Định nghĩa trạng thái:
-  - `dp[i][j]` biểu thị "giá trị lớn nhất có thể đạt được khi xem xét i món đồ đầu tiên, với dung lượng (giới hạn thể tích) là j".
-  - `ways[i][j]` biểu thị "số lượng **phương án** tương ứng khi xem xét i món đồ đầu tiên, với dung lượng là j, để đạt được giá trị lớn nhất".
+  - `dp[i][j]` biểu thị "giá trị tối đa có thể đạt được khi xem xét i đồ vật đầu tiên với dung lượng (giới hạn thể tích) là j".
+  - `ways[i][j]` biểu thị " **số lượng phương án** tương ứng với giá trị tối đa đạt được khi xem xét i đồ vật đầu tiên với dung lượng là j".
 
 - Chuyển trạng thái:
-  1. Nếu không chọn món đồ thứ `i`:
+  1. Nếu đồ vật thứ `i` không được chọn:
      $$
        \text{dp}[i][j] = \text{dp}[i-1][j], 
        \quad
        \text{ways}[i][j] = \text{ways}[i-1][j]
      $$
-  2. Nếu chọn món đồ thứ `i` (với điều kiện $ j \ge s_i $):
+  2. Nếu đồ vật thứ `i` được chọn (với điều kiện $ j \ge s_i $):
      $$
        \text{dp}[i][j] 
          = \text{dp}[i-1][j - s_i] + v_i,
@@ -131,13 +129,13 @@ Dưới đây là ví dụ minh họa bằng DP hai chiều.
        \text{ways}[i][j]
          = \text{ways}[i-1][j - s_i]
      $$
-  3. Chọn hoặc không chọn, cuối cùng `dp[i][j]` nên lấy giá trị lớn hơn trong hai giá trị:
+  3. Dù chọn hay không, `dp[i][j]` cuối cùng phải lấy giá trị lớn hơn trong hai giá trị:
      - Nếu
        $$
          \text{dp}[i-1][j - s_i] + v_i 
            > \text{dp}[i-1][j],
        $$
-       thì điều này có nghĩa là "chọn món đồ thứ i" có giá trị lớn hơn:
+       thì có nghĩa là "chọn đồ vật thứ i" có giá trị lớn hơn:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j - s_i] + v_i,
          \quad
@@ -148,7 +146,7 @@ Dưới đây là ví dụ minh họa bằng DP hai chiều.
          \text{dp}[i-1][j - s_i] + v_i 
            = \text{dp}[i-1][j],
        $$
-       thì điều này có nghĩa là hai cách có cùng giá trị lớn nhất, số lượng phương án nên được cộng dồn:
+       thì có nghĩa là giá trị tối đa đạt được bằng hai phương pháp là như nhau, thì số lượng phương án nên được cộng vào:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j], 
          \quad
@@ -161,7 +159,7 @@ Dưới đây là ví dụ minh họa bằng DP hai chiều.
          \text{dp}[i-1][j - s_i] + v_i 
            < \text{dp}[i-1][j],
        $$
-       thì điều này có nghĩa là "không chọn món đồ thứ i" có giá trị lớn hơn, số lượng phương án kế thừa số lượng phương án khi không chọn:
+       thì có nghĩa là "không chọn đồ vật thứ i" có giá trị lớn hơn, và số lượng phương án kế thừa số lượng phương án khi không chọn:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j],
          \quad
@@ -169,37 +167,35 @@ Dưới đây là ví dụ minh họa bằng DP hai chiều.
        $$
 
 - Điều kiện ban đầu:
-  - `dp[0][j] = 0` có nghĩa là khi có 0 món đồ, bất kỳ dung lượng nào cũng có giá trị lớn nhất là 0.
-  - `ways[0][0] = 1` có nghĩa là trường hợp "0 món đồ đầu tiên, dung lượng là 0" là một phương án khả thi (tức là không chọn gì cả), **số lượng phương án** được đặt là 1.
-  - Với `j > 0`, khi không có món đồ nào để chọn mà dung lượng lại lớn hơn 0, thì không thể đạt được bất kỳ giá trị dương nào, số lượng phương án tương ứng là 0, tức là `ways[0][j] = 0`.
+  - `dp[0][j] = 0` có nghĩa là khi có 0 đồ vật, giá trị tối đa đạt được cho bất kỳ dung lượng nào là 0.
+  - `ways[0][0] = 1` có nghĩa là trường hợp "0 đồ vật, dung lượng 0" là một phương án khả thi (tức là không chọn gì), và **số lượng phương án** được đặt thành 1.
+  - Đối với `j > 0`, khi không có đồ vật nào để chọn và dung lượng lớn hơn 0, thì không thể đạt được bất kỳ giá trị dương nào, và số lượng phương án tương ứng là 0, tức là `ways[0][j] = 0`.
 
-- Đáp án cuối cùng:
-  - `dp[N][S]` là giá trị lớn nhất.
-  - `ways[N][S]` là số lượng phương án để đạt được giá trị lớn nhất đó.
+- Câu trả lời cuối cùng:
+  - `dp[N][S]` là giá trị tối đa.
+  - `ways[N][S]` là số lượng phương án để đạt được giá trị tối đa này.
   - Độ phức tạp thời gian: $O(NS)$.
-  - Bài toán này cũng có thể được tối ưu bằng DP một chiều.
+  - Bài toán này cũng có thể được tối ưu hóa bằng cách sử dụng DP 1D.
 
-## Nếu yêu cầu đạt đúng giới hạn thể tích
+## Nếu Yêu Cầu Phải Đạt Chính Xác Giới Hạn Thể Tích
 
-- Định nghĩa trạng thái: `f[i][j]` biểu thị giá trị lớn nhất khi chọn các món đồ từ `i` món đồ đầu tiên sao cho tổng thể tích đúng bằng $j$.
-- Nếu không lấy món đồ thứ `i`, thì `f[i][j] = f[i - 1][j]`
-- Nếu lấy món đồ thứ `i`, thì `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-- Có thể thấy rằng không có sự khác biệt trong chuyển trạng thái so với bài toán gốc.
-- Tuy nhiên, điều kiện ban đầu khác nhau. Ngoài `f[0][0] = 0`, các `f[0][j]` còn lại đều bằng $-\infty$, `j` $\in [1, S]$. $-\infty$ biểu thị trạng thái không thể xảy ra.
+- Định nghĩa trạng thái: `f[i][j]` biểu thị giá trị tối đa khi $i$ đồ vật đầu tiên có chính xác thể tích là $j$.
+- Nếu đồ vật thứ `i` không được lấy, thì `f[i][j] = f[i - 1][j]`
+- Nếu đồ vật thứ `i` được lấy, thì `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+- Có thể thấy rằng không có sự khác biệt trong chuyển trạng thái so với bài toán ban đầu.
+- Tuy nhiên, các điều kiện ban đầu là khác nhau. Ngoại trừ `f[0][0] = 0`, phần còn lại `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ biểu thị một trạng thái không thể xảy ra.
 
-## Nếu giới hạn thể tích $S$ đặc biệt lớn (1e9), đồng thời số lượng món đồ $N$ và tổng giá trị lớn nhất $V$ tương đối nhỏ
+## Nếu Giới Hạn Thể Tích $S$ Rất Lớn (1e9), Trong Khi Số Lượng Đồ Vật $N$ và Tổng Giá Trị Tối Đa $V$ Tương Đối Nhỏ
 
-- Đối với dạng bài này, có một cách giải với độ phức tạp $O(NV)$.
-- Định nghĩa trạng thái: `f[i][j]` biểu thị thể tích nhỏ nhất khi chọn một số món đồ từ `i` món đồ đầu tiên sao cho tổng giá trị đúng bằng `j`.
-    - Nếu không lấy món đồ thứ `i`, thì `f[i][j] = f[i - 1][j]`
-    - Nếu lấy món đồ thứ `i`, thì `f[i][j] = f[i - 1][j - v[i]] + s[i]`
+- Đối với các bài toán như vậy, có một giải pháp với độ phức tạp là $O(NV)$.
+- Định nghĩa trạng thái: `f[i][j]` biểu thị thể tích tối thiểu khi chọn một số đồ vật từ `i` đồ vật đầu tiên, và tổng giá trị chính xác là `j`.
+    - Nếu đồ vật thứ `i` không được lấy, thì `f[i][j] = f[i - 1][j]`
+    - Nếu đồ vật thứ `i` được lấy, thì `f[i][j] = f[i - 1][j - v[i]] + s[i]`
     - Lấy giá trị nhỏ hơn trong hai giá trị.
-- Điều kiện ban đầu: `f[0][0] = 0`, các `f[0][j]` còn lại đều bằng $\infty$, `j` $\in [1, V]$. $\infty$ biểu thị trạng thái không thể xảy ra. Lưu ý không phải là $-\infty$.
-- Đáp án cuối cùng là `j` lớn nhất trong các `f[N][j]` sao cho `f[N][j] <= S`.
+- Điều kiện ban đầu: `f[0][0] = 0`, phần còn lại `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ biểu thị một trạng thái không thể xảy ra. Lưu ý rằng nó không phải là $-\infty$.
+- Câu trả lời cuối cùng là `j` lớn nhất trong `f[N][j]` sao cho `f[N][j] <= S`.
 
-## Nếu giới hạn thể tích $S$ và giá trị của từng món đồ $v_i$ đều đặc biệt lớn (cỡ $1e9$), đồng thời số lượng món đồ $N$ đặc biệt nhỏ (tối đa không quá 40)
+## Nếu Giới Hạn Thể Tích $S$ và Giá Trị của Một Đồ Vật $v_i$ Đều Rất Lớn (cỡ 1e9), Trong Khi Số Lượng Đồ Vật $N$ Rất Nhỏ (không quá 40)
 
-- Khi $N \leq 20$, có thể trực tiếp duyệt tất cả các tập con (độ phức tạp thời gian $O(2^N)$).
-- Khi $N \leq 40$, vì $2^{40}$ ở cỡ $10^{12}$, việc duyệt trực tiếp cũng sẽ khá lớn, vì vậy có thể sử dụng **tìm kiếm chia đôi**
-  , giảm độ phức tạp xuống xấp xỉ $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$
-  , có thể hoàn thành trong thời gian chấp nhận được.
+- Khi $N \leq 20$, tất cả các tập con có thể được liệt kê trực tiếp bằng vét cạn (độ phức tạp thời gian $O(2^N)$).
+- Khi $N \leq 40$, vì $2^{40}$ có cỡ $10^{12}$, vét cạn trực tiếp cũng sẽ tương đối lớn, vì vậy **tìm kiếm meet-in-the-middle** có thể được sử dụng để giảm độ phức tạp xuống xấp xỉ $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$, có thể hoàn thành trong một thời gian chấp nhận được.

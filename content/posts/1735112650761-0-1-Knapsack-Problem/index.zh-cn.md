@@ -6,8 +6,6 @@ description: "最基础的经典背包问题。"
 summary: "最基础的经典背包问题。"
 tags: [ "算法", "动态规划", "背包问题" ]
 categories: [ "算法与数据结构" ]
-series: [ "背包九讲" ]
-series_order: 1
 ---
 
 ## 题目

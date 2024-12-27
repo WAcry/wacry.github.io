@@ -6,7 +6,7 @@ import google.generativeai as genai
 
 # 创建生成模型
 generation_config = {
-    "temperature": 0.1,
+    "temperature": 0,
     "top_p": 0.95,
     "top_k": 40,
     "max_output_tokens": 8192,
@@ -59,10 +59,26 @@ LANGUAGE_FULL_NAMES = {
 # 翻译函数
 def translate_with_gemini(input_text, target_language):
     time.sleep(2)
-    prompt = f"""
-Translate the following file content to natural {target_language}. Retain Front Matter, formatting, code blocks, and styles. Remove links to domains that contain acwing.com and luogu.com. 
-Do not wrap the whole file content by extra ```markdown ... ``` tags. Start with --- to keep the Front Matter. Translate the following file content to correct {target_language}. Here's the file content:  
-{input_text}"""
+    prompt = f"""Translate the following file content into accurate and natural {target_language}. Follow these guidelines:
+1. Front Matter:
+   - Preserve all keys as they are.
+   - Translate values into the target language, if they are not keywords (true, null, etc.) or dates.
+   - That means, the response should start with '---' for front matter, the same format as the original file.
+2. Content Formatting: 
+   - Retain all formatting, including code blocks, styles, and markdown elements.
+   - Do not wrap the content with additional markdown tags (e.g., ```markdown).
+3. Links: 
+   - Remove any links pointing to domains: `acwing.com` or `luogu.com` for non-Chinese languages.
+   - This is because only Chinese readers can access these sites.
+4. Accuracy and Naturalness: 
+   - Ensure the translation is both precise and natural in tone.
+   - Make sure you translate the file to the correct language {target_language}.
+5. Consistency:
+   - if the input is already in the target language, please return exactly the same content.
+
+Input File Content:
+{input_text}
+"""
     retries = 0
     max_retries = 5
     while retries < max_retries:
@@ -71,22 +87,22 @@ Do not wrap the whole file content by extra ```markdown ... ``` tags. Start with
             chat_session = model.start_chat(history=[])
             chat_response = chat_session.send_message(prompt)
             response = chat_response.text.strip()
-            if response.startswith("```") and response.endswith("```") and not input_text.startswith("```"):
+            if response.startswith("```") and response.endswith("```") and not input_text.strip().startswith("```"):
                 response = response[3:-3]
                 if response.startswith("markdown"):
                     response = response[8:]
             # if not start with ---, print a warning
             if not response.strip().startswith("---"):
-                print("Warning: The translated content does not start with '---'.")
+                print("\033[91mWarning: The translated content does not start with '---'.\033[0m")
             return response.strip()
         except Exception as e:
             retries += 1
-            print(f"Error during translation to {target_language}: {e}")
+            print(f"\033[91mError during translation to {target_language}: {e}\033[0m")
             if retries < max_retries:
                 print(f"Retrying... ({retries}/{max_retries})")
                 time.sleep(retries * 30)
             else:
-                print("Maximum retries reached. Exiting program.")
+                print("\033[91mMaximum retries reached. Exiting program.\033[0m")
                 raise
 
 
@@ -184,7 +200,7 @@ def check_and_regenerate_if_needed(dirpath, md_files):
         new_file_path = os.path.join(dirpath, new_file_name)
         with open(new_file_path, "w", encoding="utf-8") as translated_file:
             translated_file.write(translated_content)
-        print(f"Generated translation for {lang_code}: {new_file_path}")
+        print(f"Generated translation for {LANGUAGE_FULL_NAMES[lang_code]}: {new_file_path}")
 
     # 返回 True，表示已经进行了重新翻译，不需要再执行后续缺失逻辑
     return True
@@ -240,8 +256,11 @@ def main():
             # 加载内容作为翻译基础
             base_content = load_existing_content(md_files, LANGUAGE_CODES)
             if not base_content:
-                print(f"Warning: No suitable content found in {dirpath}, skipping.")
+                print(f"\033[91mWarning: No suitable content found in {dirpath}, skipping.\033[0m")
                 continue
+
+            if not base_content.strip().startswith("---"):
+                print("\033[91mWarning: The base content does not start with '---'.\033[0m")
 
             # 翻译缺少的语言
             for lang_code in missing_languages:

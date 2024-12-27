@@ -2,27 +2,25 @@
 title: "Problème du sac à dos 0/1"
 date: 2024-12-24
 draft: false
-description: "Le problème de sac à dos classique le plus fondamental."
-summary: "Le problème de sac à dos classique le plus fondamental."
-tags: [ "Algorithme", "Programmation dynamique", "Problème du sac à dos" ]
-categories: [ "Algorithmes et structures de données" ]
-series: [ "Les neuf leçons sur le sac à dos" ]
-series_order: 1
+description: "Le problème du sac à dos classique le plus basique."
+summary: "Le problème du sac à dos classique le plus basique."
+tags: [ "Algorithme", "Programmation Dynamique", "Problème du sac à dos" ]
+categories: [ "Algorithmes et Structures de Données" ]
 ---
 
 ## Problème
 
 Il y a $N$ objets. Le volume du $i$-ème objet est $s_i$, et sa valeur est $v_i$.
-Chaque objet ne peut être pris qu'une seule fois. Sous la contrainte d'un volume total maximal $S$, trouvez la valeur totale maximale $V$ qui peut être obtenue.
+Chaque objet ne peut être pris qu'une seule fois. Sous la condition de ne pas dépasser la limite de volume total maximal $S$, trouvez la valeur totale maximale $V$ qui peut être obtenue.
 
 ## Format d'entrée
 
-La première ligne contient deux entiers, $N$ et $S$, séparés par un espace, représentant respectivement le nombre d'objets et la contrainte de volume total maximal.
-Les $N$ lignes suivantes contiennent chacune deux entiers $s_i$ et $v_i$, séparés par un espace, représentant respectivement le volume et la valeur du $i$-ème objet.
+La première ligne contient deux entiers, $N$ et $S$, séparés par un espace, représentant respectivement le nombre d'objets et la limite de volume total maximal.
+Les $N$ lignes suivantes contiennent chacune deux entiers, $s_i$ et $v_i$, séparés par un espace, représentant respectivement le volume et la valeur du $i$-ème objet.
 
 ## Format de sortie
 
-Sortez un entier, représentant la valeur maximale.
+Affichez un entier représentant la valeur maximale.
 
 ## Plage de données
 
@@ -48,13 +46,13 @@ $$0 \le s_i, v_i \leq 1000$$
 
 ## Solution
 
-- Définition de l'état : `f[i][j]` représente la valeur maximale que l'on peut obtenir en considérant les $i$ premiers objets, avec une contrainte de volume de $j$.
-    - Si on ne prend pas le $i$-ème objet, alors `f[i][j] = f[i - 1][j]`
-    - Si on prend le $i$-ème objet, alors `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-    - Lors de la transition d'état, il faut faire attention au domaine de définition. Si $j < s_i$, alors on ne considère pas le cas où l'on prend le $i$-ème objet. Car si $j-s_i$ est négatif, l'indice du tableau n'est pas valide.
-      On peut aussi l'expliquer ainsi : le volume du $i$-ème objet est supérieur à la contrainte de volume, donc ce n'est pas possible.
-- Définition de la condition initiale : pour les 0 premiers objets, toute contrainte de volume donne une valeur de 0, c'est-à-dire `f[0][j] = 0`, `j` $\in [0, S]$.
-- Complexité temporelle : $O(NS)$.
+- Définir l'état : `f[i][j]` représente la valeur maximale qui peut être obtenue à partir des $i$ premiers objets avec une limite de volume de $j$.
+    - Si le $i$-ème objet n'est pas pris, alors `f[i][j] = f[i - 1][j]`
+    - Si le $i$-ème objet est pris, alors `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+    - Lors de l'implémentation de la transition d'état, faites attention à la plage du domaine. Si $j < s_i$, alors ne considérez pas le cas de la prise du $i$-ème objet. Car si $j - s_i$ est négatif, l'index du tableau est illégal.
+      Cela peut aussi être expliqué de cette façon : le volume du $i$-ème objet est supérieur à la limite de volume, donc c'est impossible.
+- Définir la condition initiale : Pour les $0$ premiers objets, toute limite de volume donne une valeur de $0$, c'est-à-dire `f[0][j] = 0`, `j` $\in [0, S]$.
+- Complexité temporelle : $O(NS)$.
 
 ## Code
 
@@ -80,10 +78,10 @@ int main() {
 
 ## Optimisation DP 1D
 
-- En compressant le tableau bidimensionnel en un tableau unidimensionnel, on peut économiser considérablement de l'espace et améliorer la vitesse d'exécution dans une certaine mesure (l'inconvénient est qu'il ne peut pas répondre aux exigences particulières de certains types de problèmes)
-- On remarque que dans la transition d'état, `f[i][j]` n'est lié qu'à `f[i - 1][j]` et `f[i - 1][j - s[i]]`. En d'autres termes, dans le tableau bidimensionnel `f` du code,
-  `f[i][j]` n'est lié qu'aux éléments de sa ligne précédente qui sont plus à gauche ou dans la même colonne, on peut donc compresser le tableau bidimensionnel en un tableau unidimensionnel ou un tableau roulant.
-- Notez que dans le code ci-dessous, la deuxième boucle parcourt en ordre inverse, car nous devons nous assurer que lors du calcul de `f[i][j]`, `f[i - 1][j - s[i]]` n'a pas encore été mis à jour.
+- La compression du tableau bidimensionnel en un tableau unidimensionnel peut considérablement économiser de l'espace et améliorer la vitesse d'exécution dans une certaine mesure (l'inconvénient est qu'il ne peut pas répondre aux exigences particulières de certains types de problèmes).
+- Notez que dans la transition d'état, `f[i][j]` n'est lié qu'à `f[i - 1][j]` et `f[i - 1][j - s[i]]`. En d'autres termes, dans le tableau bidimensionnel `f` du code,
+  `f[i][j]` n'est lié qu'aux éléments de la ligne précédente qui sont à sa gauche ou dans la même colonne. Par conséquent, le tableau bidimensionnel peut être compressé en un tableau unidimensionnel ou un tableau roulant.
+- Notez que dans le code ci-dessous, la deuxième boucle itère dans l'ordre inverse. C'est parce que nous voulons nous assurer que lors du calcul de `f[i][j]`, `f[i - 1][j - s[i]]` n'a pas encore été mis à jour.
 
 ```cpp
 #include<bits/stdc++.h>
@@ -104,26 +102,26 @@ int main() {
 }
 ```
 
-## Si on demande le nombre de solutions
+## Si le nombre de schémas est requis
 
-Non seulement il faut sortir la valeur totale maximale qui peut être obtenue, mais il faut aussi sortir "combien de méthodes de sélection différentes peuvent atteindre cette valeur maximale". Voici comment **compter le nombre de solutions** dans le problème du sac à dos 0/1.
+Non seulement la valeur totale maximale qui peut être obtenue doit être affichée, mais aussi "combien de méthodes de sélection différentes peuvent atteindre cette valeur totale maximale". Ce qui suit décrit **comment compter le nombre de schémas** dans le problème du sac à dos 0/1.
 
-### Compter le nombre de solutions avec DP 2D
+### DP 2D pour compter les schémas
 
-Voici une explication en utilisant la DP 2D comme exemple.
+Ce qui suit utilise la DP 2D comme exemple pour expliquer.
 
-- Définition de l'état :
-  - `dp[i][j]` représente "la valeur maximale que l'on peut obtenir en considérant les i premiers objets, avec une capacité (contrainte de volume) de j".
-  - `ways[i][j]` représente "le **nombre de solutions** correspondant à la valeur maximale obtenue en considérant les i premiers objets, avec une capacité de j".
+- Définir l'état :
+  - `dp[i][j]` représente "la valeur maximale qui peut être obtenue en considérant les i premiers objets avec une capacité (limite de volume) de j".
+  - `ways[i][j]` représente "le **nombre de schémas** correspondant à la valeur maximale obtenue en considérant les i premiers objets avec une capacité de j".
 
-- Transition d'état :
-  1. Si on ne sélectionne pas le `i`-ème objet :
+- Transition d'état :
+  1. Si le `i`-ème objet n'est pas sélectionné :
      $$
        \text{dp}[i][j] = \text{dp}[i-1][j], 
        \quad
        \text{ways}[i][j] = \text{ways}[i-1][j]
      $$
-  2. Si on sélectionne le `i`-ème objet (à condition que $ j \ge s_i $) :
+  2. Si le `i`-ème objet est sélectionné (à condition que $ j \ge s_i $) :
      $$
        \text{dp}[i][j] 
          = \text{dp}[i-1][j - s_i] + v_i,
@@ -131,13 +129,13 @@ Voici une explication en utilisant la DP 2D comme exemple.
        \text{ways}[i][j]
          = \text{ways}[i-1][j - s_i]
      $$
-  3. Que l'on sélectionne ou non, `dp[i][j]` doit finalement prendre la plus grande des deux valeurs :
+  3. Qu'il faille sélectionner ou non, le `dp[i][j]` final doit prendre le plus grand des deux :
      - Si
        $$
          \text{dp}[i-1][j - s_i] + v_i 
            > \text{dp}[i-1][j],
        $$
-       alors cela signifie que la valeur de "sélectionner le i-ème objet" est plus grande :
+       alors cela signifie que "la sélection du i-ème objet" a une plus grande valeur :
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j - s_i] + v_i,
          \quad
@@ -148,7 +146,7 @@ Voici une explication en utilisant la DP 2D comme exemple.
          \text{dp}[i-1][j - s_i] + v_i 
            = \text{dp}[i-1][j],
        $$
-       cela signifie que les deux méthodes donnent la même valeur maximale, alors le nombre de solutions doit être additionné :
+       cela signifie que la valeur maximale obtenue par les deux méthodes est la même, alors le nombre de schémas doit être ajouté :
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j], 
          \quad
@@ -161,44 +159,43 @@ Voici une explication en utilisant la DP 2D comme exemple.
          \text{dp}[i-1][j - s_i] + v_i 
            < \text{dp}[i-1][j],
        $$
-       alors cela signifie que la valeur de "ne pas sélectionner le i-ème objet" est plus grande, le nombre de solutions hérite du nombre de solutions lorsque l'on ne sélectionne pas :
+       alors cela signifie que "ne pas sélectionner le i-ème objet" a une plus grande valeur, et le nombre de schémas hérite du nombre de schémas lors de la non-sélection :
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j],
          \quad
          \text{ways}[i][j] = \text{ways}[i-1][j].
        $$
 
-- Condition initiale :
-  - `dp[0][j] = 0` signifie que pour les 0 premiers objets, la valeur maximale obtenue pour toute capacité est 0.
-  - `ways[0][0] = 1` signifie que "0 premiers objets, capacité 0" est une solution possible (c'est-à-dire ne rien sélectionner), le **nombre de solutions** est fixé à 1.
-  - Pour `j > 0`, lorsqu'il n'y a pas d'objets à sélectionner et que la capacité est supérieure à 0, il est impossible d'obtenir une valeur positive, le nombre de solutions correspondant est 0, c'est-à-dire `ways[0][j] = 0`.
+- Conditions initiales :
+  - `dp[0][j] = 0` signifie que lorsqu'il y a 0 objet, la valeur maximale obtenue pour toute capacité est 0.
+  - `ways[0][0] = 1` signifie que le cas de "0 objet, capacité 0" est un schéma réalisable (c'est-à-dire ne rien sélectionner), et le **nombre de schémas** est défini sur 1.
+  - Pour `j > 0`, lorsqu'il n'y a pas d'objet à choisir et que la capacité est supérieure à 0, il est impossible d'obtenir une valeur positive, et le nombre de schémas correspondant est 0, c'est-à-dire `ways[0][j] = 0`.
 
-- Réponse finale :
+- Réponse finale :
   - `dp[N][S]` est la valeur maximale.
-  - `ways[N][S]` est le nombre de solutions pour atteindre cette valeur maximale.
-  - Complexité temporelle : $O(NS)$.
+  - `ways[N][S]` est le nombre de schémas pour atteindre cette valeur maximale.
+  - Complexité temporelle : $O(NS)$.
   - Ce problème peut également être optimisé en utilisant la DP 1D.
 
-## Si on demande d'atteindre exactement la contrainte de volume
+## Si l'exigence est d'atteindre exactement la limite de volume
 
-- Définition de l'état : `f[i][j]` représente la valeur maximale des `i` premiers objets avec un volume exactement égal à $j$.
-- Si on ne prend pas le `i`-ème objet, alors `f[i][j] = f[i - 1][j]`
-- Si on prend le `i`-ème objet, alors `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-- On peut remarquer qu'il n'y a pas de différence avec la transition d'état du problème original.
-- Mais les conditions initiales sont différentes. En plus de `f[0][0] = 0`, le reste `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ représente un état impossible.
+- Définir l'état : `f[i][j]` représente la valeur maximale lorsque les `i` premiers objets ont exactement un volume de $j$.
+- Si le `i`-ème objet n'est pas pris, alors `f[i][j] = f[i - 1][j]`
+- Si le `i`-ème objet est pris, alors `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+- On peut noter qu'il n'y a pas de différence dans la transition d'état par rapport au problème d'origine.
+- Cependant, les conditions initiales sont différentes. À l'exception de `f[0][0] = 0`, le reste `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ représente un état impossible.
 
-## Si la contrainte de volume $S$ est très grande (1e9), et que le nombre d'objets $N$ et la valeur totale maximale $V$ sont relativement petits
+## Si la limite de volume $S$ est très grande (1e9), tandis que le nombre d'objets $N$ et la valeur totale maximale $V$ sont relativement petits
 
-- Pour ce type de problème, il existe une solution de complexité $O(NV)$.
-- Définition de l'état : `f[i][j]` représente le volume minimal des `i` premiers objets en sélectionnant plusieurs objets, avec une valeur totale exactement égale à `j`.
-    - Si on ne prend pas le `i`-ème objet, alors `f[i][j] = f[i - 1][j]`
-    - Si on prend le `i`-ème objet, alors `f[i][j] = f[i - 1][j - v[i]] + s[i]`
-    - On prend la plus petite des deux valeurs.
-- Condition initiale : `f[0][0] = 0`, le reste `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ représente un état impossible. Attention, ce n'est pas $-\infty$.
+- Pour de tels problèmes, il existe une solution avec une complexité de $O(NV)$.
+- Définir l'état : `f[i][j]` représente le volume minimal lors de la sélection de plusieurs objets parmi les `i` premiers objets, et la valeur totale est exactement `j`.
+    - Si le `i`-ème objet n'est pas pris, alors `f[i][j] = f[i - 1][j]`
+    - Si le `i`-ème objet est pris, alors `f[i][j] = f[i - 1][j - v[i]] + s[i]`
+    - Prendre le plus petit des deux.
+- Conditions initiales : `f[0][0] = 0`, le reste `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ représente un état impossible. Notez que ce n'est pas $-\infty$.
 - La réponse finale est le plus grand `j` dans `f[N][j]` tel que `f[N][j] <= S`.
 
-## Si la contrainte de volume $S$ et la valeur d'un seul objet $v_i$ sont toutes deux très grandes (de l'ordre de 1e9), et que le nombre d'objets $N$ est très petit (pas plus de 40)
+## Si la limite de volume $S$ et la valeur d'un seul objet $v_i$ sont toutes deux très grandes (de l'ordre de 1e9), tandis que le nombre d'objets $N$ est très petit (pas plus de 40)
 
-- Lorsque $N \leq 20$, on peut directement énumérer tous les sous-ensembles (complexité temporelle $O(2^N)$).
-- Lorsque $N \leq 40$, comme $2^{40}$ est de l'ordre de $10^{12}$, l'énumération directe est également assez grande, on peut donc utiliser la **recherche par moitié**, ce qui réduit approximativement la complexité à $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$
-  , ce qui peut être fait dans un temps acceptable.
+- Lorsque $N \leq 20$, tous les sous-ensembles peuvent être directement énumérés par force brute (complexité temporelle $O(2^N)$).
+- Lorsque $N \leq 40$, puisque $2^{40}$ est de l'ordre de $10^{12}$, la force brute directe sera également relativement importante, donc la **recherche par rencontre au milieu** peut être utilisée pour réduire la complexité à environ $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$, ce qui peut être réalisé dans un temps acceptable.

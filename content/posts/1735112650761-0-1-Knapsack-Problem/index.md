@@ -6,8 +6,6 @@ description: "The most basic classic knapsack problem."
 summary: "The most basic classic knapsack problem."
 tags: [ "Algorithm", "Dynamic Programming", "Knapsack Problem" ]
 categories: [ "Algorithms and Data Structures" ]
-series: [ "Nine Lectures on Knapsack Problems" ]
-series_order: 1
 ---
 
 ## Problem
@@ -52,8 +50,8 @@ $$0 \le s_i, v_i \leq 1000$$
     - If the $i$-th item is not taken, then `f[i][j] = f[i - 1][j]`
     - If the $i$-th item is taken, then `f[i][j] = f[i - 1][j - s[i]] + v[i]`
     - When implementing the state transition, pay attention to the domain range. If $j < s_i$, then do not consider the case of taking the $i$-th item. Because if $j - s_i$ is negative, the array index is illegal.
-      It can also be explained as: the volume of the $i$-th item is greater than the volume limit, so it is impossible.
-- Define the initial condition: For the first 0 items, any volume limit yields a value of 0, i.e., `f[0][j] = 0`, `j` $\in [0, S]$.
+      It can also be explained this way: the volume of the $i$-th item is greater than the volume limit, so it is impossible.
+- Define the initial condition: For the first $0$ items, any volume limit yields a value of $0$, i.e., `f[0][j] = 0`, `j` $\in [0, S]$.
 - Time complexity: $O(NS)$.
 
 ## Code
@@ -104,17 +102,17 @@ int main() {
 }
 ```
 
-## If the Number of Solutions is Required
+## If the Number of Schemes is Required
 
-Not only should the maximum total value that can be obtained be output, but also "how many different selection methods can achieve this maximum total value" should be output. The following describes **how to count the number of solutions** in the 01 knapsack problem.
+Not only should the maximum total value that can be obtained be output, but also "how many different selection methods can achieve this maximum total value". The following describes **how to count the number of schemes** in the 01 knapsack problem.
 
-### 2D DP to Count Solutions
+### 2D DP to Count Schemes
 
 The following uses 2D DP as an example to explain.
 
 - Define the state:
   - `dp[i][j]` represents "the maximum value that can be obtained when considering the first i items with a capacity (volume limit) of j".
-  - `ways[i][j]` represents "the **number of solutions** corresponding to achieving the maximum value when considering the first i items with a capacity of j".
+  - `ways[i][j]` represents "the **number of schemes** corresponding to the maximum value obtained when considering the first i items with a capacity of j".
 
 - State transition:
   1. If the `i`-th item is not selected:
@@ -148,7 +146,7 @@ The following uses 2D DP as an example to explain.
          \text{dp}[i-1][j - s_i] + v_i 
            = \text{dp}[i-1][j],
        $$
-       it means that the maximum value obtained by the two methods is the same, then the number of solutions should be added:
+       it means that the maximum value obtained by the two methods is the same, then the number of schemes should be added:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j], 
          \quad
@@ -161,7 +159,7 @@ The following uses 2D DP as an example to explain.
          \text{dp}[i-1][j - s_i] + v_i 
            < \text{dp}[i-1][j],
        $$
-       then it means that "not selecting the i-th item" has a greater value, and the number of solutions inherits the number of solutions when not selecting:
+       then it means that "not selecting the i-th item" has a greater value, and the number of schemes inherits the number of schemes when not selecting:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j],
          \quad
@@ -170,12 +168,12 @@ The following uses 2D DP as an example to explain.
 
 - Initial conditions:
   - `dp[0][j] = 0` means that when there are 0 items, the maximum value obtained for any capacity is 0.
-  - `ways[0][0] = 1` means that "0 items, capacity 0" is a feasible solution (i.e., selecting nothing), and the **number of solutions** is set to 1.
-  - For `j > 0`, when there are no items to choose from and the capacity is greater than 0, it is impossible to obtain any positive value, and the corresponding number of solutions is 0, i.e., `ways[0][j] = 0`.
+  - `ways[0][0] = 1` means that the case of "0 items, capacity 0" is a feasible scheme (i.e., selecting nothing), and the **number of schemes** is set to 1.
+  - For `j > 0`, when there are no items to choose from and the capacity is greater than 0, it is impossible to obtain any positive value, and the corresponding number of schemes is 0, i.e., `ways[0][j] = 0`.
 
 - Final answer:
   - `dp[N][S]` is the maximum value.
-  - `ways[N][S]` is the number of solutions to achieve this maximum value.
+  - `ways[N][S]` is the number of schemes to achieve this maximum value.
   - Time complexity: $O(NS)$.
   - This problem can also be optimized using 1D DP.
 
@@ -185,7 +183,7 @@ The following uses 2D DP as an example to explain.
 - If the `i`-th item is not taken, then `f[i][j] = f[i - 1][j]`
 - If the `i`-th item is taken, then `f[i][j] = f[i - 1][j - s[i]] + v[i]`
 - It can be noted that there is no difference in the state transition from the original problem.
-- However, the initial conditions are different. Besides `f[0][0] = 0`, the rest `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ represents an impossible state.
+- However, the initial conditions are different. Except for `f[0][0] = 0`, the rest `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ represents an impossible state.
 
 ## If the Volume Limit $S$ is Very Large (1e9), While the Number of Items $N$ and the Maximum Total Value $V$ are Relatively Small
 

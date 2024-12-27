@@ -6,25 +6,21 @@ description: "En temel klasik sırt çantası problemi."
 summary: "En temel klasik sırt çantası problemi."
 tags: [ "Algoritma", "Dinamik Programlama", "Sırt Çantası Problemi" ]
 categories: [ "Algoritmalar ve Veri Yapıları" ]
-series: [ "Sırt Çantası Dokuz Anlatım" ]
-series_order: 1
 ---
 
 ## Problem
 
-https://www.acwing.com/problem/content/2/
+$N$ tane eşya var. $i$-inci eşyanın hacmi $s_i$ ve değeri $v_i$'dir.
+Her eşya yalnızca bir kez alınabilir. Maksimum toplam hacim sınırı $S$'yi aşmama koşulu altında, elde edilebilecek maksimum toplam değer $V$'yi bulun.
 
-$N$ tane eşya var. $i$. eşyanın hacmi $s_i$, değeri $v_i$.
-Her eşya sadece bir kez alınabilir. Toplam hacim limiti $S$'yi aşmamak koşuluyla, elde edilebilecek maksimum toplam değer $V$'yi bulun.
+## Girdi Biçimi
 
-## Giriş Formatı
+İlk satırda, sırasıyla eşya sayısını ve maksimum toplam hacim sınırını temsil eden, boşlukla ayrılmış iki tam sayı $N$ ve $S$ bulunur.
+Aşağıdaki $N$ satırın her birinde, sırasıyla $i$-inci eşyanın hacmini ve değerini temsil eden, boşlukla ayrılmış iki tam sayı $s_i$ ve $v_i$ bulunur.
 
-İlk satırda iki tam sayı, $N$ ve $S$, boşlukla ayrılmış olarak verilir. Bunlar sırasıyla eşya sayısını ve maksimum toplam hacim limitini temsil eder.
-Sonraki $N$ satırda, her satırda iki tam sayı $s_i$ ve $v_i$, boşlukla ayrılmış olarak verilir. Bunlar sırasıyla $i$. eşyanın hacmini ve değerini temsil eder.
+## Çıktı Biçimi
 
-## Çıkış Formatı
-
-Maksimum değeri temsil eden bir tam sayı yazdırın.
+Maksimum değeri temsil eden bir tam sayı çıktısı verin.
 
 ## Veri Aralığı
 
@@ -32,7 +28,7 @@ $$0 \le N, S \leq 1000$$
 
 $$0 \le s_i, v_i \leq 1000$$
 
-## Giriş Örneği
+## Girdi Örneği
 
 ```
 4 5
@@ -42,7 +38,7 @@ $$0 \le s_i, v_i \leq 1000$$
 4 5
 ```
 
-## Çıkış Örneği
+## Çıktı Örneği
 
 ```
 8
@@ -50,13 +46,13 @@ $$0 \le s_i, v_i \leq 1000$$
 
 ## Çözüm
 
-- Durum Tanımı: `f[i][j]` ifadesi, ilk $i$ eşya için, hacim limiti $j$ olduğunda elde edilebilecek maksimum değeri temsil eder.
-    - Eğer $i$. eşya alınmazsa, `f[i][j] = f[i - 1][j]` olur.
-    - Eğer $i$. eşya alınırsa, `f[i][j] = f[i - 1][j - s[i]] + v[i]` olur.
-    - Durum geçişini uygularken, tanım aralığına dikkat edilmelidir. Eğer $j < s_i$ ise, $i$. eşyanın alınması durumu dikkate alınmaz. Çünkü $j-s_i$ negatif olursa, dizi indeksi geçersiz olur.
-      Bunu şöyle de açıklayabiliriz: $i$. eşyanın hacmi, hacim limitinden büyük olduğu için alınması mümkün değildir.
-- Başlangıç Koşulu Tanımı: İlk $0$ eşya için, herhangi bir hacim limitinde elde edilecek değer $0$'dır, yani `f[0][j] = 0`, `j` $\in [0, S]$.
-- Zaman Karmaşıklığı: $O(NS)$.
+- Durumu tanımlayın: `f[i][j]`, ilk $i$ eşyadan, hacim sınırı $j$ ile elde edilebilecek maksimum değeri temsil eder.
+    - Eğer $i$-inci eşya alınmazsa, `f[i][j] = f[i - 1][j]`
+    - Eğer $i$-inci eşya alınırsa, `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+    - Durum geçişini uygularken, alan aralığına dikkat edin. Eğer $j < s_i$ ise, $i$-inci eşyayı alma durumunu göz önünde bulundurmayın. Çünkü eğer $j - s_i$ negatif ise, dizi indeksi geçersiz olur.
+      Bu şu şekilde de açıklanabilir: $i$-inci eşyanın hacmi, hacim sınırından daha büyüktür, bu yüzden imkansızdır.
+- Başlangıç koşulunu tanımlayın: İlk $0$ eşya için, herhangi bir hacim sınırı $0$ değerini verir, yani `f[0][j] = 0`, `j` $\in [0, S]$.
+- Zaman karmaşıklığı: $O(NS)$.
 
 ## Kod
 
@@ -80,12 +76,12 @@ int main() {
 }
 ```
 
-## Bir Boyutlu DP Optimizasyonu
+## 1D DP Optimizasyonu
 
-- İki boyutlu diziyi bir boyutlu diziye sıkıştırmak, önemli ölçüde yer tasarrufu sağlayabilir ve çalışma hızını bir miktar artırabilir (dezavantajı, bazı problem türlerinin özel gereksinimlerini karşılayamamasıdır).
-- Durum geçişinde, `f[i][j]`'nin sadece `f[i - 1][j]` ve `f[i - 1][j - s[i]]` ile ilgili olduğuna dikkat edin. Başka bir deyişle, koddaki iki boyutlu `f` dizisinde,
-  `f[i][j]` sadece bir önceki satırda kendisinden daha solda veya aynı sütunda bulunan elemanlarla ilgilidir. Bu nedenle, iki boyutlu dizi bir boyutlu diziye veya kayan diziye sıkıştırılabilir.
-- Aşağıdaki kodda, ikinci döngünün ters sırada dolaştığına dikkat edin. Bunun nedeni, `f[i][j]`'yi hesaplarken, `f[i - 1][j - s[i]]`'nin henüz güncellenmemiş olmasını garanti etmektir.
+- İki boyutlu diziyi tek boyutlu bir diziye sıkıştırmak, önemli ölçüde yer tasarrufu sağlayabilir ve çalışma hızını bir dereceye kadar artırabilir (dezavantajı, bazı problem türlerinin özel gereksinimlerini karşılayamamasıdır).
+- Durum geçişinde, `f[i][j]`'nin yalnızca `f[i - 1][j]` ve `f[i - 1][j - s[i]]` ile ilgili olduğuna dikkat edin. Başka bir deyişle, koddaki iki boyutlu `f` dizisinde,
+  `f[i][j]` yalnızca önceki satırda solunda veya aynı sütunda bulunan elemanlarla ilgilidir. Bu nedenle, iki boyutlu dizi tek boyutlu bir diziye veya kayan bir diziye sıkıştırılabilir.
+- Aşağıdaki kodda, ikinci döngünün ters sırada yinelediğine dikkat edin. Bunun nedeni, `f[i][j]`'yi hesaplarken, `f[i - 1][j - s[i]]`'nin henüz güncellenmemiş olmasını sağlamak istememizdir.
 
 ```cpp
 #include<bits/stdc++.h>
@@ -106,28 +102,26 @@ int main() {
 }
 ```
 
-## Eğer Çözüm Sayısı İstenirse
+## Eğer Şema Sayısı Gerekliyse
 
-Sadece elde edilebilecek maksimum toplam değeri değil, aynı zamanda "bu maksimum toplam değere ulaşabilecek kaç farklı seçim yöntemi olduğunu" da çıktı olarak vermeniz gerekiyorsa. Aşağıda, 01 sırt çantası probleminde **çözüm sayısının nasıl hesaplanacağı** anlatılmaktadır.
+Yalnızca elde edilebilecek maksimum toplam değer değil, aynı zamanda "bu maksimum toplam değere ulaşabilecek kaç farklı seçim yöntemi var" da çıktı olarak verilmelidir. Aşağıda, 01 sırt çantası probleminde **şema sayısının nasıl sayılacağı** açıklanmaktadır.
 
-https://www.acwing.com/problem/content/11/
+### Şemaları Saymak İçin 2D DP
 
-### İki Boyutlu DP ile Çözüm Sayısını Hesaplama
+Aşağıda, açıklamak için 2D DP örneği kullanılmaktadır.
 
-Aşağıda, iki boyutlu DP örneği üzerinden anlatım yapılmaktadır.
+- Durumu tanımlayın:
+  - `dp[i][j]`, "ilk i eşya, j kapasite (hacim sınırı) ile değerlendirildiğinde elde edilebilecek maksimum değeri" temsil eder.
+  - `ways[i][j]`, "ilk i eşya, j kapasite ile değerlendirildiğinde elde edilen maksimum değere karşılık gelen **şema sayısını**" temsil eder.
 
-- Durum Tanımı:
-  - `dp[i][j]` ifadesi, "ilk i eşya için, kapasite (hacim limiti) j olduğunda, elde edilebilecek maksimum değeri" temsil eder.
-  - `ways[i][j]` ifadesi, "ilk i eşya için, kapasite j olduğunda, maksimum değere ulaşıldığında karşılık gelen **çözüm sayısını**" temsil eder.
-
-- Durum Geçişi:
-  1. Eğer `i`. eşya seçilmezse:
+- Durum geçişi:
+  1. Eğer `i`-inci eşya seçilmezse:
      $$
        \text{dp}[i][j] = \text{dp}[i-1][j], 
        \quad
        \text{ways}[i][j] = \text{ways}[i-1][j]
      $$
-  2. Eğer `i`. eşya seçilirse (ön koşul $ j \ge s_i $):
+  2. Eğer `i`-inci eşya seçilirse ( $ j \ge s_i $ olması koşuluyla):
      $$
        \text{dp}[i][j] 
          = \text{dp}[i-1][j - s_i] + v_i,
@@ -135,13 +129,13 @@ Aşağıda, iki boyutlu DP örneği üzerinden anlatım yapılmaktadır.
        \text{ways}[i][j]
          = \text{ways}[i-1][j - s_i]
      $$
-  3. Seçme veya seçmeme durumunda, sonuç olarak `dp[i][j]` ikisinin daha büyük olanını almalıdır:
+  3. Seçilip seçilmemesine bakılmaksızın, nihai `dp[i][j]` ikisinin daha büyüğünü almalıdır:
      - Eğer
        $$
          \text{dp}[i-1][j - s_i] + v_i 
            > \text{dp}[i-1][j],
        $$
-       ise, bu "i. eşyayı seçmenin" daha büyük bir değer sağladığı anlamına gelir:
+       ise, bu "i-inci eşyayı seçmenin" daha büyük bir değere sahip olduğu anlamına gelir:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j - s_i] + v_i,
          \quad
@@ -152,7 +146,7 @@ Aşağıda, iki boyutlu DP örneği üzerinden anlatım yapılmaktadır.
          \text{dp}[i-1][j - s_i] + v_i 
            = \text{dp}[i-1][j],
        $$
-       ise, bu iki yöntemin de aynı maksimum değeri sağladığı anlamına gelir, bu durumda çözüm sayıları toplanmalıdır:
+       ise, bu iki yöntemle elde edilen maksimum değerin aynı olduğu anlamına gelir, bu durumda şema sayısı eklenmelidir:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j], 
          \quad
@@ -165,47 +159,43 @@ Aşağıda, iki boyutlu DP örneği üzerinden anlatım yapılmaktadır.
          \text{dp}[i-1][j - s_i] + v_i 
            < \text{dp}[i-1][j],
        $$
-       ise, bu "i. eşyayı seçmemenin" daha büyük bir değer sağladığı anlamına gelir, çözüm sayısı seçmeme durumundaki çözüm sayısını devralır:
+       ise, bu "i-inci eşyayı seçmemenin" daha büyük bir değere sahip olduğu anlamına gelir ve şema sayısı, seçilmediğinde şema sayısını devralır:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j],
          \quad
          \text{ways}[i][j] = \text{ways}[i-1][j].
        $$
 
-- Başlangıç Koşulları:
-  - `dp[0][j] = 0` ifadesi, ilk 0 eşya için, herhangi bir kapasitede elde edilecek maksimum değerin 0 olduğunu gösterir.
-  - `ways[0][0] = 1` ifadesi, "ilk 0 eşya, kapasite 0" durumunun bir geçerli çözüm olduğunu (yani hiçbir şey seçmemek) ve **çözüm sayısının** 1 olarak ayarlandığını gösterir.
-  - `j > 0` için, seçilebilecek eşya olmadığında ve kapasite 0'dan büyük olduğunda, herhangi bir pozitif değer elde etmek mümkün değildir, bu duruma karşılık gelen çözüm sayısı 0'dır, yani `ways[0][j] = 0`.
+- Başlangıç koşulları:
+  - `dp[0][j] = 0`, 0 eşya olduğunda, herhangi bir kapasite için elde edilen maksimum değerin 0 olduğu anlamına gelir.
+  - `ways[0][0] = 1`, "0 eşya, 0 kapasite" durumunun uygulanabilir bir şema olduğu (yani, hiçbir şey seçmemek) ve **şema sayısının** 1 olarak ayarlandığı anlamına gelir.
+  - `j > 0` için, seçilecek eşya olmadığında ve kapasite 0'dan büyük olduğunda, herhangi bir pozitif değer elde etmek imkansızdır ve karşılık gelen şema sayısı 0'dır, yani `ways[0][j] = 0`.
 
-- Son Cevap:
-  - `dp[N][S]` maksimum değeri verir.
-  - `ways[N][S]` bu maksimum değere ulaşan çözüm sayısını verir.
-  - Zaman Karmaşıklığı: $O(NS)$.
-  - Bu problem, bir boyutlu DP ile de optimize edilebilir.
+- Nihai cevap:
+  - `dp[N][S]` maksimum değerdir.
+  - `ways[N][S]` bu maksimum değere ulaşmak için kullanılan şema sayısıdır.
+  - Zaman karmaşıklığı: $O(NS)$.
+  - Bu problem 1D DP kullanılarak da optimize edilebilir.
 
-## Eğer Hacim Limitine Tam Olarak Ulaşılması İstenirse
+## Eğer Hacim Sınırına Tam Olarak Ulaşılması Gerekiyorsa
 
-- Durum Tanımı: `f[i][j]` ifadesi, ilk `i` eşya için tam olarak $j$ hacmine sahip olmanın maksimum değerini temsil eder.
-- Eğer `i`. eşya alınmazsa, `f[i][j] = f[i - 1][j]` olur.
-- Eğer `i`. eşya alınırsa, `f[i][j] = f[i - 1][j - s[i]] + v[i]` olur.
-- Orijinal problemdeki durum geçişiyle aynı olduğuna dikkat edilebilir.
-- Ancak başlangıç koşulları farklıdır. `f[0][0] = 0` dışında, diğer `f[0][j]` = $-\infty$, `j` $\in [1, S]$ olur. $-\infty$ imkansız bir durumu temsil eder.
+- Durumu tanımlayın: `f[i][j]`, ilk `i` eşyanın tam olarak $j$ hacmine sahip olduğunda elde edilen maksimum değeri temsil eder.
+- Eğer `i`-inci eşya alınmazsa, `f[i][j] = f[i - 1][j]`
+- Eğer `i`-inci eşya alınırsa, `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+- Durum geçişinde orijinal problemden bir fark olmadığı görülebilir.
+- Ancak, başlangıç koşulları farklıdır. `f[0][0] = 0` dışında, geri kalan `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ imkansız bir durumu temsil eder.
 
-## Eğer Hacim Limiti $S$ Çok Büyük (1e9) ve Eşya Sayısı $N$ ve Maksimum Toplam Değer $V$ Küçükse
+## Eğer Hacim Sınırı $S$ Çok Büyükse (1e9), Eşya Sayısı $N$ ve Maksimum Toplam Değer $V$ Nispeten Küçükse
 
-- Bu tür problemler için, karmaşıklığı $O(NV)$ olan bir çözüm vardır.
-- Durum Tanımı: `f[i][j]` ifadesi, ilk `i` eşyadan bazılarını seçerek, toplam değeri tam olarak `j` olan minimum hacmi temsil eder.
-    - Eğer `i`. eşya alınmazsa, `f[i][j] = f[i - 1][j]` olur.
-    - Eğer `i`. eşya alınırsa, `f[i][j] = f[i - 1][j - v[i]] + s[i]` olur.
-    - İkisinin minimum değeri alınır.
-- Başlangıç Koşulları: `f[0][0] = 0`, diğer `f[0][j]` = $\infty$, `j` $\in [1, V]$ olur. $\infty$ imkansız bir durumu temsil eder. $-\infty$ değil.
-- Son cevap, `f[N][j]` içinde `f[N][j] <= S` olacak şekildeki en büyük `j` değeridir.
+- Bu tür problemler için, $O(NV)$ karmaşıklığına sahip bir çözüm vardır.
+- Durumu tanımlayın: `f[i][j]`, ilk `i` eşyadan birkaç eşya seçerken, toplam değerin tam olarak `j` olması durumunda minimum hacmi temsil eder.
+    - Eğer `i`-inci eşya alınmazsa, `f[i][j] = f[i - 1][j]`
+    - Eğer `i`-inci eşya alınırsa, `f[i][j] = f[i - 1][j - v[i]] + s[i]`
+    - İkisinin daha küçüğünü alın.
+- Başlangıç koşulları: `f[0][0] = 0`, geri kalan `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ imkansız bir durumu temsil eder. $-\infty$ olmadığını unutmayın.
+- Nihai cevap, `f[N][j]` içinde `f[N][j] <= S` olacak şekildeki en büyük `j`'dir.
 
-## Eğer Hacim Limiti $S$ ve Tekil Eşya Değeri $v_i$ Çok Büyükse (1e9 mertebesinde) ve Eşya Sayısı $N$ Çok Küçükse (en fazla 40)
+## Eğer Hacim Sınırı $S$ ve Tek Bir Eşyanın Değeri $v_i$ Her İkisi de Çok Büyükse (1e9 mertebesinde), Eşya Sayısı $N$ Çok Küçükse (40'tan fazla değil)
 
-https://www.acwing.com/solution/content/38250/
-
-- $N \leq 20$ olduğunda, tüm alt kümeleri doğrudan kaba kuvvetle sayabilirsiniz (zaman karmaşıklığı $O(2^N)$).
-- $N \leq 40$ olduğunda, $2^{40}$ $10^{12}$ mertebesinde olduğundan, doğrudan kaba kuvvet de oldukça büyük olacaktır, bu nedenle **ortadan ikiye bölme araması** kullanılabilir.
-  Bu, karmaşıklığı kabaca $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$'ye düşürür.
-  Bu, kabul edilebilir bir süre içinde tamamlanabilir.
+- $N \leq 20$ olduğunda, tüm alt kümeler doğrudan kaba kuvvetle numaralandırılabilir (zaman karmaşıklığı $O(2^N)$).
+- $N \leq 40$ olduğunda, $2^{40}$ $10^{12}$ mertebesinde olduğundan, doğrudan kaba kuvvet de nispeten büyük olacaktır, bu nedenle karmaşıklığı yaklaşık olarak $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$'ye düşürmek için **ortada buluşma araması** kullanılabilir, bu da kabul edilebilir bir sürede tamamlanabilir.

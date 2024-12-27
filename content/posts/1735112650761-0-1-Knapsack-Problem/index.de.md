@@ -1,28 +1,26 @@
 ---
-title: "01背包problem"
+title: "01 Rucksackproblem"
 date: 2024-12-24
 draft: false
 description: "Das grundlegendste klassische Rucksackproblem."
 summary: "Das grundlegendste klassische Rucksackproblem."
 tags: [ "Algorithmus", "Dynamische Programmierung", "Rucksackproblem" ]
 categories: [ "Algorithmen und Datenstrukturen" ]
-series: [ "Neun Lektionen zum Rucksackproblem" ]
-series_order: 1
 ---
 
-## Aufgabe
+## Problem
 
-Es gibt $N$ Gegenstände. Das Volumen des $i$-ten Gegenstands ist $s_i$, der Wert ist $v_i$.
-Jeder Gegenstand kann nur einmal genommen werden. Unter der Voraussetzung, dass das maximale Gesamtvolumen $S$ nicht überschritten wird, finde den maximalen Gesamtwert $V$, der erreicht werden kann.
+Es gibt $N$ Gegenstände. Das Volumen des $i$-ten Gegenstands ist $s_i$ und sein Wert ist $v_i$.
+Jeder Gegenstand kann nur einmal genommen werden. Finde unter der Voraussetzung, dass das maximale Gesamtvolumen $S$ nicht überschritten wird, den maximalen Gesamtwert $V$, der erzielt werden kann.
 
 ## Eingabeformat
 
-Die erste Zeile enthält zwei ganze Zahlen, $N, S$, getrennt durch ein Leerzeichen, die die Anzahl der Gegenstände bzw. die maximale Gesamtvolumenbegrenzung angeben.
-Die nächsten $N$ Zeilen enthalten jeweils zwei ganze Zahlen $s_i, v_i$, getrennt durch ein Leerzeichen, die das Volumen bzw. den Wert des $i$-ten Gegenstands angeben.
+Die erste Zeile enthält zwei ganze Zahlen, $N$ und $S$, getrennt durch ein Leerzeichen, die die Anzahl der Gegenstände bzw. das maximale Gesamtvolumen darstellen.
+Die folgenden $N$ Zeilen enthalten jeweils zwei ganze Zahlen, $s_i$ und $v_i$, getrennt durch ein Leerzeichen, die das Volumen bzw. den Wert des $i$-ten Gegenstands darstellen.
 
 ## Ausgabeformat
 
-Geben Sie eine ganze Zahl aus, die den maximalen Wert darstellt.
+Gib eine ganze Zahl aus, die den maximalen Wert darstellt.
 
 ## Datenbereich
 
@@ -46,14 +44,14 @@ $$0 \le s_i, v_i \leq 1000$$
 8
 ```
 
-## Lösungsansatz
+## Lösung
 
-- Definition des Zustands: `f[i][j]` stellt den maximalen Wert dar, der mit den ersten $i$ Gegenständen und einer Volumenbegrenzung von $j$ erzielt werden kann.
-    - Wenn der $i$-te Gegenstand nicht genommen wird, dann `f[i][j] = f[i - 1][j]`
-    - Wenn der $i$-te Gegenstand genommen wird, dann `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-    - Bei der Implementierung des Zustandsübergangs ist auf den Definitionsbereich zu achten. Wenn $j < s_i$, dann wird der Fall, dass der $i$-te Gegenstand genommen wird, nicht berücksichtigt. Denn wenn $j-s_i$ negativ ist, ist der Array-Index ungültig.
-      Man kann es auch so erklären: Das Volumen des $i$-ten Gegenstands ist größer als die Volumenbegrenzung, daher ist es unmöglich.
-- Definition der Anfangsbedingungen: Mit den ersten $0$ Gegenständen wird bei jeder Volumenbegrenzung ein Wert von $0$ erzielt, d.h. `f[0][j] = 0`, `j` $\in [0, S]$.
+- Definiere den Zustand: `f[i][j]` repräsentiert den maximalen Wert, der mit den ersten $i$ Gegenständen bei einem Volumenlimit von $j$ erzielt werden kann.
+    - Wenn der $i$-te Gegenstand nicht genommen wird, dann gilt `f[i][j] = f[i - 1][j]`
+    - Wenn der $i$-te Gegenstand genommen wird, dann gilt `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+    - Achte bei der Implementierung des Zustandsübergangs auf den Definitionsbereich. Wenn $j < s_i$, dann betrachte den Fall der Entnahme des $i$-ten Gegenstands nicht. Denn wenn $j - s_i$ negativ ist, ist der Array-Index ungültig.
+      Es kann auch so erklärt werden: Das Volumen des $i$-ten Gegenstands ist größer als das Volumenlimit, daher ist es unmöglich.
+- Definiere die Anfangsbedingung: Für die ersten $0$ Gegenstände ergibt jedes Volumenlimit einen Wert von $0$, d.h. `f[0][j] = 0`, `j` $\in [0, S]$.
 - Zeitkomplexität: $O(NS)$.
 
 ## Code
@@ -78,11 +76,12 @@ int main() {
 }
 ```
 
-## 1D-DP-Optimierung
+## 1D DP Optimierung
 
-- Durch das Komprimieren des zweidimensionalen Arrays in ein eindimensionales Array kann erheblich Speicherplatz gespart und die Laufgeschwindigkeit bis zu einem gewissen Grad erhöht werden (der Nachteil ist, dass bestimmte spezielle Anforderungen von Aufgabentypen nicht erfüllt werden können).
-- Es ist zu beachten, dass im Zustandsübergang `f[i][j]` nur von `f[i - 1][j]` und `f[i - 1][j - s[i]]` abhängt. Mit anderen Worten, im zweidimensionalen Array `f` im Code hängt `f[i][j]` nur von den Elementen in der vorherigen Zeile ab, die sich weiter links oder in derselben Spalte befinden. Daher kann das zweidimensionale Array in ein eindimensionales Array oder ein Rolling Array komprimiert werden.
-- Beachten Sie, dass in dem folgenden Code die zweite Schleife in umgekehrter Reihenfolge durchlaufen wird, da wir sicherstellen müssen, dass `f[i - 1][j - s[i]]` noch nicht aktualisiert wurde, wenn `f[i][j]` berechnet wird.
+- Das Komprimieren des zweidimensionalen Arrays in ein eindimensionales Array kann erheblich Speicherplatz sparen und die Laufgeschwindigkeit bis zu einem gewissen Grad verbessern (der Nachteil ist, dass es die speziellen Anforderungen einiger Problemtypen nicht erfüllen kann).
+- Beachte, dass im Zustandsübergang `f[i][j]` nur mit `f[i - 1][j]` und `f[i - 1][j - s[i]]` zusammenhängt. Mit anderen Worten, im zweidimensionalen Array `f` im Code,
+  `f[i][j]` hängt nur mit den Elementen in der vorherigen Zeile zusammen, die sich links davon oder in derselben Spalte befinden. Daher kann das zweidimensionale Array in ein eindimensionales Array oder ein Rolling Array komprimiert werden.
+- Beachte, dass in dem folgenden Code die zweite Schleife in umgekehrter Reihenfolge iteriert. Dies liegt daran, dass wir sicherstellen wollen, dass bei der Berechnung von `f[i][j]` `f[i - 1][j - s[i]]` noch nicht aktualisiert wurde.
 
 ```cpp
 #include<bits/stdc++.h>
@@ -103,26 +102,26 @@ int main() {
 }
 ```
 
-## Wenn die Anzahl der Lösungen erforderlich ist
+## Wenn die Anzahl der Schemata erforderlich ist
 
-Es soll nicht nur der maximal erreichbare Gesamtwert ausgegeben werden, sondern auch "wie viele verschiedene Auswahlmethoden es gibt, um diesen maximalen Gesamtwert zu erreichen". Im Folgenden wird erläutert, wie man die **Anzahl der Lösungen** im 01-Rucksackproblem zählt.
+Es sollte nicht nur der maximale Gesamtwert ausgegeben werden, der erzielt werden kann, sondern auch "wie viele verschiedene Auswahlmethoden diesen maximalen Gesamtwert erreichen können". Im Folgenden wird beschrieben, **wie man die Anzahl der Schemata** im 01-Rucksackproblem zählt.
 
-### 2D-DP zum Zählen der Anzahl der Lösungen
+### 2D DP zum Zählen von Schemata
 
-Im Folgenden wird dies am Beispiel von 2D-DP erläutert.
+Das Folgende verwendet 2D DP als Beispiel zur Erläuterung.
 
-- Definition des Zustands:
-  - `dp[i][j]` stellt den "maximalen Wert dar, der mit den ersten i Gegenständen und einer Kapazität (Volumenbegrenzung) von j erzielt werden kann".
-  - `ways[i][j]` stellt die "Anzahl der **Lösungen** dar, die dem maximalen Wert entsprechen, wenn die ersten i Gegenstände eine Kapazität von j haben".
+- Definiere den Zustand:
+  - `dp[i][j]` repräsentiert "den maximalen Wert, der erzielt werden kann, wenn man die ersten i Gegenstände mit einer Kapazität (Volumenlimit) von j betrachtet".
+  - `ways[i][j]` repräsentiert "die **Anzahl der Schemata**, die dem maximalen Wert entsprechen, der erzielt wird, wenn man die ersten i Gegenstände mit einer Kapazität von j betrachtet".
 
 - Zustandsübergang:
-  1. Wenn der i-te Gegenstand nicht ausgewählt wird:
+  1. Wenn der `i`-te Gegenstand nicht ausgewählt wird:
      $$
        \text{dp}[i][j] = \text{dp}[i-1][j], 
        \quad
        \text{ways}[i][j] = \text{ways}[i-1][j]
      $$
-  2. Wenn der i-te Gegenstand ausgewählt wird (vorausgesetzt $ j \ge s_i $):
+  2. Wenn der `i`-te Gegenstand ausgewählt wird (vorausgesetzt, dass $ j \ge s_i $):
      $$
        \text{dp}[i][j] 
          = \text{dp}[i-1][j - s_i] + v_i,
@@ -130,13 +129,13 @@ Im Folgenden wird dies am Beispiel von 2D-DP erläutert.
        \text{ways}[i][j]
          = \text{ways}[i-1][j - s_i]
      $$
-  3. Ob ausgewählt oder nicht, `dp[i][j]` sollte schließlich den größeren der beiden Werte annehmen:
+  3. Ob ausgewählt wird oder nicht, das endgültige `dp[i][j]` sollte das größere der beiden annehmen:
      - Wenn
        $$
          \text{dp}[i-1][j - s_i] + v_i 
            > \text{dp}[i-1][j],
        $$
-       dann bedeutet dies, dass der Wert "Auswählen des i-ten Gegenstands" größer ist:
+       dann bedeutet dies, dass "die Auswahl des i-ten Gegenstands" einen größeren Wert hat:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j - s_i] + v_i,
          \quad
@@ -147,7 +146,7 @@ Im Folgenden wird dies am Beispiel von 2D-DP erläutert.
          \text{dp}[i-1][j - s_i] + v_i 
            = \text{dp}[i-1][j],
        $$
-       dann bedeutet dies, dass die beiden Methoden den gleichen maximalen Wert erzielen, und die Anzahl der Lösungen sollte addiert werden:
+       bedeutet dies, dass der maximale Wert, der durch die beiden Methoden erzielt wird, derselbe ist, dann sollte die Anzahl der Schemata addiert werden:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j], 
          \quad
@@ -160,7 +159,7 @@ Im Folgenden wird dies am Beispiel von 2D-DP erläutert.
          \text{dp}[i-1][j - s_i] + v_i 
            < \text{dp}[i-1][j],
        $$
-       dann bedeutet dies, dass der Wert "Auswählen des i-ten Gegenstands nicht" größer ist, und die Anzahl der Lösungen erbt die Anzahl der Lösungen, wenn nicht ausgewählt wird:
+       dann bedeutet dies, dass "die Nichtauswahl des i-ten Gegenstands" einen größeren Wert hat, und die Anzahl der Schemata erbt die Anzahl der Schemata, wenn nicht ausgewählt wird:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j],
          \quad
@@ -168,35 +167,35 @@ Im Folgenden wird dies am Beispiel von 2D-DP erläutert.
        $$
 
 - Anfangsbedingungen:
-  - `dp[0][j] = 0` bedeutet, dass der maximale Wert, der mit den ersten 0 Gegenständen bei jeder Kapazität erzielt wird, 0 ist.
-  - `ways[0][0] = 1` bedeutet, dass der Fall "erste 0 Gegenstände, Kapazität 0" eine mögliche Lösung ist (d. h. nichts auswählen), und die **Anzahl der Lösungen** wird auf 1 gesetzt.
-  - Für `j > 0` ist es unmöglich, einen positiven Wert zu erzielen, wenn keine Gegenstände ausgewählt werden können und die Kapazität größer als 0 ist, und die entsprechende Anzahl der Lösungen ist 0, d. h. `ways[0][j] = 0`.
+  - `dp[0][j] = 0` bedeutet, dass, wenn es 0 Gegenstände gibt, der maximale Wert, der für jede Kapazität erzielt wird, 0 ist.
+  - `ways[0][0] = 1` bedeutet, dass der Fall "0 Gegenstände, Kapazität 0" ein machbares Schema ist (d.h. nichts auswählen), und die **Anzahl der Schemata** auf 1 gesetzt wird.
+  - Für `j > 0`, wenn es keine Gegenstände zur Auswahl gibt und die Kapazität größer als 0 ist, ist es unmöglich, einen positiven Wert zu erhalten, und die entsprechende Anzahl von Schemata ist 0, d.h. `ways[0][j] = 0`.
 
 - Endgültige Antwort:
   - `dp[N][S]` ist der maximale Wert.
-  - `ways[N][S]` ist die Anzahl der Lösungen, die diesen maximalen Wert erreichen.
+  - `ways[N][S]` ist die Anzahl der Schemata, um diesen maximalen Wert zu erreichen.
   - Zeitkomplexität: $O(NS)$.
-  - Diese Aufgabe kann auch mit 1D-DP optimiert werden.
+  - Dieses Problem kann auch mit 1D DP optimiert werden.
 
-## Wenn genau die Volumenbegrenzung erreicht werden muss
+## Wenn die Anforderung darin besteht, das Volumenlimit genau zu erreichen
 
-- Definition des Zustands: `f[i][j]` stellt den maximalen Wert dar, wenn die ersten `i` Gegenstände genau das Volumen $j$ haben.
-- Wenn der `i`-te Gegenstand nicht genommen wird, dann `f[i][j] = f[i - 1][j]`
-- Wenn der `i`-te Gegenstand genommen wird, dann `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-- Es ist zu beachten, dass es keinen Unterschied zum Zustandsübergang des ursprünglichen Problems gibt.
-- Die Anfangsbedingungen sind jedoch unterschiedlich. Außer `f[0][0] = 0` ist der Rest `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ stellt einen unmöglichen Zustand dar.
+- Definiere den Zustand: `f[i][j]` repräsentiert den maximalen Wert, wenn die ersten `i` Gegenstände genau ein Volumen von $j$ haben.
+- Wenn der `i`-te Gegenstand nicht genommen wird, dann gilt `f[i][j] = f[i - 1][j]`
+- Wenn der `i`-te Gegenstand genommen wird, dann gilt `f[i][j] = f[i - 1][j - s[i]] + v[i]`
+- Es ist zu beachten, dass es keinen Unterschied im Zustandsübergang zum ursprünglichen Problem gibt.
+- Die Anfangsbedingungen sind jedoch unterschiedlich. Mit Ausnahme von `f[0][0] = 0` ist der Rest `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ repräsentiert einen unmöglichen Zustand.
 
-## Wenn die Volumenbegrenzung $S$ besonders groß ist (1e9), während die Anzahl der Gegenstände $N$ und der maximale Gesamtwert $V$ relativ klein sind
+## Wenn das Volumenlimit $S$ sehr groß ist (1e9), während die Anzahl der Gegenstände $N$ und der maximale Gesamtwert $V$ relativ klein sind
 
-- Für solche Aufgaben gibt es eine Lösung mit einer Komplexität von $O(NV)$.
-- Definition des Zustands: `f[i][j]` stellt das minimale Volumen dar, wenn aus den ersten `i` Gegenständen einige ausgewählt werden und die Summe der Werte genau `j` beträgt.
-    - Wenn der `i`-te Gegenstand nicht genommen wird, dann `f[i][j] = f[i - 1][j]`
-    - Wenn der `i`-te Gegenstand genommen wird, dann `f[i][j] = f[i - 1][j - v[i]] + s[i]`
-    - Nehmen Sie den kleineren der beiden Werte.
-- Anfangsbedingungen: `f[0][0] = 0`, der Rest `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ stellt einen unmöglichen Zustand dar. Beachten Sie, dass es nicht $-\infty$ ist.
+- Für solche Probleme gibt es eine Lösung mit einer Komplexität von $O(NV)$.
+- Definiere den Zustand: `f[i][j]` repräsentiert das minimale Volumen, wenn man mehrere Gegenstände aus den ersten `i` Gegenständen auswählt und der Gesamtwert genau `j` ist.
+    - Wenn der `i`-te Gegenstand nicht genommen wird, dann gilt `f[i][j] = f[i - 1][j]`
+    - Wenn der `i`-te Gegenstand genommen wird, dann gilt `f[i][j] = f[i - 1][j - v[i]] + s[i]`
+    - Nimm den kleineren der beiden.
+- Anfangsbedingungen: `f[0][0] = 0`, der Rest `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ repräsentiert einen unmöglichen Zustand. Beachte, dass es nicht $-\infty$ ist.
 - Die endgültige Antwort ist das größte `j` in `f[N][j]`, so dass `f[N][j] <= S`.
 
-## Wenn die Volumenbegrenzung $S$ und der Wert eines einzelnen Gegenstands $v_i$ beide besonders groß sind (Größenordnung 1e9), während die Anzahl der Gegenstände $N$ besonders klein ist (maximal nicht mehr als 40)
+## Wenn das Volumenlimit $S$ und der Wert eines einzelnen Gegenstands $v_i$ beide sehr groß sind (in der Größenordnung von 1e9), während die Anzahl der Gegenstände $N$ sehr klein ist (nicht mehr als 40)
 
-- Wenn $N \leq 20$ ist, können alle Teilmengen direkt mit Brute-Force aufgezählt werden (Zeitkomplexität $O(2^N)$).
-- Wenn $N \leq 40$ ist, ist $2^{40}$ in der Größenordnung von $10^{12}$, und die direkte Brute-Force-Methode ist ebenfalls relativ groß, daher kann **Halbierungssuche** verwendet werden, um die Komplexität grob auf $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$ zu reduzieren, was in einer akzeptablen Zeit abgeschlossen werden kann.
+- Wenn $N \leq 20$, können alle Teilmengen direkt durch Brute Force aufgezählt werden (Zeitkomplexität $O(2^N)$).
+- Wenn $N \leq 40$, da $2^{40}$ in der Größenordnung von $10^{12}$ liegt, wird auch die direkte Brute Force relativ groß sein, daher kann **Meet-in-the-Middle-Suche** verwendet werden, um die Komplexität auf ungefähr $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$ zu reduzieren, was in einer akzeptablen Zeit abgeschlossen werden kann.
