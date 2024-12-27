@@ -4,19 +4,19 @@ date: 2024-12-26
 draft: false
 description: "Análise dos pontos-chave para implementar corretamente o algoritmo de ordenação rápida."
 summary: "Análise dos pontos-chave para implementar corretamente o algoritmo de ordenação rápida."
-tags: [ "Algoritmo", "Algoritmos de Ordenação", "Ordenação Rápida", "Algoritmo Dividir para Conquistar" ]
+tags: [ "Algoritmo", "Algoritmos de Ordenação", "Ordenação Rápida", "Algoritmo de Divisão e Conquista" ]
 categories: [ "Algoritmos e Estruturas de Dados" ]
 ---
 
 # Ordenação Rápida
 
-A ordenação rápida é um algoritmo de ordenação não estável baseado em comparação, que utiliza o paradigma de dividir para conquistar. Possui uma complexidade de tempo média de $O(n\log n)$ e, no pior caso, de $O(n^2)$, com complexidade de espaço de $O(1)$. Abaixo, usando como exemplo a ordenação de uma sequência de números inteiros em ordem crescente, são apresentados detalhes de implementação e erros comuns.
+A ordenação rápida é um algoritmo de ordenação não estável baseado em comparação, que utiliza a abordagem de divisão e conquista. Sua complexidade de tempo média é $O(n\log n)$, no pior caso é $O(n^2)$, e a complexidade de espaço é $O(1)$. Abaixo, usando a ordenação de uma sequência de números inteiros em ordem crescente como exemplo, apresentamos os detalhes de implementação e erros comuns.
 
 ---
 
 ## Descrição do Problema
 
-Dada uma sequência de $n$ números inteiros, ordene-a em ordem crescente utilizando a ordenação rápida e exiba o resultado.
+Dado um sequência de $n$ números inteiros, use a ordenação rápida para ordená-los em ordem crescente e imprima o resultado.
 
 ### Formato de Entrada
 
@@ -48,15 +48,15 @@ $1 \leq n \leq 100000$
 
 ## Ideia da Ordenação Rápida
 
-Na ordenação rápida, a cada etapa da divisão para conquistar, um número é escolhido como `pivot` (abaixo, o número na posição do meio é escolhido).
+Na ordenação rápida, a cada divisão, um número é escolhido como o número de referência `pivot` (abaixo, o número na posição do meio é escolhido).
 
-Dois ponteiros são usados: um ponteiro `L` que se move da esquerda para a direita procurando o primeiro número maior ou igual a `pivot`, e um ponteiro `R` que se move da direita para a esquerda procurando o primeiro número menor ou igual a `pivot`. Em seguida, esses dois números são trocados.
+Usando ponteiros esquerdo e direito que se movem em direções opostas, o ponteiro esquerdo `L` procura da esquerda para a direita o primeiro número maior ou igual a `pivot`, e o ponteiro direito `R` procura da direita para a esquerda o primeiro número menor ou igual a `pivot`, e então esses dois números são trocados.
 
-Esse processo é repetido até que os ponteiros se sobreponham ou o ponteiro esquerdo ultrapasse o ponteiro direito. Isso é chamado de uma iteração.
+Este processo é repetido continuamente até que os ponteiros esquerdo e direito se sobreponham ou o ponteiro esquerdo seja uma posição maior que o ponteiro direito. Isso é chamado de uma iteração.
 
-Após cada movimentação e troca de ponteiros, garante-se que a estrutura "parte esquerda ≤ pivot, parte direita ≥ pivot" seja mantida, ou seja, o invariante `[left, L) <= pivot`, `(R, right] >= pivot`.
+Após cada movimento e troca de ponteiro, a estrutura "parte esquerda ≤ pivot, parte direita ≥ pivot" é garantida, ou seja, há um invariante `[left, L) <= pivot`, `(R, right] >= pivot`.
 
-No exemplo de código abaixo, `left` e `right` são os limites do intervalo fechado que está sendo processado atualmente, e `pivot` é o elemento no ponto médio do intervalo.
+No exemplo de código abaixo, `left` e `right` são os limites do intervalo fechado atual que está sendo processado, e `pivot` é o elemento no ponto médio do intervalo.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -96,9 +96,9 @@ int main() {
 
 ## Complexidade e Escolha do `pivot`
 
-Como no pior caso a ordenação rápida tem uma complexidade de $O(n^2)$, a escolha do `pivot` é crucial. Se o primeiro ou o último elemento for sempre escolhido como `pivot`, é muito provável que ocorra o pior caso em arrays quase ordenados.
+Como a ordenação rápida tem uma complexidade de $O(n^2)$ no pior caso, a escolha do `pivot` é crucial. Se o primeiro ou o último elemento for sempre escolhido, o pior caso provavelmente ocorrerá em um array quase ordenado.
 
-Além de escolher o elemento da posição central, um elemento pode ser escolhido aleatoriamente como `pivot`, ou a mediana de três elementos (o da esquerda, do meio e da direita) pode ser escolhida como `pivot`.
+Além de escolher o elemento na posição do meio, um elemento pode ser escolhido aleatoriamente como `pivot`, ou a mediana dos três elementos à esquerda, no meio e à direita pode ser escolhida como `pivot`.
 
 ---
 
@@ -136,22 +136,23 @@ int main() {
     quickSort(a, 0, n - 1);
     
     for (int i = 0; i < n; i++) cout << a[i] << " ";
+
     return 0;
 }
 ```
 
-**Análise dos Erros:**
+**Análise de Erros:**
 
-1.  `pivot` deve ser um número do array, não um índice.
-2.  Use `<` e `>` em vez de `<=` e `>=`, caso contrário, o ponteiro esquerdo pode ultrapassar o ponteiro direito em mais de uma posição, o que impede a divisão do array em duas partes.
-3.  Após encontrar `l >= r`, o loop deve ser interrompido imediatamente, sem realizar mais trocas. Caso contrário, não há garantia de que os elementos à esquerda sejam menores ou iguais a `pivot` e os elementos à direita sejam maiores ou iguais a `pivot`.
-4.  Após cada troca, `l++` e `r--` devem ser executados.
-5.  `pivot` na verdade pega o número do meio tendendo para a esquerda. Se $l-1$ e $l$ forem usados para dividir o array, considerando o array `[1, 2]`, não é difícil perceber que isso levará a um loop infinito, dividindo o array em duas partes de tamanho 0 e 2 continuamente. Por outro lado, quando o loop termina, $r$ é necessariamente menor que $right$, portanto, $r$ e $r+1$ podem ser usados para dividir o array. O leitor pode simular o processo do algoritmo para entender o porquê. Uma maneira alternativa e simples de evitar o loop infinito é escolher o `pivot` aleatoriamente ou tratar especialmente o caso de apenas dois elementos. De modo semelhante, usar $r$ e $l$ para dividir o array também não funciona.
-6. Além disso, usar $l$ e $l+1$ também não funciona, pois essa divisão não está de acordo com a definição, e quando $r$ está à esquerda de $l$, usar $l$ e $l+1$ não dividirá corretamente o array em duas partes, onde os elementos à esquerda são menores ou iguais a `pivot` e os elementos à direita são maiores ou iguais a `pivot`.
-7. Este problema assume que o array não está vazio, portanto não há caso de  `>` mas é aconselhável usar `>=` para maior segurança.
+1. `pivot` deve ser um número no array, não um índice.
+2. Use `<` e `>` em vez de `<=` e `>=`, caso contrário, o ponteiro esquerdo pode ultrapassar o ponteiro direito em mais de uma posição, o que impede que o array seja dividido em duas partes.
+3. Depois de encontrar `l >= r`, o loop deve ser encerrado imediatamente e nenhuma troca deve ser executada. Caso contrário, não é garantido que os elementos à esquerda não sejam maiores que `pivot` e que os elementos à direita não sejam menores que `pivot`.
+4. Após cada troca, `l++` e `r--` devem ser executados.
+5. `pivot` na verdade pega o número do meio à esquerda. Portanto, se você usar $l - 1$ e $l$ para dividir o array, considere o array `[1, 2]`, não é difícil descobrir que isso levará a um loop infinito, dividindo continuamente o array em duas partes de tamanho 0 e 2. Da mesma forma, usar $r$ e $l$ para distinguir o array também não funciona. Em vez disso, quando um loop termina, $r$ deve ser menor que $right$, então $r$ e $r+1$ podem ser usados para dividir o array. O leitor pode simular o processo do algoritmo para ver por quê. Outra maneira simples de evitar loops infinitos é escolher um `pivot` aleatoriamente ou lidar com o caso especial de apenas dois elementos.
+6. Além disso, usar $l$, $l+1$ também não funciona, porque essa divisão não está de acordo com a definição. Quando $r$ está à esquerda de $l$, usar $l$, $l+1$ não pode dividir corretamente o array em duas partes onde a esquerda é menor ou igual a `pivot` e a direita é maior ou igual a `pivot`.
+7. Este problema assume que o array não está vazio, então não há caso de `>`. Mas é recomendável usar `>=`, o que é mais seguro.
 
 ---
 
-## Complemento
+## Adicional
 
-A ordenação rápida também pode ser desenvolvida para a "seleção rápida", que encontra o k-ésimo menor número em um array não ordenado em um tempo esperado de $O(n)$. A ideia é semelhante à da ordenação rápida, mas a recursão continua apenas em uma sub-intervalo a cada vez, reduzindo assim a complexidade de tempo.
+A ordenação rápida também pode evoluir para "seleção rápida", que pode encontrar o $k$-ésimo menor número em um array não ordenado em um tempo esperado de $O(n)$. A ideia específica é semelhante à ordenação rápida, exceto que a recursão continua apenas em um subintervalo de cada vez, reduzindo assim a complexidade de tempo.

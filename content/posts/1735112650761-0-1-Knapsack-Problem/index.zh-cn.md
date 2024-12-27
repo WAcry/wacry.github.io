@@ -109,6 +109,7 @@ int main() {
 ## 如果要求方案数
 
 不仅要输出能够取得的最大总价值，还需要输出“有多少种不同的选取方法可以达到这个最大总价值”。下面介绍在 01 背包问题中**如何统计方案数**。
+
 https://www.acwing.com/problem/content/11/
 
 ### 二维 DP 统计方案数
@@ -202,8 +203,9 @@ https://www.acwing.com/problem/content/11/
 
 ## 如果体积限制 $S$ 和单个物品价值 $v_i$ 都特别大($1e9$ 量级), 同时物品数量 $N$ 特别小（最高不超过 40）
 
+https://www.acwing.com/solution/content/38250/
+
 - 当 $N \leq 20$ 时，可以直接暴力枚举所有子集（时间复杂度 $O(2^N)$。
 - 当 $N \leq 40$ 时，由于 $2^{40}$ 在 $10^{12}$ 量级，直接暴力也会比较大，所以可以使用 **折半搜索**
   ，将复杂度大致降低到 $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$
   ，可以在可接受的时间内完成。
-- 例题：[送礼物](https://www.acwing.com/solution/content/38250/) —— 《算法竞赛进阶指南》

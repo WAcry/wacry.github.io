@@ -1,29 +1,30 @@
+markdown
 ---
 title: "Búsqueda Binaria"
 date: 2024-12-24
 draft: false
 description: "Cómo implementar elegantemente el algoritmo de búsqueda binaria."
 summary: "Cómo implementar elegantemente el algoritmo de búsqueda binaria."
-tags: [ "algoritmo", "búsqueda binaria", "plantilla de algoritmo" ]
+tags: [ "Algoritmo", "Búsqueda Binaria", "Plantilla de Algoritmo" ]
 categories: [ "Algoritmos y Estructuras de Datos" ]
 ---
 
-Si un espacio de solución ordenado se divide en dos partes, donde una parte satisface la condición y la otra no, entonces se puede usar la búsqueda binaria para encontrar el punto crítico en el espacio de solución ordenado.
+Si un espacio de solución ordenado se divide en dos partes, donde una parte satisface una condición y la otra no, entonces se puede usar la búsqueda binaria para encontrar el punto crítico en el espacio de solución ordenado.
 
-La idea básica de la búsqueda binaria es dividir continuamente el intervalo de búsqueda por la mitad. En cada verificación, se inspecciona el elemento del punto medio. Si el elemento del punto medio no satisface la condición, se puede eliminar la mitad del intervalo; de lo contrario, la búsqueda continúa en la otra mitad del intervalo. Dado que la mitad del intervalo de búsqueda se descarta cada vez, la complejidad de tiempo de la búsqueda puede alcanzar $O(\log n)$.
+La idea básica de la búsqueda binaria es reducir repetidamente a la mitad el intervalo de búsqueda. Cada vez, se verifica el elemento medio. Si el elemento medio no satisface la condición, se puede eliminar la mitad del intervalo; de lo contrario, la búsqueda continúa en la otra mitad. Dado que la mitad del intervalo de búsqueda se descarta cada vez, la complejidad temporal de la búsqueda puede alcanzar $O(\log n)$.
 
-## Ejemplo
+## Problema de Ejemplo
 
-**Descripción del problema:**
-Dado un arreglo de enteros de longitud $n$ ordenado de forma ascendente y $q$ consultas. Cada consulta proporciona un entero $k$, y necesitamos encontrar la "posición inicial" y la "posición final" de $k$ en el arreglo (los índices comienzan desde 0). Si el número no existe en el arreglo, se debe devolver `-1 -1`.
+**Descripción del Problema:**
+Dado un arreglo de enteros ordenado ascendentemente de longitud $n$, y $q$ consultas. Cada consulta da un entero $k$, y necesitamos encontrar la "posición inicial" y la "posición final" de $k$ en el arreglo (los índices comienzan desde 0). Si el número no existe en el arreglo, devolver `-1 -1`.
 
-### Formato de entrada
+### Formato de Entrada
 
 1. Primera línea: dos enteros $n$ y $q$, que representan la longitud del arreglo y el número de consultas, respectivamente.
-2. Segunda línea: $n$ enteros, que representan el arreglo completo, que ya está ordenado en orden ascendente.
+2. Segunda línea: $n$ enteros, que representan el arreglo completo, ya ordenado de forma ascendente.
 3. Siguientes $q$ líneas: cada línea contiene un entero $k$, que representa un elemento de consulta.
 
-## Rango de datos
+## Rango de Datos
 
 $1 \leq n \leq 100000$
 
@@ -31,9 +32,9 @@ $1 \leq q \leq 10000$
 
 $1 \leq k \leq 10000$
 
-### Formato de salida
+### Formato de Salida
 
-Para cada consulta, imprima en una línea la posición inicial y final del elemento en el arreglo. Si el elemento no existe en el arreglo, imprima `-1 -1`.
+Para cada consulta, imprima las posiciones inicial y final del elemento en el arreglo en una sola línea. Si el elemento no existe en el arreglo, imprima `-1 -1`.
 
 **Ejemplo:**
 
@@ -53,37 +54,37 @@ Salida:
 
 **Explicación:**
 
-- El rango en el que aparece el elemento $3$ es $[3, 4]$.
-- El elemento $4$ aparece solo una vez, en la posición $5$.
+- El rango donde aparece el elemento $3$ es $[3, 4]$;
+- El elemento $4$ aparece solo una vez, en la posición $5$;
 - El elemento $5$ no existe en el arreglo, por lo que se devuelve $-1$ $-1$.
 
 ---
 
 ## Solución
 
-- **Encontrar la "posición inicial":**
-  Es decir, encontrar la primera posición mayor o igual a $k$. Se puede dividir el arreglo en dos partes:
-    - Todos los números a la izquierda son "menores" que $k$.
-    - Todos los números a la derecha son "mayores o iguales" que $k$.
-    - La respuesta es la primera posición de la derecha.
+- **Encontrar la "Posición Inicial":**
+  Es decir, encontrar la primera posición que sea mayor o igual que $k$. El arreglo se puede dividir en dos partes:
+    - Todos los números de la izquierda son "menores que" $k$
+    - Todos los números de la derecha son "mayores o iguales que" $k$
+    - La respuesta es la primera posición de la derecha
 
-- **Encontrar la "posición final":**
-  Es decir, encontrar la última posición menor o igual a $k$. Se puede dividir el arreglo en dos partes:
-    - Todos los números a la izquierda son "menores o iguales" que $k$.
-    - Todos los números a la derecha son "mayores" que $k$.
-    - La respuesta es la última posición de la izquierda.
+- **Encontrar la "Posición Final":**
+  Es decir, encontrar la última posición que sea menor o igual que $k$. El arreglo se puede dividir en dos partes:
+    - Todos los números de la izquierda son "menores o iguales que" $k$
+    - Todos los números de la derecha son "mayores que" $k$
+    - La respuesta es la última posición de la izquierda
 
 ---
 
-## Plantilla recomendada
+## Plantilla Recomendada
 
-A continuación, se presenta una plantilla de búsqueda binaria elegante y fácil de usar. Al hacer que $l$ y $r$ se acerquen gradualmente, garantiza que el bucle termine cuando estén adyacentes:
+A continuación, se muestra una plantilla de búsqueda binaria elegante y menos propensa a errores.
 
-Definimos dos punteros $l, r$, con la invariante: el intervalo cerrado $[0, l]$ pertenece a la mitad izquierda, y el intervalo cerrado $[r, n - 1]$ pertenece a la mitad derecha. $l$ y $r$ se inicializan como $-1$ y $n$ respectivamente.
+Defina dos punteros $l, r$, con la invariante: el intervalo cerrado $[0, l]$ pertenece a la parte izquierda, y el intervalo cerrado $[r, n - 1]$ pertenece a la parte derecha. $l$ y $r$ se inicializan a $-1$ y $n$, respectivamente.
 
-Cuando el algoritmo termina, $l$ y $r$ son adyacentes, apuntando al último elemento de la mitad izquierda y al primer elemento de la mitad derecha respectivamente.
+Cuando el algoritmo termina, $l$ y $r$ son adyacentes, apuntando al último elemento de la parte izquierda y al primer elemento de la parte derecha, respectivamente.
 
-Como la solución que buscamos puede no existir, si el problema no establece que la solución existe, necesitamos comprobar si `l` o `r` están fuera de rango y si apuntan al valor correcto.
+Debido a que la solución que queremos puede no existir, si el problema no establece que definitivamente existe una solución, necesitamos verificar si `l` o `r` están fuera de los límites y si apuntan al valor correcto.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -100,8 +101,8 @@ int main() {
         cin >> k;
 
         // 1. Encontrar la posición inicial de k
-        //    Dividir el arreglo en dos partes, la izquierda donde todos son < k, la derecha donde todos son >= k.
-        //    La respuesta es el índice mínimo de la mitad derecha.
+        //    Dividir el arreglo en dos partes, la parte izquierda es toda < k, y la parte derecha es toda >= k.
+        //    La respuesta es el índice más pequeño de la parte derecha.
         int l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -109,7 +110,7 @@ int main() {
             else l = mid;
         }
 
-        // Si r está fuera de rango o nums[r] != k, entonces k no existe
+        // Si r está fuera de los límites o nums[r] != k, significa que k no existe
         if (r == n || nums[r] != k) {
             cout << -1 << " " << -1 << endl;
             continue;
@@ -118,8 +119,8 @@ int main() {
         int leftPos = r;
 
         // 2. Encontrar la posición final de k
-        //    Dividir el arreglo en dos partes, la izquierda donde todos son <= k, la derecha donde todos son > k.
-        //    La respuesta es el índice máximo de la mitad izquierda.
+        //    Dividir el arreglo en dos partes, la parte izquierda es toda <= k, y la parte derecha es toda > k.
+        //    La respuesta es el índice más grande de la parte izquierda.
         l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -134,22 +135,22 @@ int main() {
 }
 ```
 
-### Por qué escribirlo así
+### Ventajas
 
-1. Esta escritura tiene invariantes estrictamente definidos.
-2. Se aplica tanto para encontrar la "posición inicial" como la "posición final", sin necesidad de tratamiento ni cambios adicionales.
-3. Algunas formas de escribir utilizan `l == r` como condición de terminación. Cuando $l$ y $r$ difieren en $1$, se calculará $mid$ y será igual a $l$ o $r$. Si no se trata correctamente, al actualizar $l$ o $r$ a $mid$, el intervalo de búsqueda no se reducirá, lo que provocará un bucle infinito. Por el contrario, esta escritura termina cuando $l$ y $r$ son adyacentes, lo que garantiza que $mid$ sea menor que $l$ y mayor que $r$, y que el intervalo de búsqueda se reducirá al actualizar $l$ o $r$.
+1. Este enfoque tiene invariantes estrictamente definidos.
+2. Se aplica tanto para encontrar la "posición inicial" como la "posición final" sin manejo o cambios adicionales.
+3. Algunos enfoques usan `l == r` como condición de terminación. Cuando $l$ y $r$ difieren en $1$, $mid$ se calculará para ser igual a $l$ o $r$. Si no se maneja correctamente, actualizar $l$ o $r$ a $mid$ no reducirá el intervalo de búsqueda, lo que provocará un bucle infinito. En contraste, este enfoque termina cuando $l$ y $r$ son adyacentes, asegurando que $mid$ sea menor que $l$ y mayor que $r$, y actualizar $l$ o $r$ siempre reducirá el intervalo de búsqueda.
 
 ---
 
 ## STL
 
-Si usamos las funciones `lower_bound` y `upper_bound` proporcionadas por C++ STL, también podemos lograr lo mismo:
+Si usa las funciones `lower_bound` y `upper_bound` proporcionadas por C++ STL, puede lograr lo mismo:
 
-- `lower_bound(first, last, val)` devuelve "la primera posición mayor o igual que val"
-- `upper_bound(first, last, val)` devuelve "la primera posición mayor que val"
+- `lower_bound(first, last, val)` devolverá "la primera posición que es mayor o igual que val"
+- `upper_bound(first, last, val)` devolverá "la primera posición que es mayor que val"
 
-Por ejemplo, supongamos que `nums = {1,2,3,4,4,4,4,4,5,5,6}`, y queremos saber el rango en el que aparece 4:
+Por ejemplo, supongamos que `nums = {1,2,3,4,4,4,4,4,5,5,6}`, y queremos saber el rango donde aparece 4:
 
 ```cpp
 vector<int> nums = {1,2,3,4,4,4,4,4,5,5,6};
@@ -165,21 +166,20 @@ if (it1 == nums.end() || *it1 != 4) {
 }
 ```
 
-- `it1` apunta a la primera posición cuyo valor es mayor o igual que $4$.
-- `it2` apunta a la primera posición cuyo valor es mayor que $4$.
-  Así que `it2 - it1` es la cantidad de veces que $4$ aparece en el arreglo; `it2 - nums.begin() - 1` es el límite derecho de $4$.
+- `it1` apunta a la primera posición donde el valor es mayor o igual que $4$.
+- `it2` apunta a la primera posición donde el valor es mayor que $4$.
+  Por lo tanto, `it2 - it1` es el número de veces que $4$ aparece en el arreglo; `it2 - nums.begin() - 1` es la posición del límite derecho de $4$.
 
 ---
 
-## Complemento
+## Notas Adicionales
 
-La búsqueda binaria también se puede extender a la búsqueda en el rango de números de punto flotante (como la búsqueda de raíces de ecuaciones), así como a la búsqueda ternaria para encontrar el máximo o mínimo de funciones unimodales.
-Siempre que comprendas el principio central de "**en un intervalo ordenado, la mitad siempre se puede descartar**", descubrirás que la búsqueda binaria puede ayudarte a resolver problemas de manera eficiente en muchos escenarios.
+La búsqueda binaria también se puede extender para buscar en rangos de punto flotante (como encontrar las raíces de una ecuación) y la búsqueda ternaria para encontrar los extremos de funciones unimodales.
 
 ---
 
-## Ejercicios
+## Práctica
 
 LeetCode 33. Search in Rotated Sorted Array
 
-Sugerencia: El primer paso es usar la búsqueda binaria para encontrar el punto de rotación, y el segundo paso es usar la búsqueda binaria para encontrar el valor objetivo.
+Pista: Primero, use la búsqueda binaria para encontrar el punto de rotación, y luego use la búsqueda binaria para encontrar el valor objetivo.

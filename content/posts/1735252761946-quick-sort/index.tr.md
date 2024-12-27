@@ -2,30 +2,30 @@
 title: "Hızlı Sıralama"
 date: 2024-12-26
 draft: false
-description: "Hızlı sıralama algoritmasının doğru bir şekilde uygulanmasının önemli noktalarının analizi."
-summary: "Hızlı sıralama algoritmasının doğru bir şekilde uygulanmasının önemli noktalarının analizi."
+description: "Hızlı sıralama algoritmasının doğru şekilde uygulanmasının anahtar noktalarının analizi."
+summary: "Hızlı sıralama algoritmasının doğru şekilde uygulanmasının anahtar noktalarının analizi."
 tags: [ "Algoritma", "Sıralama Algoritması", "Hızlı Sıralama", "Böl ve Fethet Algoritması" ]
 categories: [ "Algoritmalar ve Veri Yapıları" ]
 ---
 
 # Hızlı Sıralama
 
-Hızlı sıralama, karşılaştırmaya dayalı, kararlı olmayan bir sıralama algoritmasıdır. Böl ve fethet ilkesini kullanır. Ortalama zaman karmaşıklığı $O(n\log n)$'dir, en kötü durumdaki karmaşıklığı ise $O(n^2)$'dir. Alan karmaşıklığı $O(1)$'dir. Aşağıda, bir tam sayı dizisini küçükten büyüğe sıralama örneği verilerek, algoritmanın uygulama detayları ve yaygın hataları tanıtılmaktadır.
+Hızlı sıralama, karşılaştırmaya dayalı, kararlı olmayan bir sıralama algoritmasıdır. Böl ve fethet yaklaşımını kullanır. Ortalama zaman karmaşıklığı $O(n\log n)$'dir, en kötü durumda $O(n^2)$'dir ve uzay karmaşıklığı $O(1)$'dir. Aşağıda, bir tamsayı dizisini küçükten büyüğe sıralama örneği üzerinden uygulama detayları ve yaygın hatalar tanıtılmaktadır.
 
 ---
 
 ## Problem Tanımı
 
-$n$ uzunluğunda bir tam sayı dizisi veriliyor. Hızlı sıralama algoritmasını kullanarak diziyi küçükten büyüğe sıralayın ve sonucu çıktı olarak verin.
+Verilen $n$ uzunluğunda bir tamsayı dizisini, hızlı sıralama kullanarak küçükten büyüğe sıralayın ve sonucu çıktı olarak verin.
 
 ### Giriş Formatı
 
-- İlk satırda tam sayı $n$ girilir.
-- İkinci satırda $[1,10^9]$ aralığında $n$ adet tam sayı girilir.
+- İlk satırda $n$ tamsayısı girilir.
+- İkinci satırda $[1,10^9]$ aralığında $n$ adet tamsayı girilir.
 
 ### Çıkış Formatı
 
-- Sıralanmış diziyi tek bir satırda çıktı olarak verin.
+- Sıralanmış diziyi tek satırda çıktı olarak verin.
 
 ### Veri Aralığı
 
@@ -48,15 +48,15 @@ $1 \leq n \leq 100000$
 
 ## Hızlı Sıralama Yaklaşımı
 
-Hızlı sıralama, her bölme aşamasında bir pivot (temel) sayı seçer (aşağıdaki örnekte orta konumdaki sayı seçilmiştir).
+Hızlı sıralama, her bölme adımında bir sayı seçerek `pivot` (aşağıda orta konumdaki sayı seçilmiştir) olarak kullanır.
 
-Sol ve sağ işaretçiler kullanarak birbirine doğru ilerleyin. Sol işaretçi `L` soldan sağa doğru `pivot` sayısından büyük veya eşit olan ilk sayıyı arar, sağ işaretçi `R` ise sağdan sola doğru `pivot` sayısından küçük veya eşit olan ilk sayıyı arar ve ardından bu iki sayıyı yer değiştirir.
+Sol işaretçi `L` soldan sağa doğru `pivot`'a eşit veya büyük ilk sayıyı ararken, sağ işaretçi `R` sağdan sola doğru `pivot`'a eşit veya küçük ilk sayıyı arar ve ardından bu iki sayı yer değiştirir.
 
-Sol işaretçi sağ işaretçiyi geçene veya sol işaretçi sağ işaretçiden bir birim daha büyük olana kadar bu süreç tekrarlanır. Bu işleme bir döngü denir.
+Bu işlem, sol işaretçi ve sağ işaretçi çakışana veya sol işaretçi sağ işaretçiden bir pozisyon büyük olana kadar tekrar edilir. Bu, bir döngü olarak adlandırılır.
 
-Her işaretçi hareketinden ve takastan sonra, "sol kısım ≤ pivot, sağ kısım ≥ pivot" yapısının bozulmaması sağlanır. Yani değişmezler `[left, L) <= pivot` ve `(R, right] >= pivot` vardır.
+Her işaretçi hareketi ve yer değiştirme işleminden sonra, "sol kısım ≤ pivot, sağ kısım ≥ pivot" yapısının bozulmadığı, yani `[left, L) <= pivot` ve `(R, right] >= pivot` değişmezlerinin korunduğu garanti edilir.
 
-Aşağıdaki örnek kodda, `left` ve `right` şu anda işlenen kapalı aralığın sınırlarıdır ve `pivot` aralığın orta noktasındaki elemanı alır.
+Aşağıdaki örnek kodda, `left` ve `right` mevcut işlenen kapalı aralığın sınırlarıdır ve `pivot` aralığın orta noktasındaki elemanı alır.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -96,15 +96,15 @@ int main() {
 
 ## Karmaşıklık ve `pivot` Seçimi
 
-Hızlı sıralamanın en kötü durumdaki karmaşıklığı $O(n^2)$ olduğundan, `pivot` seçimi çok önemlidir. Her zaman ilk veya son elemanı seçmek, neredeyse sıralı dizilerde büyük olasılıkla en kötü durumun ortaya çıkmasına neden olacaktır.
+Hızlı sıralamanın en kötü durumda $O(n^2)$ karmaşıklığına sahip olması nedeniyle, `pivot` seçimi çok önemlidir. Her zaman ilk veya son elemanı seçmek, neredeyse sıralı dizilerde büyük olasılıkla en kötü durumun ortaya çıkmasına neden olacaktır.
 
-Orta konumdaki elemanı almak dışında, rastgele bir elemanı `pivot` olarak seçmek veya sol, orta ve sağ elemanların medyanını `pivot` olarak almak da mümkündür.
+Orta konumdaki elemanı seçmenin yanı sıra, `pivot` olarak rastgele bir eleman seçilebilir veya sol, orta ve sağdaki üç elemanın medyanı `pivot` olarak alınabilir.
 
 ---
 
 ## Yaygın Hata Örnekleri
 
-Aşağıdaki kod birkaç yaygın hata içermektedir.
+Aşağıdaki kod, birkaç yaygın hatayı içermektedir.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -136,22 +136,23 @@ int main() {
     quickSort(a, 0, n - 1);
     
     for (int i = 0; i < n; i++) cout << a[i] << " ";
+
     return 0;
 }
 ```
 
 **Hata Analizi:**
 
-1. `pivot` bir dizi elemanı olmalıdır, indeks değil.
-2. `<` ve `>` yerine `<=` ve `>=` kullanıldığında, sol işaretçi sağ işaretçiden bir birimden fazla geçebilir, bu da diziyi iki parçaya bölmeyi imkansız kılar.
-3. `l >= r` durumu bulunduktan sonra döngüden hemen çıkılmalıdır ve takas yapılmamalıdır. Aksi takdirde, sol kısımdaki elemanların `pivot`tan büyük olmaması ve sağ kısımdaki elemanların `pivot`tan küçük olmaması garanti edilemez.
-4. Her takastan sonra `l++` ve `r--` yapılmalıdır.
-5. `pivot` aslında ortanın solunda kalan bir sayı olarak alınır. Eğer diziyi $l - 1$ ve $l$ kullanarak bölerseniz, `[1, 2]` dizisinde sonsuz döngü oluştuğunu göreceksiniz ve dizi sürekli olarak 0 ve 2 boyutlu parçalara ayrılacaktır. Bunun aksine, döngü bittiğinde $r$, $right$tan kesinlikle küçük olacaktır. Bu nedenle diziyi $r$ ve $r+1$ kullanarak bölmek mümkündür. Okuyucular, neden olduğunu görmek için algoritma sürecini simüle edebilirler. Sonsuz döngüden kaçınmanın bir başka basit yolu da rastgele bir `pivot` seçmek veya sadece iki eleman olduğu durumları özel olarak ele almaktır. Benzer şekilde, diziyi $r$ ve $l$ ile bölmek de çalışmaz.
-6. Ayrıca, $l$, $l+1$ kullanmak da işe yaramaz, çünkü bu bölme tanıma uygun değildir. $r$'nin $l$'nin solunda olduğu durumda, $l$, $l+1$ kullanmak diziyi doğru bir şekilde sol taraf `pivot`tan küçük veya eşit, sağ taraf `pivot`tan büyük veya eşit olacak şekilde iki parçaya ayıramaz.
-7. Bu soruda dizinin boş olmadığı varsayılmaktadır, bu nedenle `>` durumu mevcut değildir. Ancak `>=`, kullanılması daha güvenlidir.
+1. `pivot`, dizideki bir sayı olmalıdır, indeks değil.
+2. Sırasıyla `<=` ve `>=` yerine `<` ve `>` kullanmak, sol işaretçinin sağ işaretçiyi birden fazla pozisyon geçmesine neden olabilir, bu da diziyi iki parçaya ayıramaz.
+3. `l >= r` bulunduktan sonra, döngüden hemen çıkılmalıdır ve yer değiştirme işlemi yapılmamalıdır. Aksi takdirde, sol taraftaki elemanların `pivot`'tan büyük olmadığı ve sağ taraftaki elemanların `pivot`'tan küçük olmadığı garanti edilemez.
+4. Her yer değiştirme işleminden sonra `l++` ve `r--` işlemleri yapılmalıdır.
+5. `pivot` aslında ortanın solundaki sayıyı alır. Bu nedenle, diziyi $l - 1$ ve $l$ kullanarak bölerseniz, `[1, 2]` dizisi için sonsuz döngüye yol açacağı ve diziyi sürekli olarak 0 ve 2 boyutlarında iki parçaya ayıracağı kolayca görülebilir. Benzer şekilde, diziyi $r$ ve $l$ kullanarak ayırmak da işe yaramaz. Aksine, bir döngü bittiğinde, $r$ kesinlikle $right$'tan küçük olacaktır, bu nedenle diziyi $r$ ve $r+1$ kullanarak bölebilirsiniz. Okuyucu, algoritma sürecini simüle ederek nedenini görebilir. Sonsuz döngüden kaçınmanın bir başka basit yolu da rastgele bir `pivot` seçmek veya yalnızca iki eleman olduğunda özel işlem yapmaktır.
+6. Ayrıca, $l$, $l+1$ kullanmak da işe yaramaz, çünkü bu bölme tanıma uygun değildir. $r$'nin $l$'nin solunda olduğu durumda, $l$, $l+1$ kullanmak diziyi doğru şekilde sol tarafı `pivot`'a eşit veya küçük ve sağ tarafı `pivot`'a eşit veya büyük olacak şekilde iki parçaya ayıramaz.
+7. Bu problem, dizinin boş olmadığını varsayar, bu nedenle `>` durumu yoktur. Ancak, daha güvenli olması için `>=` kullanılması önerilir.
 
 ---
 
 ## Ek Bilgiler
 
-Hızlı sıralama, "hızlı seçim"e de dönüştürülebilir. $O(n)$ beklenen sürede sıralanmamış bir dizideki $k$'inci en küçük sayıyı bulmak için hızlı sıralamaya benzer bir fikir kullanılır, ancak her seferinde sadece bir alt aralıkta yineleme yapılmasıyla zaman karmaşıklığı düşürülür.
+Hızlı sıralama, $O(n)$ beklenen sürede sıralanmamış bir dizideki $k$'inci en küçük sayıyı bulmak için "hızlı seçim"e de dönüştürülebilir. Temel fikir hızlı sıralamaya benzer, ancak her seferinde yalnızca bir alt aralıkta özyinelemeli olarak devam ederek zaman karmaşıklığını azaltır.

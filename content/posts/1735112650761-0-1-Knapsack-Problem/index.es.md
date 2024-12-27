@@ -1,28 +1,29 @@
+markdown
 ---
 title: "Problema de la Mochila 0/1"
 date: 2024-12-24
 draft: false
 description: "El problema de la mochila clásico más básico."
 summary: "El problema de la mochila clásico más básico."
-tags: [ "Algoritmo", "Programación Dinámica", "Problema de la Mochila" ]
+tags: [ "Algoritmos", "Programación Dinámica", "Problema de la Mochila" ]
 categories: [ "Algoritmos y Estructuras de Datos" ]
-series: [ "Nueve Lecciones sobre la Mochila" ]
+series: [ "Las Nueve Lecciones de la Mochila" ]
 series_order: 1
 ---
 
 ## Problema
 
-Hay $N$ objetos. El volumen del objeto $i$-ésimo es $s_i$ y su valor es $v_i$.
-Cada objeto solo se puede tomar una vez. Bajo la premisa de no exceder el límite máximo de volumen total $S$, calcule el valor total máximo $V$ que se puede obtener.
+Hay $N$ objetos. El volumen del objeto $i$ es $s_i$, y su valor es $v_i$.
+Cada objeto solo se puede tomar una vez. Bajo la premisa de no exceder la restricción de volumen total máximo $S$, encuentra el valor total máximo $V$ que se puede obtener.
 
 ## Formato de Entrada
 
-La primera línea contiene dos enteros, $N$ y $S$, separados por un espacio, que representan respectivamente el número de objetos y el límite máximo de volumen total.
-Las siguientes $N$ líneas contienen cada una dos enteros $s_i$ y $v_i$, separados por un espacio, que representan respectivamente el volumen y el valor del objeto $i$-ésimo.
+La primera línea contiene dos enteros, $N$ y $S$, separados por espacios, que representan el número de objetos y la restricción de volumen total máximo, respectivamente.
+Las siguientes $N$ líneas contienen dos enteros cada una, $s_i$ y $v_i$, separados por espacios, que representan el volumen y el valor del objeto $i$, respectivamente.
 
 ## Formato de Salida
 
-Imprima un entero, que representa el valor máximo.
+Imprime un entero, que representa el valor máximo.
 
 ## Rango de Datos
 
@@ -48,12 +49,12 @@ $$0 \le s_i, v_i \leq 1000$$
 
 ## Solución
 
-- Definir el estado: `f[i][j]` representa el valor máximo que se puede obtener con los primeros $i$ objetos, con un límite de volumen de $j$.
+- Definición del estado: `f[i][j]` representa el valor máximo que se puede obtener con los primeros $i$ objetos y una restricción de volumen de $j$.
     - Si no se toma el objeto $i$, entonces `f[i][j] = f[i - 1][j]`
     - Si se toma el objeto $i$, entonces `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-    - Al implementar la transición de estado, se debe prestar atención al rango del dominio. Si $j < s_i$, entonces no se considera el caso de tomar el objeto $i$. Porque si $j-s_i$ es un número negativo, el índice del array no es válido.
-      También se puede explicar así: El volumen del objeto $i$ es mayor que el límite de volumen, por lo que es imposible.
-- Definir las condiciones iniciales: Con los primeros $0$ objetos, cualquier límite de volumen obtiene un valor de $0$, es decir, `f[0][j] = 0`, `j` $\in [0, S]$.
+    - Al implementar la transición de estado, se debe prestar atención al rango del dominio. Si $j < s_i$, entonces no se considera el caso de tomar el objeto $i$. Esto se debe a que si $j - s_i$ es un número negativo, el índice del array no es válido.
+      También se puede explicar de esta manera: el volumen del objeto $i$ es mayor que la restricción de volumen, por lo que es imposible.
+- Definición de la condición inicial: con los primeros $0$ objetos, cualquier restricción de volumen obtiene un valor de $0$, es decir, `f[0][j] = 0`, `j` $\in [0, S]$.
 - Complejidad temporal: $O(NS)$.
 
 ## Código
@@ -78,12 +79,12 @@ int main() {
 }
 ```
 
-## Optimización de DP unidimensional
+## Optimización DP Unidimensional
 
-- Comprimir el array bidimensional en un array unidimensional, puede ahorrar espacio significativamente y mejorar la velocidad de ejecución en cierta medida (la desventaja es que no puede cumplir con los requisitos especiales de ciertos tipos de problemas)
-- Tenga en cuenta que en la transición de estado, `f[i][j]` solo está relacionado con `f[i - 1][j]` y `f[i - 1][j - s[i]]`. En otras palabras, en el array bidimensional `f` del código,
-  `f[i][j]` solo está relacionado con los elementos de la fila anterior que están más a la izquierda o en la misma columna, por lo tanto, el array bidimensional se puede comprimir en un array unidimensional o un array de desplazamiento.
-- Tenga en cuenta que en el siguiente código, el segundo bucle itera en orden inverso, esto se debe a que debemos asegurarnos de que al calcular `f[i][j]`, `f[i - 1][j - s[i]]` aún no se haya actualizado.
+- Comprimir el array bidimensional en un array unidimensional puede ahorrar espacio significativamente y mejorar la velocidad de ejecución en cierta medida (la desventaja es que no puede satisfacer los requisitos especiales de ciertos tipos de problemas).
+- Se observa que en la transición de estado, `f[i][j]` solo está relacionado con `f[i - 1][j]` y `f[i - 1][j - s[i]]`. En otras palabras, en el array bidimensional `f` del código,
+  `f[i][j]` solo está relacionado con los elementos de su fila anterior que están más a la izquierda o en la misma columna, por lo que el array bidimensional se puede comprimir en un array unidimensional o un array de desplazamiento.
+- Ten en cuenta que en el siguiente código, el segundo bucle itera en orden inverso, esto se debe a que queremos asegurarnos de que al calcular `f[i][j]`, `f[i - 1][j - s[i]]` aún no se haya actualizado.
 
 ```cpp
 #include<bits/stdc++.h>
@@ -104,26 +105,26 @@ int main() {
 }
 ```
 
-## Si se requiere el número de esquemas
+## Si se requiere el número de soluciones
 
-No solo se debe imprimir el valor total máximo que se puede obtener, sino que también es necesario imprimir "cuántos métodos diferentes de selección pueden alcanzar este valor total máximo". A continuación, se explica **cómo contar el número de esquemas** en el problema de la mochila 0/1.
+No solo se debe imprimir el valor total máximo que se puede obtener, sino también "cuántas formas diferentes de selección pueden alcanzar este valor máximo total". A continuación, se presenta cómo **contar el número de soluciones** en el problema de la mochila 0/1.
 
-### Conteo de Esquemas de DP Bidimensional
+### Conteo de Soluciones con DP Bidimensional
 
-A continuación se explica el uso de DP bidimensional como ejemplo.
+A continuación, se explica con un ejemplo de DP bidimensional.
 
 - Definición del estado:
-  - `dp[i][j]` representa el "valor máximo que se puede obtener con los primeros i objetos, cuando la capacidad (límite de volumen) es j".
-  - `ways[i][j]` representa el "número de esquemas correspondientes cuando se obtiene el valor máximo con los primeros i objetos, cuando la capacidad es j".
+  - `dp[i][j]` representa "el valor máximo que se puede obtener con los primeros i objetos y una capacidad (restricción de volumen) de j".
+  - `ways[i][j]` representa "el **número de soluciones** correspondientes cuando se obtiene el valor máximo con los primeros i objetos y una capacidad de j".
 
-- Transición del estado:
-  1. Si no se selecciona el objeto `i`-ésimo:
+- Transición de estado:
+  1. Si no se selecciona el objeto `i`:
      $$
        \text{dp}[i][j] = \text{dp}[i-1][j], 
        \quad
        \text{ways}[i][j] = \text{ways}[i-1][j]
      $$
-  2. Si se selecciona el objeto `i`-ésimo (con la condición de que $ j \ge s_i $):
+  2. Si se selecciona el objeto `i` (siempre que $ j \ge s_i $):
      $$
        \text{dp}[i][j] 
          = \text{dp}[i-1][j - s_i] + v_i,
@@ -131,13 +132,13 @@ A continuación se explica el uso de DP bidimensional como ejemplo.
        \text{ways}[i][j]
          = \text{ways}[i-1][j - s_i]
      $$
-  3. Ya sea que se seleccione o no, al final `dp[i][j]` debe tomar el valor mayor entre los dos:
+  3. Seleccionar o no, al final `dp[i][j]` debe tomar el valor más grande de los dos:
      - Si
        $$
          \text{dp}[i-1][j - s_i] + v_i 
            > \text{dp}[i-1][j],
        $$
-       eso indica que "seleccionar el objeto i-ésimo" tiene un valor mayor:
+       entonces indica que el valor de "seleccionar el objeto i" es mayor:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j - s_i] + v_i,
          \quad
@@ -148,7 +149,7 @@ A continuación se explica el uso de DP bidimensional como ejemplo.
          \text{dp}[i-1][j - s_i] + v_i 
            = \text{dp}[i-1][j],
        $$
-       indica que el valor máximo obtenido por los dos métodos es el mismo, entonces el número de esquemas debe superponerse:
+       indica que el valor máximo obtenido por las dos formas es el mismo, entonces el número de soluciones debe superponerse:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j], 
          \quad
@@ -161,45 +162,45 @@ A continuación se explica el uso de DP bidimensional como ejemplo.
          \text{dp}[i-1][j - s_i] + v_i 
            < \text{dp}[i-1][j],
        $$
-       eso indica que el valor de "no seleccionar el objeto i-ésimo" es mayor, y el número de esquemas hereda el número de esquemas cuando no se selecciona:
+       entonces indica que el valor de "no seleccionar el objeto i" es mayor, el número de soluciones hereda el número de soluciones cuando no se selecciona:
        $$
          \text{dp}[i][j] = \text{dp}[i-1][j],
          \quad
          \text{ways}[i][j] = \text{ways}[i-1][j].
        $$
 
-- Condiciones iniciales:
-  - `dp[0][j] = 0` indica que el valor máximo que se obtiene con los primeros 0 objetos es 0 para cualquier capacidad.  
-  - `ways[0][0] = 1` indica que "los primeros 0 objetos, con capacidad 0" es un esquema factible (es decir, no se selecciona nada), y el **número de esquemas** se establece en 1.  
-  - Para `j > 0`, cuando no hay objetos seleccionables y la capacidad es mayor que 0, es imposible obtener un valor positivo, por lo que el número de esquemas correspondiente es 0, es decir, `ways[0][j] = 0`.
+- Condición inicial:
+  - `dp[0][j] = 0` indica que cuando hay 0 objetos, el valor máximo obtenido con cualquier capacidad es 0.
+  - `ways[0][0] = 1` indica que "0 objetos, capacidad 0" es una solución factible (es decir, no seleccionar nada), el **número de soluciones** se establece en 1.
+  - Para `j > 0`, cuando no hay objetos para seleccionar y la capacidad es mayor que 0, es imposible obtener ningún valor positivo, el número de soluciones correspondiente es 0, es decir, `ways[0][j] = 0`.
 
 - Respuesta final:
-  - `dp[N][S]` es el valor máximo.  
-  - `ways[N][S]` es el número de esquemas para alcanzar ese valor máximo.
+  - `dp[N][S]` es el valor máximo.
+  - `ways[N][S]` es el número de soluciones para alcanzar este valor máximo.
   - Complejidad temporal: $O(NS)$.
-  - Este problema también se puede optimizar con DP unidimensional.
+  - Este problema también se puede optimizar utilizando DP unidimensional.
 
-## Si se requiere que el límite de volumen se alcance exactamente
+## Si se requiere alcanzar exactamente la restricción de volumen
 
-- Definir el estado: `f[i][j]` representa el valor máximo de los primeros `i` objetos con un volumen exactamente de $j$.
+- Definición del estado: `f[i][j]` representa el valor máximo de los primeros `i` objetos con un volumen exactamente igual a $j$.
 - Si no se toma el objeto `i`, entonces `f[i][j] = f[i - 1][j]`
 - Si se toma el objeto `i`, entonces `f[i][j] = f[i - 1][j - s[i]] + v[i]`
-- Se puede notar que no hay diferencia con la transición de estado del problema original.
-- Sin embargo, las condiciones iniciales son diferentes. Además de `f[0][0] = 0`, el resto `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ representa un estado imposible.
+- Se puede observar que no hay diferencia con la transición de estado del problema original.
+- Pero las condiciones iniciales son diferentes. Además de `f[0][0] = 0`, el resto de `f[0][j]` = $-\infty$, `j` $\in [1, S]$. $-\infty$ representa un estado imposible.
 
-## Si el límite de volumen $S$ es muy grande (1e9), mientras que el número de objetos $N$ y el valor total máximo $V$ son pequeños
+## Si la restricción de volumen $S$ es muy grande (1e9), mientras que el número de objetos $N$ y el valor total máximo $V$ son relativamente pequeños
 
-- Para este tipo de problemas, existe una solución con complejidad $O(NV)$.
-- Definir el estado: `f[i][j]` representa el volumen mínimo de los primeros `i` objetos seleccionando varios, cuando la suma de valores es exactamente `j`.
+- Para este tipo de problema, existe una solución con una complejidad de $O(NV)$.
+- Definición del estado: `f[i][j]` representa el volumen mínimo de los primeros `i` objetos seleccionando algunos, cuyo valor total es exactamente `j`.
     - Si no se toma el objeto `i`, entonces `f[i][j] = f[i - 1][j]`
     - Si se toma el objeto `i`, entonces `f[i][j] = f[i - 1][j - v[i]] + s[i]`
-    - Se toma el valor menor entre ambos.
-- Condiciones iniciales: `f[0][0] = 0`, el resto `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ representa un estado imposible. Tenga en cuenta que no es $-\infty$.
+    - Se toma el valor más pequeño de los dos.
+- Condición inicial: `f[0][0] = 0`, el resto de `f[0][j]` = $\infty$, `j` $\in [1, V]$. $\infty$ representa un estado imposible. Ten en cuenta que no es $-\infty$.
 - La respuesta final es el `j` más grande en `f[N][j]` tal que `f[N][j] <= S`.
 
-## Si el límite de volumen $S$ y el valor de los objetos individuales $v_i$ son muy grandes (orden de magnitud de $1e9$), mientras que el número de objetos $N$ es muy pequeño (no más de 40)
+## Si la restricción de volumen $S$ y el valor de un solo objeto $v_i$ son muy grandes (del orden de $1e9$), mientras que el número de objetos $N$ es muy pequeño (no más de 40)
 
-- Cuando $N \leq 20$, se puede enumerar directamente todos los subconjuntos (complejidad temporal $O(2^N)$).
-- Cuando $N \leq 40$, debido a que $2^{40}$ está en el orden de magnitud de $10^{12}$, la enumeración directa también sería demasiado grande, por lo que se puede utilizar la **búsqueda por la mitad**
-  , para reducir la complejidad aproximadamente a $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$
-  , lo que se puede completar en un tiempo aceptable.
+- Cuando $N \leq 20$, se pueden enumerar directamente todos los subconjuntos (complejidad temporal $O(2^N)$).
+- Cuando $N \leq 40$, dado que $2^{40}$ está en el orden de $10^{12}$, la enumeración directa también sería relativamente grande, por lo que se puede utilizar la **búsqueda de punto medio**,
+  lo que reduce la complejidad aproximadamente a $O\bigl(2^{\frac{N}{2}} \times \log(2^{\frac{N}{2}})\bigr) \approx O(N \cdot 2^{\frac{N}{2}})$
+  , que se puede completar en un tiempo aceptable.

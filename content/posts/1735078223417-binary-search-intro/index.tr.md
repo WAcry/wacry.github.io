@@ -1,27 +1,28 @@
+markdown
 ---
 title: "İkili Arama"
 date: 2024-12-24
 draft: false
-description: "İkili arama algoritması nasıl zarif bir şekilde uygulanır."
-summary: "İkili arama algoritması nasıl zarif bir şekilde uygulanır."
+description: "İkili arama algoritmasının zarif bir şekilde nasıl uygulanacağı."
+summary: "İkili arama algoritmasının zarif bir şekilde nasıl uygulanacağı."
 tags: [ "Algoritma", "İkili Arama", "Algoritma Şablonu" ]
 categories: [ "Algoritmalar ve Veri Yapıları" ]
 ---
 
-Eğer sıralı çözüm uzayı sol ve sağ olmak üzere iki kısma ayrılıyorsa ve bu kısımlardan biri koşulu sağlıyor diğeri ise sağlamıyorsa, sıralı çözüm uzayında kritik noktayı bulmak için ikili arama kullanılabilir.
+Sıralı bir çözüm uzayı iki parçaya ayrıldığında, bir parça bir koşulu sağlarken diğeri sağlamıyorsa, sıralı çözüm uzayındaki kritik noktayı bulmak için ikili arama kullanılabilir.
 
-İkili aramanın temel fikri, arama aralığını sürekli olarak ikiye bölmektir. Her kontrol noktasında orta nokta elemanı kontrol edilir, eğer orta nokta elemanı koşulu sağlamıyorsa aralığın yarısı elenir; aksine, diğer yarısında aramaya devam edilir. Her defasında arama aralığının yarısı atıldığı için arama zaman karmaşıklığı $O(\log n)$'ye ulaşabilir.
+İkili aramanın temel fikri, arama aralığını tekrar tekrar yarıya indirmektir. Her seferinde orta eleman kontrol edilir. Orta eleman koşulu sağlamıyorsa, aralığın yarısı elenebilir; aksi takdirde, arama diğer yarısında devam eder. Her seferinde arama aralığının yarısı atıldığı için, arama zaman karmaşıklığı $O(\log n)$'ye ulaşabilir.
 
 ## Örnek Problem
 
-**Problem Tanımı:**  
-Uzunluğu $n$ olan sıralı bir tam sayı dizisi ve $q$ tane sorgu verilmiştir. Her sorgu bir tam sayı $k$ verir ve dizideki $k$'nin "başlangıç konumunu" ve "bitiş konumunu" bulmamız gerekir (indisler 0'dan başlar). Eğer dizide bu sayı yoksa `-1 -1` döndürün.
+**Problem Açıklaması:**
+Uzunluğu $n$ olan artan sıralı bir tamsayı dizisi ve $q$ sorgu veriliyor. Her sorgu bir tamsayı $k$ verir ve dizideki $k$'nin "başlangıç pozisyonunu" ve "bitiş pozisyonunu" bulmamız gerekir (indeksler 0'dan başlar). Sayı dizide yoksa, `-1 -1` döndürün.
 
 ### Giriş Formatı
 
-1. İlk satır: Dizi uzunluğunu ve sorgu sayısını gösteren iki tam sayı $n$ ve $q$.
-2. İkinci satır: Sıralı bir şekilde düzenlenmiş tüm diziyi gösteren $n$ adet tam sayı.
-3. Sonraki $q$ satır: Her biri sorgu elemanını gösteren bir tam sayı $k$ içerir.
+1. İlk satır: dizinin uzunluğunu ve sorgu sayısını temsil eden iki tamsayı $n$ ve $q$.
+2. İkinci satır: artan sırada sıralanmış tam diziyi temsil eden $n$ tamsayı.
+3. Sonraki $q$ satır: her satır bir sorgu elemanını temsil eden bir tamsayı $k$ içerir.
 
 ## Veri Aralığı
 
@@ -33,7 +34,7 @@ $1 \leq k \leq 10000$
 
 ### Çıkış Formatı
 
-Her sorgu için, dizideki elemanın başlangıç ve bitiş konumunu bir satırda yazdırın. Eğer eleman dizide yoksa `-1 -1` yazdırın.
+Her sorgu için, dizideki elemanın başlangıç ve bitiş pozisyonlarını tek bir satırda çıktılayın. Eleman dizide yoksa, `-1 -1` çıktılayın.
 
 **Örnek:**
 
@@ -53,37 +54,37 @@ Giriş:
 
 **Açıklama:**
 
-- $3$ elemanının aralığı $[3, 4]$'tür;
-- $4$ elemanı yalnızca bir kez, $5$ konumunda görünür;
-- $5$ elemanı dizide yoktur, bu nedenle $-1$ $-1$ döndürülür.
+- $3$ elemanının göründüğü aralık $[3, 4]$'tür;
+- $4$ elemanı yalnızca bir kez, $5$ pozisyonunda görünür;
+- $5$ elemanı dizide yok, bu yüzden $-1$ $-1$ döndürülür.
 
 ---
 
 ## Çözüm
 
-- **"Başlangıç konumunu" bulmak:**
-  Yani, $k$'ye eşit veya büyük olan ilk konumu bulmak. Diziyi iki kısma bölebiliriz:
-    - Soldaki tüm sayılar $k$'den "küçük"
-    - Sağdaki tüm sayılar $k$'ye "eşit veya büyük"
-    - Cevap sağdaki ilk konumdur.
+- **"Başlangıç Pozisyonunu" Bulma:**
+  Yani, $k$'ye eşit veya büyük olan ilk pozisyonu bulmak. Dizi iki parçaya ayrılabilir:
+    - Soldaki tüm sayılar $k$'den "küçüktür"
+    - Sağdaki tüm sayılar $k$'ye "eşit veya büyüktür"
+    - Cevap, sağdaki ilk pozisyondur
 
-- **"Bitiş konumunu" bulmak:**
-  Yani, $k$'ye eşit veya küçük olan son konumu bulmak. Diziyi iki kısma bölebiliriz:
-    - Soldaki tüm sayılar $k$'ye "eşit veya küçük"
-    - Sağdaki tüm sayılar $k$'den "büyük"
-    - Cevap soldaki son konumdur.
+- **"Bitiş Pozisyonunu" Bulma:**
+  Yani, $k$'ye eşit veya küçük olan son pozisyonu bulmak. Dizi iki parçaya ayrılabilir:
+    - Soldaki tüm sayılar $k$'ye "eşit veya küçüktür"
+    - Sağdaki tüm sayılar $k$'den "büyüktür"
+    - Cevap, soldaki son pozisyondur
 
 ---
 
 ## Önerilen Şablon
 
-Aşağıda, zarif ve hataya yatkın olmayan bir ikili arama şablonu bulunmaktadır. Bu şablon, $l$ ve $r$'nin yavaşça yakınlaşmasını sağlayarak döngünün her ikisi de bitişik olduğunda sona ermesini garanti eder:
+Aşağıda zarif ve daha az hataya yatkın bir ikili arama şablonu bulunmaktadır.
 
-İki işaretçi $l, r$ tanımlanır, sabitler şöyledir: kapalı aralık $[0, l]$ sol yarıya aittir ve kapalı aralık $[r, n - 1]$ sağ yarıya aittir. $l$ ve $r$ başlangıçta $-1$ ve $n$ olarak ayarlanır.
+İki işaretçi $l, r$ tanımlayın, değişmez: kapalı aralık $[0, l]$ sol parçaya aittir ve kapalı aralık $[r, n - 1]$ sağ parçaya aittir. $l$ ve $r$ sırasıyla $-1$ ve $n$ olarak başlatılır.
 
-Algoritma bittiğinde, $l$ ve $r$ bitişiktir, sırasıyla sol yarıdaki son elemanı ve sağ yarıdaki ilk elemanı işaret eder.
+Algoritma sona erdiğinde, $l$ ve $r$ bitişiktir, sırasıyla sol parçanın son elemanına ve sağ parçanın ilk elemanına işaret eder.
 
-İstediğimiz çözüm mevcut olmayabileceğinden, eğer soruda mutlaka bir çözüm olduğu belirtilmemişse, `l` veya `r`'nin sınırların dışına çıkıp çıkmadığını ve doğru değeri işaret edip etmediğini kontrol etmemiz gerekir.
+İstediğimiz çözüm mevcut olmayabileceğinden, problem kesinlikle bir çözümün var olduğunu belirtmiyorsa, `l` veya `r`'nin sınırların dışında olup olmadığını ve doğru değere işaret edip etmediğini kontrol etmemiz gerekir.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -99,9 +100,9 @@ int main() {
         int k;
         cin >> k;
 
-        // 1. k'nin başlangıç konumunu bul
-        //    Diziyi iki kısma ayır, sol taraf < k, sağ taraf >= k.
-        //    Cevap sağ tarafın en küçük indeksidir.
+        // 1. k'nin başlangıç pozisyonunu bul
+        //    Diziyi iki parçaya ayır, sol parça tümü < k, ve sağ parça tümü >= k.
+        //    Cevap, sağ parçanın en küçük indeksidir.
         int l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -109,7 +110,7 @@ int main() {
             else l = mid;
         }
 
-        // Eğer r sınırların dışına çıktıysa veya nums[r] != k ise, k'nin mevcut olmadığını belirtir
+        // Eğer r sınırların dışındaysa veya nums[r] != k ise, bu k'nin mevcut olmadığı anlamına gelir
         if (r == n || nums[r] != k) {
             cout << -1 << " " << -1 << endl;
             continue;
@@ -117,9 +118,9 @@ int main() {
 
         int leftPos = r;
 
-        // 2. k'nin bitiş konumunu bul
-        //    Diziyi iki kısma ayır, sol taraf <= k, sağ taraf > k.
-        //    Cevap sol tarafın en büyük indeksidir.
+        // 2. k'nin bitiş pozisyonunu bul
+        //    Diziyi iki parçaya ayır, sol parça tümü <= k, ve sağ parça tümü > k.
+        //    Cevap, sol parçanın en büyük indeksidir.
         l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -134,22 +135,22 @@ int main() {
 }
 ```
 
-### Neden Böyle Yazıyoruz
+### Avantajları
 
-1. Bu yazımın kesin olarak tanımlanmış değişmezleri vardır.
-2. Hem "başlangıç konumunu" hem de "bitiş konumunu" bulma durumlarına aynı anda uygulanabilir, ek işlem ve değişikliklere gerek kalmaz.
-3. Bazı yazımlarda durdurma koşulu olarak `l == r` kullanılır. $l$ ve $r$ arasındaki fark $1$ olduğunda, $mid$ $l$ veya $r$'ye eşit olarak hesaplanır. Doğru işlenmezse, $l$ veya $r$'yi $mid$ olarak güncelleyerek, arama aralığı daralmaz ve sonsuz döngüye yol açar. Aksine, buradaki yazım $l$ ve $r$ bitişik olduğunda durdurulur, $mid$'in $l$'den küçük ve $r$'den büyük olmasını sağlayarak, $l$ veya $r$ güncellendiğinde arama aralığının kesinlikle daralmasını sağlar.
+1. Bu yaklaşımın kesin olarak tanımlanmış değişmezleri vardır.
+2. Ek bir işlem veya değişiklik olmadan hem "başlangıç pozisyonunu" hem de "bitiş pozisyonunu" bulmaya uygulanır.
+3. Bazı yaklaşımlar `l == r`'yi sonlandırma koşulu olarak kullanır. $l$ ve $r$ 1 farkla ayrıldığında, $mid$, $l$ veya $r$'ye eşit olacak şekilde hesaplanır. Doğru şekilde ele alınmazsa, $l$ veya $r$'yi $mid$'e güncellemek arama aralığını daraltmaz ve sonsuz döngüye yol açar. Buna karşılık, bu yaklaşım $l$ ve $r$ bitişik olduğunda sona erer, bu da $mid$'in $l$'den küçük ve $r$'den büyük olmasını sağlar ve $l$ veya $r$'yi güncellemek her zaman arama aralığını daraltır.
 
 ---
 
 ## STL
 
-C++ STL tarafından sağlanan `lower_bound` ve `upper_bound` işlevlerini kullanırsak, aynı işi tamamlayabiliriz:
+C++ STL tarafından sağlanan `lower_bound` ve `upper_bound` fonksiyonlarını kullanırsanız, aynı şeyi elde edebilirsiniz:
 
-- `lower_bound(first, last, val)` "val'e eşit veya büyük olan ilk konumu" döndürür.
-- `upper_bound(first, last, val)` "val'den büyük olan ilk konumu" döndürür.
+- `lower_bound(first, last, val)` "val'e eşit veya büyük olan ilk pozisyonu" döndürür
+- `upper_bound(first, last, val)` "val'den büyük olan ilk pozisyonu" döndürür
 
-Örnek olarak, `nums = {1,2,3,4,4,4,4,4,5,5,6}` olduğunu ve 4'ün aralığını öğrenmek istediğimizi varsayalım:
+Örneğin, `nums = {1,2,3,4,4,4,4,4,5,5,6}` olduğunu ve 4'ün göründüğü aralığı bilmek istediğimizi varsayalım:
 
 ```cpp
 vector<int> nums = {1,2,3,4,4,4,4,4,5,5,6};
@@ -157,29 +158,28 @@ auto it1 = lower_bound(nums.begin(), nums.end(), 4);
 auto it2 = upper_bound(nums.begin(), nums.end(), 4);
 
 if (it1 == nums.end() || *it1 != 4) {
-    cout << "4, 0 kere görünüyor" << endl;
+    cout << "4, 0 kez görünüyor" << endl;
 } else {
     cout << "ilk 4, " << it1 - nums.begin() << " konumunda" << endl;
     cout << "son 4, " << it2 - nums.begin() - 1 << " konumunda" << endl;
-    cout << "4, " << it2 - it1 << " kere görünüyor" << endl;
+    cout << "4, " << it2 - it1 << " kez görünüyor" << endl;
 }
 ```
 
-- `it1`, değeri $4$'e eşit veya büyük olan ilk konumu işaret eder.
-- `it2`, değeri $4$'ten büyük olan ilk konumu işaret eder.
-  Bu nedenle `it2 - it1`, $4$'ün dizide kaç kez göründüğüdür; `it2 - nums.begin() - 1` ise $4$'ün sağ sınırıdır.
+- `it1`, değerin $4$'e eşit veya büyük olduğu ilk pozisyona işaret eder.
+- `it2`, değerin $4$'ten büyük olduğu ilk pozisyona işaret eder.
+  Bu nedenle, `it2 - it1`, $4$'ün dizide kaç kez göründüğüdür; `it2 - nums.begin() - 1`, $4$'ün sağ sınırının pozisyonudur.
 
 ---
 
-## Ek
+## Ek Notlar
 
-İkili arama, kayan noktalı sayı aralığında arama yapmaya (örneğin, bir denklemin köklerini bulmaya) ve tek tepeli fonksiyonun maksimum değerini bulmak için üçlü arama yapmaya kadar genişletilebilir.
-"**Sıralı bir aralıkta her seferinde yarısını eleyebildiğiniz**" temel ilkesini anladığınız sürece, ikili aramanın birçok senaryoda sorunları verimli bir şekilde çözmenize yardımcı olacağını göreceksiniz.
+İkili arama, kayan noktalı aralıklarda arama yapmak (örneğin, bir denklemin köklerini bulmak gibi) ve tek modlu fonksiyonların ekstremalarını bulmak için üçlü arama yapmak için de genişletilebilir.
 
 ---
 
 ## Alıştırma
 
-LeetCode 33. Search in Rotated Sorted Array
+LeetCode 33. Rotated Sorted Array'de Arama
 
-İpucu: İlk adımda, dönme noktasını bulmak için ikili arama kullanın, ikinci adımda ise hedef değeri bulmak için ikili arama kullanın.
+İpucu: Önce, dönme noktasını bulmak için ikili arama kullanın ve ardından hedef değeri bulmak için ikili arama kullanın.
