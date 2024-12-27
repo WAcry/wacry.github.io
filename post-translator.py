@@ -64,9 +64,9 @@ def translate_with_gemini(input_text, target_language):
    - Preserve all keys as they are.
    - Translate values into the target language, if they are not keywords (true, null, etc.) or dates.
    - That means, the response should start with '---' for front matter, the same format as the original file.
+   - **Do not wrap the the response by "```" or "```yaml" or "```markdown". The first line should be "---".**
 2. Content Formatting: 
    - Retain all formatting, including code blocks, styles, and markdown elements.
-   - Do not wrap the content with additional markdown tags (e.g., ```markdown).
 3. Links: 
    - Remove any links pointing to domains: `acwing.com` or `luogu.com` for non-Chinese languages.
    - This is because only Chinese readers can access these sites.
@@ -91,6 +91,8 @@ Input File Content:
                 response = response[3:-3]
                 if response.startswith("markdown"):
                     response = response[8:]
+                if response.startswith("yaml"):
+                    response = response[4:]
             # if not start with ---, print a warning
             if not response.strip().startswith("---"):
                 print("\033[91mWarning: The translated content does not start with '---'.\033[0m")
