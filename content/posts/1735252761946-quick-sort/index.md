@@ -4,13 +4,13 @@ date: 2024-12-26
 draft: false
 description: "Analysis of key points for correctly implementing the quick sort algorithm."
 summary: "Analysis of key points for correctly implementing the quick sort algorithm."
-tags: [ "Algorithm", "Sorting Algorithm", "Quick Sort", "Divide and Conquer" ]
+tags: [ "Algorithm", "Sorting Algorithm", "Quick Sort", "Divide and Conquer Algorithm" ]
 categories: [ "Algorithms and Data Structures" ]
 ---
 
 # Quick Sort
 
-Quick sort is a comparison-based, unstable sorting algorithm that uses the divide-and-conquer approach. It has an average time complexity of $O(n\log n)$, a worst-case time complexity of $O(n^2)$, and a space complexity of $O(1)$. The following explains its implementation details and common mistakes using the example of sorting an integer sequence in ascending order.
+Quick sort is a comparison-based, unstable sorting algorithm that uses the divide-and-conquer approach. It has an average time complexity of $O(n\log n)$, a worst-case time complexity of $O(n^2)$, and a space complexity of $O(1)$. The following will use sorting an integer sequence in ascending order as an example to introduce its implementation details and common mistakes.
 
 ---
 
@@ -20,8 +20,8 @@ Given an integer sequence of length $n$, sort it in ascending order using quick 
 
 ### Input Format
 
-- The first line contains an integer $n$.
-- The second line contains $n$ integers, all within the range $[1, 10^9]$.
+- The first line inputs an integer $n$.
+- The second line inputs $n$ integers, all within the range $[1, 10^9]$.
 
 ### Output Format
 
@@ -46,17 +46,17 @@ $1 \leq n \leq 100000$
 
 ---
 
-## Quick Sort Approach
+## Quick Sort Idea
 
 In each divide step of quick sort, a number is arbitrarily chosen as the pivot (the number in the middle position is chosen below).
 
-Use left and right pointers that move towards each other. The left pointer `L` searches from left to right for the first number greater than or equal to the `pivot`, and the right pointer `R` searches from right to left for the first number less than or equal to the `pivot`. Then, swap these two numbers.
+Use left and right pointers moving towards each other. The left pointer `L` searches from left to right for the first number greater than or equal to the `pivot`, and the right pointer `R` searches from right to left for the first number less than or equal to the `pivot`. Then, swap these two numbers.
 
-Repeat this process until the left and right pointers overlap or the left pointer is one position to the right of the right pointer. This is called one cycle.
+Repeat this process continuously until the left and right pointers overlap or the left pointer is one position greater than the right pointer. This is called one cycle.
 
-After each pointer movement and swap, ensure that the structure "left part ≤ pivot, right part ≥ pivot" is not broken, i.e., the invariants `[left, L) <= pivot` and `(R, right] >= pivot` hold.
+After each pointer movement and swap, ensure that the structure "left part ≤ pivot, right part ≥ pivot" is not broken, i.e., there is an invariant `[left, L) <= pivot`, `(R, right] >= pivot`.
 
-In the example code below, `left` and `right` are the boundaries of the current closed interval being processed, and `pivot` is the element at the midpoint of the interval.
+In the example code below, `left` and `right` are the boundaries of the currently processed closed interval, and `pivot` is the element at the midpoint of the interval.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -96,9 +96,9 @@ int main() {
 
 ## Complexity and `pivot` Selection
 
-Since quick sort has a worst-case complexity of $O(n^2)$, the selection of the `pivot` is crucial. If the first or last element is always chosen, the worst-case scenario is likely to occur in nearly sorted arrays.
+Since quick sort has a complexity of $O(n^2)$ in the worst case, the selection of the `pivot` is crucial. If the first or last element is always selected, the worst case is likely to occur in nearly sorted arrays.
 
-In addition to taking the element at the middle position, a random element can be selected as the `pivot`, or the median of the left, middle, and right elements can be used as the `pivot`.
+In addition to taking the element in the middle position, a random element can also be selected as the `pivot`, or the median of the left, middle, and right elements can be taken as the `pivot`.
 
 ---
 
@@ -132,9 +132,9 @@ int main() {
     int n; cin >> n;
     vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
-    
+
     quickSort(a, 0, n - 1);
-    
+
     for (int i = 0; i < n; i++) cout << a[i] << " ";
 
     return 0;
@@ -144,15 +144,15 @@ int main() {
 **Error Analysis:**
 
 1.  `pivot` should be a number in the array, not an index.
-2.  Using `<=` and `>=` instead of `<` and `>` respectively can cause the left pointer to move more than one position past the right pointer, which prevents the array from being divided into two parts.
-3.  After finding `l >= r`, the loop should be exited immediately without performing any more swaps. Otherwise, it cannot be guaranteed that elements on the left are not greater than `pivot` and elements on the right are not less than `pivot`.
+2.  Use `<` and `>` instead of `<=` and `>=`, otherwise the left pointer may move more than one position past the right pointer, which would prevent the array from being divided into two parts.
+3.  After finding `l >= r`, the loop should be exited immediately, and no more swaps should be performed. Otherwise, it cannot be guaranteed that the elements on the left are not greater than `pivot` and the elements on the right are not less than `pivot`.
 4.  After each swap, `l++` and `r--` should be executed.
-5.  `pivot` is actually taking the number slightly to the left of the middle. Therefore, if the array is divided using $l - 1$ and $l$, it is easy to see that a dead loop will occur when considering the array `[1, 2]`, continuously dividing the array into two parts of size 0 and 2. Similarly, using $r$ and $l$ to divide the array will not work. Instead, at the end of a cycle, $r$ must be less than $right$, so $r$ and $r+1$ can be used to divide the array. The reader can simulate the algorithm process to see why. Another simple way to avoid dead loops is to randomly select the `pivot` or handle the case of only two elements specially.
-6.  Also, using $l$ and $l+1$ will not work because this division does not conform to the definition. When $r$ is to the left of $l$, using $l$ and $l+1$ cannot correctly divide the array into two parts: the left part less than or equal to `pivot` and the right part greater than or equal to `pivot`.
-7.  This problem assumes that the array is not empty, so the case of `>` does not exist. However, it is recommended to use `>=`, which is safer.
+5.  `pivot` actually takes the number in the middle-left position. Therefore, if the array is divided using $l - 1$ and $l$, it is not difficult to find that it will cause an infinite loop, continuously dividing the array into two parts of size 0 and 2, considering the array `[1, 2]`. Similarly, using $r$ and $l$ to divide the array will not work. Conversely, at the end of a round of the loop, $r$ must be less than $right$, so $r$ and $r+1$ can be used to divide the array. The reader can simulate the algorithm process to see why. Another simple way to avoid infinite loops is to randomly select `pivot` or handle the case of only two elements specially.
+6.  Also, using $l$, $l+1$ will not work, because this division does not conform to the definition. When $r$ is to the left of $l$, using $l$, $l+1$ cannot correctly divide the array into two parts: the left part less than or equal to `pivot`, and the right part greater than or equal to `pivot`.
+7.  This problem assumes that the array is not empty, so there is no case of `>`. However, it is recommended to use `>=`, which is safer.
 
 ---
 
-## Additional Notes
+## Supplement
 
-Quick sort can also be evolved into "quick select," which can find the $k$-th smallest number in an unordered array in $O(n)$ expected time. The specific idea is similar to quick sort, except that it only continues recursion on one side of the sub-interval each time, thus reducing the time complexity.
+Quick sort can also be evolved into "quick select", which can find the $k$-th smallest number in an unordered array in $O(n)$ expected time. The specific idea is similar to quick sort, except that it only continues to recurse in one side of the sub-interval each time, thus reducing the time complexity.

@@ -2,26 +2,26 @@
 title: "Tìm kiếm nhị phân"
 date: 2024-12-24
 draft: false
-description: "Cách triển khai thuật toán tìm kiếm nhị phân một cách thanh lịch."
-summary: "Cách triển khai thuật toán tìm kiếm nhị phân một cách thanh lịch."
+description: "Làm thế nào để triển khai thuật toán tìm kiếm nhị phân một cách thanh lịch."
+summary: "Làm thế nào để triển khai thuật toán tìm kiếm nhị phân một cách thanh lịch."
 tags: [ "Thuật toán", "Tìm kiếm nhị phân", "Mẫu thuật toán" ]
 categories: [ "Thuật toán và Cấu trúc dữ liệu" ]
 ---
 
-Nếu một không gian nghiệm có thứ tự được chia thành hai phần, trong đó một phần thỏa mãn một điều kiện và phần còn lại thì không, thì có thể sử dụng tìm kiếm nhị phân để tìm điểm tới hạn trong không gian nghiệm có thứ tự đó.
+Nếu không gian nghiệm có thứ tự được chia thành hai phần, trong đó một phần thỏa mãn điều kiện và phần còn lại không thỏa mãn điều kiện. Thì có thể sử dụng tìm kiếm nhị phân để tìm điểm tới hạn trong không gian nghiệm có thứ tự.
 
-Ý tưởng cơ bản của tìm kiếm nhị phân là liên tục chia đôi khoảng tìm kiếm. Mỗi lần, phần tử ở giữa được kiểm tra. Nếu phần tử ở giữa không thỏa mãn điều kiện, một nửa khoảng có thể bị loại bỏ; nếu không, việc tìm kiếm tiếp tục ở nửa còn lại. Vì một nửa khoảng tìm kiếm bị loại bỏ mỗi lần, độ phức tạp thời gian tìm kiếm có thể đạt $O(\log n)$.
+Ý tưởng cơ bản của tìm kiếm nhị phân là liên tục chia đôi khoảng tìm kiếm. Mỗi lần kiểm tra phần tử ở giữa, nếu phần tử ở giữa không thỏa mãn điều kiện, có thể loại bỏ một nửa khoảng; ngược lại, tiếp tục tìm kiếm trong nửa khoảng còn lại. Vì mỗi lần đều loại bỏ một nửa khoảng tìm kiếm, độ phức tạp thời gian tìm kiếm có thể đạt $O(\log n)$.
 
-## Bài toán ví dụ
+## Bài tập ví dụ
 
-**Mô tả bài toán:**
-Cho một mảng số nguyên được sắp xếp tăng dần có độ dài $n$, và $q$ truy vấn. Mỗi truy vấn cho một số nguyên $k$, và chúng ta cần tìm "vị trí bắt đầu" và "vị trí kết thúc" của $k$ trong mảng (chỉ số bắt đầu từ 0). Nếu số đó không tồn tại trong mảng, trả về `-1 -1`.
+**Mô tả bài toán:**  
+Cho một mảng số nguyên có độ dài $n$ được sắp xếp tăng dần, và $q$ truy vấn. Mỗi truy vấn cho một số nguyên $k$, chúng ta cần tìm "vị trí bắt đầu" và "vị trí kết thúc" của $k$ trong mảng (chỉ số bắt đầu từ 0). Nếu số này không tồn tại trong mảng, trả về `-1 -1`.
 
 ### Định dạng đầu vào
 
-1. Dòng đầu tiên: hai số nguyên $n$ và $q$, lần lượt biểu thị độ dài của mảng và số lượng truy vấn.
-2. Dòng thứ hai: $n$ số nguyên, biểu thị mảng hoàn chỉnh, đã được sắp xếp theo thứ tự tăng dần.
-3. $q$ dòng tiếp theo: mỗi dòng chứa một số nguyên $k$, biểu thị một phần tử truy vấn.
+1. Dòng đầu tiên: Hai số nguyên $n$ và $q$, lần lượt biểu thị độ dài mảng và số lần truy vấn.
+2. Dòng thứ hai: $n$ số nguyên, biểu thị mảng đầy đủ, đã được sắp xếp theo thứ tự tăng dần.
+3. $q$ dòng tiếp theo: Mỗi dòng chứa một số nguyên $k$, biểu thị một phần tử truy vấn.
 
 ## Phạm vi dữ liệu
 
@@ -33,7 +33,7 @@ $1 \leq k \leq 10000$
 
 ### Định dạng đầu ra
 
-Đối với mỗi truy vấn, xuất ra vị trí bắt đầu và kết thúc của phần tử trong mảng trên một dòng duy nhất. Nếu phần tử không tồn tại trong mảng, xuất ra `-1 -1`.
+Đối với mỗi truy vấn, in ra vị trí bắt đầu và kết thúc của phần tử đó trong mảng trên một dòng. Nếu phần tử đó không tồn tại trong mảng, in ra `-1 -1`.
 
 **Ví dụ:**
 
@@ -53,37 +53,37 @@ $1 \leq k \leq 10000$
 
 **Giải thích:**
 
-- Phạm vi mà phần tử $3$ xuất hiện là $[3, 4]$;
-- Phần tử $4$ chỉ xuất hiện một lần, tại vị trí $5$;
-- Phần tử $5$ không tồn tại trong mảng, vì vậy trả về $-1$ $-1$.
+- Phạm vi xuất hiện của phần tử $3$ là $[3, 4]$;
+- Phần tử $4$ chỉ xuất hiện một lần, ở vị trí $5$;
+- Phần tử $5$ không tồn tại trong mảng, do đó trả về $-1$ $-1$.
 
 ---
 
-## Giải pháp
+## Giải đáp
 
-- **Tìm "Vị trí bắt đầu":**
-  Tức là, tìm vị trí đầu tiên lớn hơn hoặc bằng $k$. Mảng có thể được chia thành hai phần:
+- **Tìm "vị trí bắt đầu":**
+  Tức là tìm vị trí đầu tiên lớn hơn hoặc bằng $k$. Có thể chia mảng thành hai phần:
     - Tất cả các số bên trái đều "nhỏ hơn" $k$
     - Tất cả các số bên phải đều "lớn hơn hoặc bằng" $k$
-    - Câu trả lời là vị trí đầu tiên ở bên phải
+    - Đáp án là vị trí đầu tiên của phần bên phải
 
-- **Tìm "Vị trí kết thúc":**
-  Tức là, tìm vị trí cuối cùng nhỏ hơn hoặc bằng $k$. Mảng có thể được chia thành hai phần:
+- **Tìm "vị trí kết thúc":**
+  Tức là tìm vị trí cuối cùng nhỏ hơn hoặc bằng $k$. Có thể chia mảng thành hai phần:
     - Tất cả các số bên trái đều "nhỏ hơn hoặc bằng" $k$
     - Tất cả các số bên phải đều "lớn hơn" $k$
-    - Câu trả lời là vị trí cuối cùng ở bên trái
+    - Đáp án là vị trí cuối cùng của phần bên trái
 
 ---
 
-## Mẫu khuyến nghị
+## Mẫu đề xuất
 
-Dưới đây là một mẫu tìm kiếm nhị phân thanh lịch và ít lỗi hơn.
+Dưới đây là một mẫu tìm kiếm nhị phân thanh lịch và khó mắc lỗi.
 
-Xác định hai con trỏ $l, r$, với bất biến: khoảng đóng $[0, l]$ thuộc phần bên trái và khoảng đóng $[r, n - 1]$ thuộc phần bên phải. $l$ và $r$ được khởi tạo lần lượt là $-1$ và $n$.
+Định nghĩa hai con trỏ $l, r$, có bất biến: khoảng đóng $[0, l]$ thuộc về nửa bên trái, khoảng đóng $[r, n - 1]$ thuộc về nửa bên phải. $l$ và $r$ đều được khởi tạo là $-1$ và $n$.
 
-Khi thuật toán kết thúc, $l$ và $r$ liền kề nhau, trỏ đến phần tử cuối cùng của phần bên trái và phần tử đầu tiên của phần bên phải.
+Khi thuật toán kết thúc, $l$ và $r$ liền kề nhau, lần lượt trỏ đến phần tử cuối cùng của nửa bên trái và phần tử đầu tiên của nửa bên phải.
 
-Vì giải pháp chúng ta muốn có thể không tồn tại, nếu bài toán không nói rằng một giải pháp chắc chắn tồn tại, chúng ta cần kiểm tra xem `l` hoặc `r` có nằm ngoài giới hạn hay không và liệu nó có trỏ đến giá trị chính xác hay không.
+Vì nghiệm chúng ta muốn có thể không tồn tại, nên nếu đề bài không nói rõ là chắc chắn có nghiệm, chúng ta cần kiểm tra xem `l` hoặc `r` có vượt quá giới hạn hay không, có trỏ đến giá trị đúng hay không.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -100,8 +100,8 @@ int main() {
         cin >> k;
 
         // 1. Tìm vị trí bắt đầu của k
-        //    Chia mảng thành hai phần, phần bên trái là tất cả < k, và phần bên phải là tất cả >= k.
-        //    Câu trả lời là chỉ số nhỏ nhất của phần bên phải.
+        //    Chia mảng thành hai phần, bên trái đều < k, bên phải đều >= k.
+        //    Đáp án là chỉ số nhỏ nhất của nửa bên phải.
         int l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -109,7 +109,7 @@ int main() {
             else l = mid;
         }
 
-        // Nếu r nằm ngoài giới hạn hoặc nums[r] != k, có nghĩa là k không tồn tại
+        // Nếu r vượt quá giới hạn hoặc nums[r] != k, nghĩa là không tồn tại k
         if (r == n || nums[r] != k) {
             cout << -1 << " " << -1 << endl;
             continue;
@@ -118,8 +118,8 @@ int main() {
         int leftPos = r;
 
         // 2. Tìm vị trí kết thúc của k
-        //    Chia mảng thành hai phần, phần bên trái là tất cả <= k, và phần bên phải là tất cả > k.
-        //    Câu trả lời là chỉ số lớn nhất của phần bên trái.
+        //    Chia mảng thành hai phần, bên trái đều <= k, bên phải đều > k.
+        //    Đáp án là chỉ số lớn nhất của nửa bên trái.
         l = -1, r = n;
         while(l < r - 1) {
             int mid = (l + r) / 2;
@@ -130,26 +130,27 @@ int main() {
         int rightPos = l;
         cout << leftPos << " " << rightPos << endl;
     }
+
     return 0;
 }
 ```
 
 ### Ưu điểm
 
-1. Cách tiếp cận này có các bất biến được xác định chặt chẽ.
-2. Nó áp dụng cho cả việc tìm "vị trí bắt đầu" và "vị trí kết thúc" mà không cần xử lý hoặc thay đổi thêm.
-3. Một số cách tiếp cận sử dụng `l == r` làm điều kiện kết thúc. Khi $l$ và $r$ khác nhau $1$, $mid$ sẽ được tính bằng $l$ hoặc $r$. Nếu không được xử lý đúng cách, việc cập nhật $l$ hoặc $r$ thành $mid$ sẽ không thu hẹp khoảng tìm kiếm, dẫn đến vòng lặp vô hạn. Ngược lại, cách tiếp cận này kết thúc khi $l$ và $r$ liền kề nhau, đảm bảo rằng $mid$ nhỏ hơn $l$ và lớn hơn $r$, và việc cập nhật $l$ hoặc $r$ sẽ luôn thu hẹp khoảng tìm kiếm.
+1. Cách viết này có bất biến được định nghĩa rõ ràng.
+2. Nó đồng thời áp dụng cho cả hai trường hợp tìm "vị trí bắt đầu" và "vị trí kết thúc", không cần xử lý và thay đổi thêm.
+3. Một số cách viết sử dụng `l == r` làm điều kiện dừng. Khi $l$ và $r$ cách nhau $1$, sẽ tính ra $mid$ bằng $l$ hoặc $r$. Nếu không xử lý đúng, cập nhật $l$ hoặc $r$ thành $mid$, khoảng tìm kiếm không thu hẹp, sẽ dẫn đến vòng lặp vô hạn. Ngược lại, cách viết ở đây dừng khi $l$ và $r$ liền kề nhau, đảm bảo $mid$ nhỏ hơn $l$ và lớn hơn $r$, khi cập nhật $l$ hoặc $r$ thì khoảng tìm kiếm chắc chắn sẽ thu hẹp.
 
 ---
 
 ## STL
 
-Nếu bạn sử dụng các hàm `lower_bound` và `upper_bound` do C++ STL cung cấp, bạn có thể đạt được điều tương tự:
+Nếu sử dụng các hàm `lower_bound` và `upper_bound` do C++ STL cung cấp, cũng có thể hoàn thành công việc tương tự:
 
 - `lower_bound(first, last, val)` sẽ trả về "vị trí đầu tiên lớn hơn hoặc bằng val"
 - `upper_bound(first, last, val)` sẽ trả về "vị trí đầu tiên lớn hơn val"
 
-Ví dụ, giả sử `nums = {1,2,3,4,4,4,4,4,5,5,6}`, và chúng ta muốn biết phạm vi mà 4 xuất hiện:
+Ví dụ, giả sử `nums = {1,2,3,4,4,4,4,4,5,5,6}`, chúng ta muốn biết khoảng xuất hiện của 4:
 
 ```cpp
 vector<int> nums = {1,2,3,4,4,4,4,4,5,5,6};
@@ -165,15 +166,15 @@ if (it1 == nums.end() || *it1 != 4) {
 }
 ```
 
-- `it1` trỏ đến vị trí đầu tiên mà giá trị lớn hơn hoặc bằng $4$.
-- `it2` trỏ đến vị trí đầu tiên mà giá trị lớn hơn $4$.
-  Do đó, `it2 - it1` là số lần $4$ xuất hiện trong mảng; `it2 - nums.begin() - 1` là vị trí của ranh giới bên phải của $4$.
+- `it1` trỏ đến vị trí của giá trị đầu tiên lớn hơn hoặc bằng $4$.
+- `it2` trỏ đến vị trí của giá trị đầu tiên lớn hơn $4$.  
+  Vậy `it2 - it1` chính là số lần $4$ xuất hiện trong mảng; `it2 - nums.begin() - 1` chính là vị trí biên phải của $4$.
 
 ---
 
-## Ghi chú bổ sung
+## Bổ sung
 
-Tìm kiếm nhị phân cũng có thể được mở rộng để tìm kiếm trong các phạm vi số thực (chẳng hạn như tìm nghiệm của một phương trình) và tìm kiếm tam phân để tìm cực trị của các hàm đơn mode.
+Tìm kiếm nhị phân còn có thể mở rộng sang tìm kiếm trong phạm vi số thực (ví dụ như tìm nghiệm của phương trình), cũng như tìm kiếm tam phân để tìm giá trị lớn nhất của hàm đơn đỉnh.
 
 ---
 
@@ -181,4 +182,4 @@ Tìm kiếm nhị phân cũng có thể được mở rộng để tìm kiếm t
 
 LeetCode 33. Search in Rotated Sorted Array
 
-Gợi ý: Đầu tiên, sử dụng tìm kiếm nhị phân để tìm điểm xoay, sau đó sử dụng tìm kiếm nhị phân để tìm giá trị mục tiêu.
+Gợi ý: Bước đầu tiên sử dụng tìm kiếm nhị phân để tìm điểm xoay, bước thứ hai sử dụng tìm kiếm nhị phân để tìm giá trị mục tiêu.

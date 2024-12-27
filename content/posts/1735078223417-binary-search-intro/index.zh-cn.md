@@ -135,6 +135,7 @@ int main() {
         int rightPos = l;
         cout << leftPos << " " << rightPos << endl;
     }
+
     return 0;
 }
 ```
