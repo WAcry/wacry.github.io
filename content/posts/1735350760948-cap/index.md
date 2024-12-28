@@ -35,7 +35,7 @@ It should be noted that the CAP Theorem itself is a relatively high-level theory
    The C in the CAP Theorem often refers to consistency in the strictest sense (i.e., linearizability). However, in actual systems, we have many fine-grained models to choose from, such as weak consistency, Read Committed, and Causal Consistency.
 2. **Availability is not 0 or 1**
    It is not that choosing CP means availability is completely sacrificed; or choosing AP means consistency is not guaranteed at all. Both availability and consistency have different degrees of trade-off space and degradation strategies.
-3. **Eventual consistency** does not violate CAP
+3. **Eventual consistency does not violate CAP**
    It is a very common compromise, using lower write consistency in exchange for higher availability and throughput, and converging data in the background asynchronously.
 
 Therefore, the CAP Theorem should be combined with various **consistency models** and **high-availability architectural patterns** in specific scenarios to produce real practical guidance.
