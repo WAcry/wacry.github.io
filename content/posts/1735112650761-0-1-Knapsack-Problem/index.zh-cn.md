@@ -1,12 +1,16 @@
 ---
-title: "01背包问题"
+title: 01背包问题
 date: 2024-12-24
 draft: false
-description: "最基础的经典背包问题。"
-summary: "最基础的经典背包问题。"
-tags: [ "算法", "动态规划", "背包问题" ]
-series: [ "背包经典问题集" ]
+description: 最基础的经典背包问题。
+summary: 最基础的经典背包问题。
+series:
+  - 背包经典问题集
 series_order: 1
+tags:
+  - 算法
+  - 动态规划
+  - 背包问题
 ---
 
 ## 题目
