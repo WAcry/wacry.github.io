@@ -22,7 +22,7 @@ tags:
 The **CAP Theorem** was proposed by Eric Brewer in 2000. Its core idea is:
 
 - **C (Consistency)**: All nodes in the system see the same data at the same time. More strictly, when a client reads data, the result should be consistent with the latest committed data, regardless of which replica is read (usually referring to strong consistency/linearizability).
-- **A (Availability)**: The system can still provide normal services when partial failures occur. Each request can receive a "valid response" within a reasonable time (not necessarily successful, but also including correct failure responses).
+- **A (Availability)**: The system can still provide normal services when partial failures occur. Each request can receive a valid response within a reasonable time.
 - **P (Partition tolerance)**: The system can tolerate network partitions (unreachable communication between nodes). Even if the network is split, the system can provide a certain degree of availability or consistency.
 
 In a real distributed environment, network partitions are unavoidable, so **P** is basically regarded as a "must-have". When network partitions occur, the system cannot simultaneously ensure the **strong consistency** and **high availability** of data across all nodes. It can only make a trade-off between C and A, resulting in two main types: **CP** and **AP**.
