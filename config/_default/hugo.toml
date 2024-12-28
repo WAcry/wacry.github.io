@@ -33,6 +33,7 @@ home = ["HTML", "RSS", "JSON"]
 [related]
 threshold = 0
 toLower = true
+includeNewer = true
 
 [[related.indices]]
 name = "title"
