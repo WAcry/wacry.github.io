@@ -217,7 +217,7 @@ The following briefly discusses several distributed systems that are often menti
     -   A NoSQL database that tends to **CP**. It uses distributed coordination between RegionServers and Master to ensure the consistency of metadata, and provides strong consistency guarantees for single-row transactions by default.
     -   Read consistency can be adjusted according to application needs.
 2.  **Google Spanner**
-    -   A very powerful CP system (it can even achieve the "CA" illusion often talked about, but it still needs to sacrifice some availability in essence).
+    -   A very powerful **CP** system (it can even achieve the "CA" illusion often talked about, but it still needs to sacrifice some availability in essence).
     -   Going further than BigTable, it provides global distributed SQL transactions and external consistency guarantees, supporting ACID transactions and read and write operations across global data centers.
     -   It uses TrueTime to provide high-precision external timestamps to ensure the order of transactions and external time consistency across data centers.
     -   It uses the Paxos protocol within each shard to replicate data, ensuring strong data consistency and high availability.
