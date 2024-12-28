@@ -8,24 +8,22 @@ tags: [ "Algoritma", "Sıralama Algoritması", "Hızlı Sıralama", "Böl ve Fet
 categories: [ "Algoritmalar ve Veri Yapıları" ]
 ---
 
-# Hızlı Sıralama
-
 Hızlı sıralama, karşılaştırmaya dayalı, kararlı olmayan bir sıralama algoritmasıdır. Böl ve fethet yaklaşımını kullanır. Ortalama zaman karmaşıklığı $O(n\log n)$'dir, en kötü durumda $O(n^2)$'dir ve uzay karmaşıklığı $O(1)$'dir. Aşağıda, bir tamsayı dizisini küçükten büyüğe sıralama örneği üzerinden uygulama detayları ve yaygın hatalar tanıtılmaktadır.
 
 ---
 
 ## Problem Tanımı
 
-$n$ uzunluğunda bir tamsayı dizisi verildiğinde, hızlı sıralama kullanarak küçükten büyüğe sıralayın ve sonucu çıktı olarak verin.
+$n$ uzunluğunda bir tamsayı dizisi verildiğinde, hızlı sıralama kullanarak küçükten büyüğe sıralayın ve sonucu çıktılayın.
 
 ### Giriş Formatı
 
 - İlk satırda $n$ tamsayısı girilir.
-- İkinci satırda $[1,10^9]$ aralığında $n$ adet tamsayı girilir.
+- İkinci satırda, her biri $[1,10^9]$ aralığında olan $n$ tamsayı girilir.
 
 ### Çıkış Formatı
 
-- Sıralanmış diziyi tek satırda çıktı olarak verin.
+- Sıralanmış diziyi tek satırda çıktılayın.
 
 ### Veri Aralığı
 
@@ -50,11 +48,11 @@ $1 \leq n \leq 100000$
 
 Hızlı sıralama, her bölme adımında bir sayı seçerek `pivot` (aşağıda orta konumdaki sayı seçilmiştir) olarak kullanır.
 
-Sol ve sağ işaretçiler zıt yönlerde hareket eder. Sol işaretçi `L`, soldan sağa doğru `pivot`'a eşit veya büyük ilk sayıyı arar, sağ işaretçi `R` ise sağdan sola doğru `pivot`'a eşit veya küçük ilk sayıyı arar ve ardından bu iki sayıyı değiştirir.
+Sol işaretçi `L` soldan sağa doğru `pivot`'a eşit veya büyük ilk sayıyı ararken, sağ işaretçi `R` sağdan sola doğru `pivot`'a eşit veya küçük ilk sayıyı arar ve ardından bu iki sayıyı değiştirir.
 
-Bu işlem, sol işaretçi ve sağ işaretçi çakışana veya sol işaretçi sağ işaretçiden bir pozisyon büyük olana kadar tekrarlanır. Bu, bir döngü olarak adlandırılır.
+Sol işaretçi ve sağ işaretçi çakışana veya sol işaretçi sağ işaretçiden bir pozisyon büyük olana kadar bu işlemi tekrarlayın. Bu bir döngü olarak adlandırılır.
 
-Her işaretçi hareketi ve değişim tamamlandıktan sonra, "sol kısım ≤ pivot, sağ kısım ≥ pivot" yapısının bozulmadığı garanti edilir, yani değişmezler `[left, L) <= pivot` ve `(R, right] >= pivot` geçerlidir.
+Her işaretçi hareketi ve takas işleminden sonra, "sol kısım ≤ pivot, sağ kısım ≥ pivot" yapısının bozulmadığı, yani `[left, L) <= pivot` ve `(R, right] >= pivot` değişmezlerinin korunduğu garanti edilir.
 
 Aşağıdaki örnek kodda, `left` ve `right` mevcut işlenen kapalı aralığın sınırlarıdır ve `pivot` aralığın orta noktasındaki elemanı alır.
 
@@ -96,15 +94,15 @@ int main() {
 
 ## Karmaşıklık ve `pivot` Seçimi
 
-Hızlı sıralamanın en kötü durumda $O(n^2)$ karmaşıklığına sahip olması nedeniyle, `pivot` seçimi çok önemlidir. Her zaman ilk veya son elemanı seçmek, neredeyse sıralı dizilerde büyük olasılıkla en kötü durumun ortaya çıkmasına neden olacaktır.
+Hızlı sıralamanın en kötü durumda $O(n^2)$ karmaşıklığına sahip olması nedeniyle, `pivot` seçimi çok önemlidir. Her zaman ilk veya son elemanı seçerseniz, neredeyse sıralı dizilerde büyük olasılıkla en kötü durum ortaya çıkacaktır.
 
-Orta konumdaki elemanı seçmenin yanı sıra, `pivot` olarak rastgele bir eleman seçilebilir veya sol, orta ve sağdaki üç elemanın medyanı `pivot` olarak alınabilir.
+Orta konumdaki elemanı almanın yanı sıra, `pivot` olarak rastgele bir eleman seçebilir veya sol, orta ve sağdaki üç elemanın medyanını `pivot` olarak alabilirsiniz.
 
 ---
 
 ## Yaygın Hata Örnekleri
 
-Aşağıdaki kod, birçok yaygın hatayı içermektedir.
+Aşağıdaki kod, birkaç yaygın hata içermektedir.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -144,12 +142,12 @@ int main() {
 **Hata Analizi:**
 
 1. `pivot` bir dizi elemanı olmalı, indeks değil.
-2. `<` ve `>` yerine `<=` ve `>=` kullanmak, sol işaretçinin sağ işaretçiyi birden fazla pozisyon geçmesine neden olabilir, bu da diziyi iki parçaya ayıramaz.
-3. `l >= r` bulunduktan sonra, döngüden hemen çıkılmalı ve değişim yapılmamalıdır. Aksi takdirde, sol taraftaki elemanların `pivot`'tan büyük olmaması ve sağ taraftaki elemanların `pivot`'tan küçük olmaması garanti edilemez.
-4. Her değişimden sonra `l++` ve `r--` yapılmalıdır.
-5. `pivot` aslında ortanın solundaki sayıyı alır. Bu nedenle, diziyi $l - 1$ ve $l$ kullanarak bölersek, `[1, 2]` dizisi için sonsuz döngüye neden olacağı ve diziyi sürekli olarak 0 ve 2 boyutlarında iki parçaya ayıracağı kolayca görülebilir. Benzer şekilde, diziyi $r$ ve $l$ kullanarak ayırmak da işe yaramaz. Aksine, bir döngü bittiğinde, $r$ kesinlikle $right$'tan küçük olacaktır, bu nedenle diziyi $r$ ve $r+1$ kullanarak ayırabiliriz. Okuyucular nedenini görmek için algoritma sürecini simüle edebilirler. Sonsuz döngüden kaçınmanın bir başka basit yolu da rastgele `pivot` seçmek veya yalnızca iki eleman olduğunda özel işlem yapmaktır.
-6. Ayrıca, $l$, $l+1$ kullanmak da işe yaramaz, çünkü bu bölme tanıma uygun değildir. $r$'nin $l$'nin solunda olduğu durumda, $l$, $l+1$ kullanmak diziyi doğru şekilde sol tarafı `pivot`'a eşit veya küçük ve sağ tarafı `pivot`'a eşit veya büyük olacak şekilde iki parçaya ayıramaz.
-7. Bu problem, dizinin boş olmadığını varsayar, bu nedenle `>` durumu yoktur. Ancak, daha güvenli olması için `>=` kullanılması önerilir.
+2. `<` ve `>` yerine `<=` ve `>=` kullanmak, sol işaretçinin sağ işaretçiyi birden fazla geçmesine neden olabilir, bu da diziyi ikiye bölmeyi imkansız hale getirir.
+3. `l >= r` bulunduktan sonra, takas işlemini yapmadan döngüden hemen çıkılmalıdır. Aksi takdirde, sol taraftaki elemanların `pivot`'tan büyük olmadığı ve sağ taraftaki elemanların `pivot`'tan küçük olmadığı garanti edilemez.
+4. Her takastan sonra `l++` ve `r--` yapılmalıdır.
+5. `pivot` aslında ortanın solundaki sayıyı alır. Bu nedenle, diziyi $l - 1$ ve $l$ kullanarak bölerseniz, `[1, 2]` dizisi için sonsuz döngüye neden olacağı ve diziyi sürekli olarak 0 ve 2 boyutlarında iki parçaya böleceği kolayca görülebilir. Benzer şekilde, diziyi $r$ ve $l$ kullanarak bölmek de işe yaramaz. Aksine, bir döngü bittiğinde, $r$ kesinlikle $right$'tan küçük olacaktır, bu nedenle diziyi $r$ ve $r+1$ kullanarak bölebilirsiniz. Okuyucular nedenini görmek için algoritma sürecini simüle edebilirler. Sonsuz döngüden kaçınmanın bir başka basit yolu da rastgele bir `pivot` seçmek veya yalnızca iki eleman olduğunda özel işlem yapmaktır.
+6. Ayrıca, $l$, $l+1$ kullanmak da işe yaramaz, çünkü bu bölme tanıma uygun değildir. $r$'nin $l$'nin solunda olduğu durumda, $l$, $l+1$ kullanmak diziyi doğru şekilde sol tarafı `pivot`'a eşit veya küçük ve sağ tarafı `pivot`'a eşit veya büyük olacak şekilde ikiye bölemez.
+7. Bu problem dizinin boş olmadığını varsayar, bu nedenle `>` durumu yoktur. Ancak, daha güvenli olması için `>=` kullanılması önerilir.
 
 ---
 
