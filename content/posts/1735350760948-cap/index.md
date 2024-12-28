@@ -19,7 +19,7 @@ tags:
 
 ### 1.1 What is the CAP Theorem?
 
-The **CAP Theorem** was proposed by Eric Brewer in 2000. Its core idea is: **C (Consistency)**, **A (Availability)**, and **P (Partition tolerance)** cannot be achieved simultaneously. At most, only two of them can be satisfied at the same time.
+The **CAP Theorem** was proposed by Eric Brewer in 2000, and its core idea is that C, A, and P cannot all be achieved simultaneously. In the design of distributed systems, at most, only two of them can be satisfied at the same time.
 
 - **C (Consistency)**: All nodes in the system see the same data at the same time. More strictly, when a client reads data, the result should be consistent with the latest committed data, regardless of which replica is read (usually referring to strong consistency/linearizability).
 - **A (Availability)**: The system can still provide normal services when partial failures occur. Each request can receive a valid response within a reasonable time.
