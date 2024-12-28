@@ -12,48 +12,44 @@ enableEmoji = true
 googleAnalytics = "G-0PXDGGP7FP"
 
 [pagination]
-  pagerSize = 30
+pagerSize = 30
 
 [imaging]
-  anchor = 'Center'
+anchor = 'Center'
 
 [taxonomies]
-  tag = "tags"
-  category = "categories"
-  series = "series"
+tag = "tags"
+category = "categories"
+series = "series"
 
 [sitemap]
-  changefreq = 'daily'
-  filename = 'sitemap.xml'
-  priority = 0.5
+changefreq = 'daily'
+filename = 'sitemap.xml'
+priority = 0.5
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+home = ["HTML", "RSS", "JSON"]
 
 [related]
-  threshold = 0
-  toLower = true
+threshold = 0
+toLower = true
 
-  [[related.indices]]
-    name = "title"
-    weight = 40
+[[related.indices]]
+name = "title"
+weight = 50
 
-  [[related.indices]]
-    name = "date"
-    weight = 10
+[[related.indices]]
+name = "date"
+weight = 5
 
-  [[related.indices]]
-    name = "description"
-    weight = 30
+[[related.indices]]
+name = "description"
+weight = 30
 
-  [[related.indices]]
-    name = "tags"
-    weight = 80
+[[related.indices]]
+name = "tags"
+weight = 70
 
-  [[related.indices]]
-    name = "categories"
-    weight = 60
-
-  [[related.indices]]
-    name = "series"
-    weight = 50
+[[related.indices]]
+name = "series"
+weight = 90

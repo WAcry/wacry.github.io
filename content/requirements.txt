@@ -1,1 +1,3 @@
 google-generativeai>=0.8.3
+ruamel.yaml>=0.18.6
+langid>=1.1.6
