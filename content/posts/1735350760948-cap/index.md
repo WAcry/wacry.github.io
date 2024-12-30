@@ -1,8 +1,7 @@
 ---
-weight: 1
 title: 'In-depth explanation of the CAP theorem: Building high-concurrency and high-availability
   distributed systems'
-date: 2024-12-20
+date: 2024-12-28
 draft: false
 description: Discussing the Application of the CAP Theorem in Distributed Systems
   from Theory to Practice.

@@ -1,7 +1,6 @@
 ---
-weight: 1
 title: 深入讲解CAP定理：打造高并发与高可用的分布式系统
-date: 2024-12-20
+date: 2024-12-28
 draft: false
 description: 从理论到实践讨论 CAP 定理在分布式系统中的应用。
 summary: 从理论到实践讨论 CAP 定理在分布式系统中的应用。
