@@ -329,7 +329,7 @@ Raft 依赖以下两大核心性质，来保证系统日志在节点之间保持
 
 ### 代码样例
 
-```c#
+```csharp
 using System;
 using System.Collections.Generic;
 using System.Linq;

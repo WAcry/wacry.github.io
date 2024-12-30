@@ -17,5 +17,8 @@
     "二分搜索": "Binary Search",
     "算法": "Algorithm",
     "如何优雅地实现二分搜索算法。": "How to implement the binary search algorithm elegantly.",
-    "分布式一致性算法": "Distributed consensus algorithm"
+    "分布式一致性算法": "Distributed consensus algorithm",
+    "Raft 算法": "Raft algorithm",
+    "Raft 算法详解": "Detailed explanation of Raft algorithm",
+    "详细讨论 Raft 算法的最简实现细节，代码示例，以及正确性证明。": "Detailed discussion of the simplest implementation details of the Raft algorithm, code examples, and correctness proofs."
 }
